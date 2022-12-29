@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
-import 'presentation/authentication/sign_up_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'presentation/onboarding_screen/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +13,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const SplashScreen());
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        builder: (context, child) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Grower',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: const SplashScreen());
+        });
   }
 }
 
@@ -82,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const SignUpScreen(),
+            const WelcomeScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
