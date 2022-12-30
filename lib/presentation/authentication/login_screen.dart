@@ -14,14 +14,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
+  bool isFocused = false;
+
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Scaffold(
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Container(
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Form(
+        key: _formKey,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+              child: Container(
             height: MediaQuery.of(context).size.height * .9678,
             width: MediaQuery.of(context).size.width,
             color: primaryColor,
@@ -53,77 +57,90 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   height: 456.h,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: EdgeInsets.only(
+                    left: 25,
+                    right: 25,
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(130),
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: 40.h,
+                      const Padding(
+                        padding: EdgeInsets.only(top: 40.0),
+                        child: Text('Email Address'),
                       ),
-                      const Text('Email Address'),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      TextFormField(
-                        cursorColor: primaryColor,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(width: 2),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 70.0),
+                        child: TextFormField(
+                          cursorColor: primaryColor,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(width: 2),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 2),
+                            ),
+                            hintText: 'abc@gmail.com',
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: primaryColor, width: 2),
-                          ),
-                          hintText: 'abc@gmail.com',
-                        ),
-                        validator: (value) {
-                          if (value.toString().isValidEmail != true ||
-                              value == null ||
-                              value.isEmpty) {
-                            return "Please enter a valid email address !";
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          value.isValidEmail
-                              ? setState(() {
-                                  isValid = true;
-                                })
-                              : null;
-                        },
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Text(
-                        'Please enter your email to receive an OTP (One Time Password)',
-                        style: TextStyle(fontSize: 14.sp, color: Colors.grey),
-                      ),
-                      SizedBox(
-                        height: 200.h,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const OtpScreen(),
-                              ),
+                          onTap: () {
+                            setState(
+                              () {
+                                isFocused = true;
+                              },
                             );
-                          }
-                        },
-                        child: Center(
+                          },
+                          // onEditingComplete: () {
+                          //   setState(() {
+                          //     isFocused = false;
+                          //   });
+                          // },
+                          validator: (value) {
+                            if (value.toString().isValidEmail != true ||
+                                value == null ||
+                                value.isEmpty) {
+                              return "Please enter a valid email address !";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            value.isValidEmail
+                                ? setState(() {
+                                    isValid = true;
+                                  })
+                                : null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 150.0),
+                        child: Text(
+                          'Please enter your email to receive an OTP (One Time Password)',
+                          style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: isFocused ? 20.h : 50.h,
+                        child: InkWell(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const OtpScreen(),
+                                ),
+                              );
+                            }
+                          },
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 25.w),
+                            margin: EdgeInsets.symmetric(horizontal: 17.w),
                             height: 50,
                             width: 280.w,
                             decoration: BoxDecoration(
@@ -139,49 +156,60 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'By Clicking Continue, you agree to our ',
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.black),
+                      isFocused
+                          ? Positioned(child: Container())
+                          : Positioned(
+                              bottom: 30.h,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 32.w),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text(
+                                      'By Clicking Continue, you agree to our ',
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.black),
+                                    ),
+                                    Text(
+                                      ' Terms of Services',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: primaryColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const Text(
+                                      ' and',
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                            Text(
-                              ' Terms of Services',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold),
+                      isFocused
+                          ? Positioned(child: Container())
+                          : Positioned(
+                              bottom: 20.h,
+                              // left: 140.w,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 127.w),
+                                child: Text(
+                                  'Privacy Policy.',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                            const Text(
-                              ' and',
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          'Privacy Policy.',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
                     ],
                   ),
                 )
               ],
             ),
-          ),
-        )),
+          )),
+        ),
       ),
     );
   }

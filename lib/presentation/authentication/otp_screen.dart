@@ -1,6 +1,5 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/presentation/calculator/calculator_screen.dart';
 import 'package:lottie/lottie.dart';
@@ -17,13 +16,16 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   final pinController = TextEditingController();
-  final focusNode = FocusNode();
+  bool isFocused = false;
+  bool isValid = false;
+
   final formKey = GlobalKey<FormState>();
   TextEditingController _otpController = TextEditingController();
+
   @override
   void dispose() {
     pinController.dispose();
-    focusNode.dispose();
+
     super.dispose();
   }
 
@@ -70,10 +72,12 @@ class _OtpScreenState extends State<OtpScreen> {
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Container(
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+            child: Container(
           height: MediaQuery.of(context).size.height * .9678,
           width: MediaQuery.of(context).size.width,
           color: primaryColor,
@@ -108,42 +112,56 @@ class _OtpScreenState extends State<OtpScreen> {
                     topRight: Radius.circular(130),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
                   children: [
-                    SizedBox(
-                      height: 40.h,
+                    const Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                          'We have successfully sent an OTP (One-Time-Password) to abcd@gmail.com'),
                     ),
-                    const Text(
-                        'We have successfully sent an OTP (One-Time-Password) to abcd@gmail.com'),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Center(
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 75.0, left: 73.w, right: 73.w),
                       child: Pinput(
                         controller: _otpController,
                         length: 4,
                         defaultPinTheme: defaultPinTheme,
                         focusedPinTheme: focusedPinTheme,
                         submittedPinTheme: submittedPinTheme,
-                        validator: (s) {},
+                        validator: (s) {
+                          if (s!.isEmpty) {
+                            return "invalid Otp!";
+                          }
+                        },
+                        onTap: () {
+                          setState(() {
+                            isFocused = true;
+                          });
+                        },
                         pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                         showCursor: true,
-                        onCompleted: (pin) => print(pin),
+                        onCompleted: (pin) {
+                          setState(() {
+                            isValid = true;
+                            isFocused = false;
+                          });
+                        },
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Center(
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 130.0, left: 129.1.w, right: 129.1.w),
+                      child: const SizedBox(
+                        width: 70,
                         child: Text(
-                      '00:20 sec',
-                      style: TextStyle(color: Colors.grey),
-                    )),
-                    SizedBox(
-                      height: 15.h,
+                          '00:20 sec',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
                     ),
-                    Center(
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 160.0, left: 60.w, right: 60.w),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -163,56 +181,62 @@ class _OtpScreenState extends State<OtpScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 200.h,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Lottie.asset(
-                                      'assets/green_tick.json',
-                                      repeat: true,
-                                      reverse: true,
-                                      animate: true,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Text('OTP Verification successful !'),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
+                    Positioned(
+                      bottom: isFocused ? 200.h : 50.h,
+                      child: InkWell(
+                        onTap: () {
+                          isFocused || isValid
+                              ? showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Lottie.asset(
+                                            'assets/green_tick.json',
+                                            repeat: true,
+                                            reverse: true,
+                                            animate: true,
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          const Text(
+                                              'OTP Verification successful !'),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  })
+                              : null;
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CalculatorScreen(),
-                          ),
-                        );
-                      },
-                      child: Center(
+                          isFocused || isValid
+                              ? Timer(Duration(seconds: 3), () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CalculatorScreen(),
+                                    ),
+                                  );
+                                })
+                              : null;
+                        },
                         child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 25.w),
+                          margin: EdgeInsets.symmetric(horizontal: 17.w),
                           height: 50,
                           width: 280.w,
                           decoration: BoxDecoration(
-                              color: seconderyColor,
+                              color: isValid ? primaryColor : seconderyColor,
                               borderRadius: BorderRadius.circular(30)),
                           child: const Center(
                             child: Text(
@@ -224,47 +248,13 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'By Clicking Continue, you agree to our ',
-                            style: TextStyle(fontSize: 10, color: Colors.black),
-                          ),
-                          Text(
-                            ' Terms of Services',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: primaryColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Text(
-                            ' and',
-                            style: TextStyle(fontSize: 10, color: Colors.black),
-                          )
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Privacy Policy.',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
                   ],
                 ),
               )
             ],
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }
