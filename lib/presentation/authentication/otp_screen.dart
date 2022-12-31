@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/presentation/calculator/calculator_screen.dart';
+import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 
@@ -220,7 +220,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               : null;
 
                           isFocused || isValid
-                              ? Timer(Duration(seconds: 3), () {
+                              ? Timer(Duration(seconds: 2), () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

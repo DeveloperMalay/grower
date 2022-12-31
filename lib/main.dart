@@ -1,7 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/utils/const.dart';
+import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
+import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
+import 'presentation/calculator/calculation_screen/cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
+import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'presentation/onboarding_screen/welcome_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +22,21 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         builder: (context, child) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Grower',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: const SplashScreen());
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => DropdownIndexCubit()),
+              BlocProvider(create: (context) => DropdownitemClickCubit()),
+              BlocProvider(create: (context) => DropdownIndexCubit1()),
+              BlocProvider(create: (context) => DropdownitemClickCubit1()),
+            ],
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Grower',
+                theme: ThemeData(primaryColor: primaryColor
+                    // primarySwatch: Colors.blue,
+                    ),
+                home: const SplashScreen()),
+          );
         });
   }
 }

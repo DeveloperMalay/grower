@@ -17,6 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -28,7 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 fit: BoxFit.cover,
               ),
-              color: Colors.blue,
             ),
             child: Stack(
               children: [
