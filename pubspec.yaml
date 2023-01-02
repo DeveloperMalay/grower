@@ -93,6 +93,12 @@ flutter:
     - assets/reset.svg
     - assets/pdf.svg
     - assets/exit.svg
+    - assets/sad_avatar.svg
+    - assets/sad_avatar.png
+    - assets/profile.svg
+    - assets/bg.png
+    - assets/bg2.png
+    - assets/bg1.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

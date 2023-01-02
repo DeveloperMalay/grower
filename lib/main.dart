@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 import 'package:grower/utils/const.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
+import 'presentation/onboarding_screen/welcome_back_screen.dart';
 import 'presentation/onboarding_screen/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => ReminderCubit()),
               BlocProvider(create: (context) => DropdownIndexCubit()),
               BlocProvider(create: (context) => DropdownitemClickCubit()),
               BlocProvider(create: (context) => DropdownIndexCubit1()),
@@ -100,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const WelcomeScreen(),
+            const WelcomeBackScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)

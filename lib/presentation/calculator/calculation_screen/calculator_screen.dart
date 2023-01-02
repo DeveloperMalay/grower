@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,10 +9,13 @@ import 'package:grower/presentation/calculator/calculation_screen/cubit/dropdown
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
+import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
 import 'package:grower/utils/const.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
+import 'cubit/reminder/reminder_cubit.dart';
+import 'widget/add_other_nutrients_dialog.dart';
 import 'widget/calculator_bottom_model_sheet.dart';
 import '../widgets/fertilizer_model.dart';
 
@@ -22,73 +27,16 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  bool _showDialog = true;
-  void showPopUp() {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset('assets/avatar.svg'),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Text(
-                    '5 Hits Left!',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(height: 15),
-                  const Text(
-                    'Update your profile for unlimited use.',
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 30),
-                        width: 120,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: primaryColor)),
-                        child: Center(
-                          child: Text('Skip',
-                              style: TextStyle(color: primaryColor)),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        width: 120,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 30),
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: primaryColor)),
-                        child: const Center(
-                          child: Text('Update ',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ));
-  }
-
   @override
   void initState() {
     super.initState();
+    Timer(Duration(seconds: 1), () {
+      print(context.read<ReminderCubit>().state.hitReminder);
+      showDialog(
+        context: context,
+        builder: (context) => ReminderPopUp(),
+      );
+    });
   }
 
   @override
@@ -421,14 +369,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   height: 24,
                   width: 117,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: context
-                                  .watch<DropdownIndexCubit>()
-                                  .state
-                                  .fertilizer ==
-                              'Choose fertilizer*'
-                          ? seconderyColor
-                          : primaryColor),
+                    borderRadius: BorderRadius.circular(30),
+                    color:
+                        context.watch<DropdownIndexCubit>().state.fertilizer ==
+                                'Choose fertilizer*'
+                            ? seconderyColor
+                            : primaryColor,
+                  ),
                   child: const Center(
                       child: Text(
                     'Other nutrients',
@@ -478,7 +425,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   height: 12,
                 ),
                 Row(
-                  // mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
                       height: 54,
@@ -787,23 +733,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  height: 24,
-                  width: 117,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: context
-                                  .watch<DropdownIndexCubit1>()
-                                  .state
-                                  .fertilizer ==
-                              'Choose fertilizer*'
-                          ? seconderyColor
-                          : primaryColor),
-                  child: const Center(
-                      child: Text(
-                    'Other nutrients',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  )),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AddOtherNutrientsDialog());
+                  },
+                  child: Container(
+                    height: 24,
+                    width: 117,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: context
+                                    .watch<DropdownIndexCubit1>()
+                                    .state
+                                    .fertilizer ==
+                                'Choose fertilizer*'
+                            ? seconderyColor
+                            : primaryColor),
+                    child: const Center(
+                        child: Text(
+                      'Other nutrients',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    )),
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
