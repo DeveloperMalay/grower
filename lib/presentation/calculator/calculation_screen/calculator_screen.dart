@@ -27,9 +27,11 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+  final poundController = TextEditingController();
   @override
   void initState() {
     super.initState();
+    poundController.text = 'Initial text';
     Timer(Duration(seconds: 1), () {
       print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
@@ -198,18 +200,25 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             ),
                           ]),
                       child: TextFormField(
+                        textAlign: TextAlign.right,
+                        controller: poundController,
                         cursorColor: primaryColor,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
-                        decoration: const InputDecoration(
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.only(top: 17.0, right: 5),
-                              child: Text(
-                                'Amount',
-                                style: TextStyle(color: Colors.grey),
-                              ),
+                        style: TextStyle(),
+                        onTap: () {
+                          poundController.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: poundController.text.length));
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(right: 10),
+                            hintText: 'Amount',
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
                             ),
                             fillColor: Colors.white,
                             focusedBorder: OutlineInputBorder(
@@ -478,19 +487,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             ),
                           ]),
                       child: TextFormField(
+                        textAlign: TextAlign.right,
                         cursorColor: primaryColor,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
-                        decoration: const InputDecoration(
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.only(top: 17.0, right: 5),
-                              child: Text(
-                                'Amount',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(right: 10),
+                            hintText: 'Amount',
+                            hintStyle:
+                                TextStyle(fontSize: 14, color: Colors.grey),
                             fillColor: Colors.white,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
@@ -566,19 +573,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             ),
                           ]),
                       child: TextFormField(
+                        textAlign: TextAlign.right,
                         cursorColor: primaryColor,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
-                        decoration: const InputDecoration(
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.only(top: 17.0, right: 5),
-                              child: Text(
-                                'Density',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(right: 10),
+                            hintText: 'Density',
+                            hintStyle:
+                                TextStyle(fontSize: 14, color: Colors.grey),
                             fillColor: Colors.white,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
