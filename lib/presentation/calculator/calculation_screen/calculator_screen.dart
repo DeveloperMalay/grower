@@ -374,35 +374,41 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                InkWell(
-                  onTap: () {
-                    context.watch<DropdownIndexCubit>().state.fertilizer ==
-                            'Choose fertilizer*'
-                        ? showDialog(
-                            context: context,
-                            builder: (context) => AddOtherNutrientswidget())
-                        : null;
-                  },
-                  child: Container(
-                    height: 24,
-                    width: 117,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: context
-                                  .watch<DropdownIndexCubit>()
-                                  .state
-                                  .fertilizer ==
-                              'Choose fertilizer*'
-                          ? seconderyColor
-                          : primaryColor,
-                    ),
-                    child: const Center(
-                        child: Text(
-                      'Other nutrients',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )),
-                  ),
-                ),
+                context.watch<DropdownIndexCubit>().state.fertilizer ==
+                        'Choose fertilizer*'
+                    ? Container(
+                        height: 24,
+                        width: 117,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: seconderyColor,
+                        ),
+                        child: const Center(
+                            child: Text(
+                          'Other nutrients',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        )),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AddOtherNutrientswidget());
+                        },
+                        child: Container(
+                          height: 24,
+                          width: 117,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: primaryColor,
+                          ),
+                          child: const Center(
+                              child: Text(
+                            'Other nutrients',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          )),
+                        ),
+                      ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -750,34 +756,41 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                InkWell(
-                  onTap: () {
-                    context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                            'Choose fertilizer*'
-                        ? showDialog(
-                            context: context,
-                            builder: (context) => AddOtherNutrientswidget())
-                        : null;
-                  },
-                  child: Container(
-                    height: 24,
-                    width: 117,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: context
-                                    .watch<DropdownIndexCubit1>()
-                                    .state
-                                    .fertilizer ==
-                                'Choose fertilizer*'
-                            ? seconderyColor
-                            : primaryColor),
-                    child: const Center(
-                        child: Text(
-                      'Other nutrients',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )),
-                  ),
-                ),
+                context.watch<DropdownIndexCubit1>().state.fertilizer ==
+                        'Choose fertilizer*'
+                    ? Container(
+                        height: 24,
+                        width: 117,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: seconderyColor,
+                        ),
+                        child: const Center(
+                            child: Text(
+                          'Other nutrients',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        )),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AddOtherNutrientswidget());
+                        },
+                        child: Container(
+                          height: 24,
+                          width: 117,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: primaryColor,
+                          ),
+                          child: const Center(
+                              child: Text(
+                            'Other nutrients',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          )),
+                        ),
+                      ),
                 const SizedBox(
                   height: 10,
                 ),
