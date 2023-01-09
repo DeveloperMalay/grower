@@ -11,11 +11,11 @@ import 'package:grower/presentation/calculator/calculation_screen/widget/custom_
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
 import 'package:grower/utils/const.dart';
+import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'cubit/reminder/reminder_cubit.dart';
-import 'widget/add_other_nutrients_dialog.dart';
 import 'widget/calculator_bottom_model_sheet.dart';
 import '../widgets/fertilizer_model.dart';
 
@@ -374,22 +374,34 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  height: 24,
-                  width: 117,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color:
-                        context.watch<DropdownIndexCubit>().state.fertilizer ==
-                                'Choose fertilizer*'
-                            ? seconderyColor
-                            : primaryColor,
+                InkWell(
+                  onTap: () {
+                    context.watch<DropdownIndexCubit>().state.fertilizer ==
+                            'Choose fertilizer*'
+                        ? showDialog(
+                            context: context,
+                            builder: (context) => AddOtherNutrientswidget())
+                        : null;
+                  },
+                  child: Container(
+                    height: 24,
+                    width: 117,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: context
+                                  .watch<DropdownIndexCubit>()
+                                  .state
+                                  .fertilizer ==
+                              'Choose fertilizer*'
+                          ? seconderyColor
+                          : primaryColor,
+                    ),
+                    child: const Center(
+                        child: Text(
+                      'Other nutrients',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    )),
                   ),
-                  child: const Center(
-                      child: Text(
-                    'Other nutrients',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  )),
                 ),
                 const SizedBox(
                   height: 15,
@@ -740,9 +752,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AddOtherNutrientsDialog());
+                    context.watch<DropdownIndexCubit1>().state.fertilizer ==
+                            'Choose fertilizer*'
+                        ? showDialog(
+                            context: context,
+                            builder: (context) => AddOtherNutrientswidget())
+                        : null;
                   },
                   child: Container(
                     height: 24,
