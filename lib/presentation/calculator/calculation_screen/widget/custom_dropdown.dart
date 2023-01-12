@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../utils/const.dart';
+import '../../../../theme/custom_theme.dart';
+
 import '../../widgets/fertilizer_model.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
@@ -38,7 +39,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     color: Colors.white,
                     border: index == 5
                         ? null
-                        : Border(bottom: BorderSide(color: greylight)),
+                        : Border(
+                            bottom: BorderSide(color: CustomTheme.greylight)),
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,

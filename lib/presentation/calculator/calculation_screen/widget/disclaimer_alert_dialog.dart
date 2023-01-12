@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/const.dart';
+import '../../../../theme/custom_theme.dart';
+
 import '../../calculated_result_screen/calculated_result_screen.dart';
 
 class DisclaimerAlertDialog extends StatelessWidget {
@@ -23,7 +24,7 @@ class DisclaimerAlertDialog extends StatelessWidget {
             child: Container(
               height: 2,
               width: 100,
-              color: primaryColor,
+              color: CustomTheme.primaryColor,
             ),
           )
         ],
@@ -42,7 +43,8 @@ class DisclaimerAlertDialog extends StatelessWidget {
                   children: [
                     Text(
                       'NOTICE OF WARRANTY –',
-                      style: TextStyle(color: primaryColor, fontSize: 14),
+                      style: TextStyle(
+                          color: CustomTheme.primaryColor, fontSize: 14),
                     ),
                     Text(
                       "Grower’s Secret",
@@ -73,9 +75,9 @@ class DisclaimerAlertDialog extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 15),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               decoration: BoxDecoration(
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                   borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: primaryColor)),
+                  border: Border.all(color: CustomTheme.primaryColor)),
               child: const Center(
                 child: Text('Okay', style: TextStyle(color: Colors.white)),
               ),

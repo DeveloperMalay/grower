@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../utils/const.dart';
-import '../authentication/login_screen.dart';
+import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
+import 'package:grower/presentation/authentication/widget/login_widget.dart';
+import '../../theme/custom_theme.dart';
 
 class WelcomeBackScreen extends StatelessWidget {
   const WelcomeBackScreen({super.key});
@@ -37,7 +39,7 @@ class WelcomeBackScreen extends StatelessWidget {
               child: Text(
                 "Grower’s Secret Calculator",
                 style: TextStyle(
-                    color: primaryColor,
+                    color: CustomTheme.primaryColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -46,17 +48,17 @@ class WelcomeBackScreen extends StatelessWidget {
               bottom: 62.h,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
+                  screenNavigator(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
+                      CustomBackgroundWidget(
+                          widget: LoginWidget(), isLogin: true));
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 40.w),
                   height: 50,
                   width: 280.w,
                   decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       borderRadius: BorderRadius.circular(30)),
                   child: const Center(
                     child: Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/const.dart';
+import '../../../../theme/custom_theme.dart';
+
 import '../../widgets/alert_dialog_widget.dart';
 
 class CalculatorBottomModelSheet extends StatelessWidget {
@@ -25,7 +26,8 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                 ),
                 child: Text(
                   "More Options",
-                  style: TextStyle(color: primaryColor, fontSize: 16),
+                  style:
+                      TextStyle(color: CustomTheme.primaryColor, fontSize: 16),
                 ),
               ),
               const SizedBox(

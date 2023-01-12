@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/utils/const.dart';
-
-import '../authentication/login_screen.dart';
+import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
+import 'package:grower/presentation/authentication/widget/login_widget.dart';
+import 'package:grower/presentation/widgets/custom_button_widget.dart';
+import '../../theme/custom_theme.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -53,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     "Grower’s Secret Calculator",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontSize: 20,
                     ),
                   ),
@@ -102,35 +104,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Text(
                     "Get Started!",
                     style: TextStyle(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
                 Positioned(
                   bottom: 62.h,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 40.w),
-                      height: 50,
-                      width: 280.w,
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Center(
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
+                  left: 20.w,
+                  right: 20.w,
+                  child: CustomButtonWidget(
+                      isValid: true,
+                      btnTitle: 'Sign Up',
+                      onBtnPress: () {
+                        screenNavigator(
+                            context,
+                            CustomBackgroundWidget(
+                              widget: LoginWidget(),
+                              isLogin: true,
+                            ));
+                      }),
                 )
               ],
             ),

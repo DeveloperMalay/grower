@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
-import '../../../../utils/const.dart';
+import '../../../../theme/custom_theme.dart';
+
 import '../../../update_profile/update_profile_screen.dart';
 
 class ReminderPopUp extends StatelessWidget {
@@ -52,13 +53,13 @@ class ReminderPopUp extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: primaryColor)),
+                      border: Border.all(color: CustomTheme.primaryColor)),
                   child: Center(
                     child: Text(
                         context.watch<ReminderCubit>().state.hitReminder == 0
                             ? "Exit"
                             : 'Skip',
-                        style: TextStyle(color: primaryColor)),
+                        style: TextStyle(color: CustomTheme.primaryColor)),
                   ),
                 ),
               ),
@@ -79,9 +80,9 @@ class ReminderPopUp extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: CustomTheme.primaryColor,
                     borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: primaryColor),
+                    border: Border.all(color: CustomTheme.primaryColor),
                   ),
                   child: const Center(
                     child:

@@ -1,23 +1,22 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
-import 'package:grower/utils/const.dart';
+import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
+import '../../../theme/custom_theme.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'cubit/reminder/reminder_cubit.dart';
-import 'widget/calculator_bottom_model_sheet.dart';
 import '../widgets/fertilizer_model.dart';
+import 'widget/calculator_textfield_widget.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -46,56 +45,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Container(
-            height: 34,
-            width: 250,
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: greylight,
-            ),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/grower_logo.png',
-                  height: 30,
-                ),
-                Text(
-                  'Calculator',
-                  style: TextStyle(color: primaryColor, fontSize: 14),
-                )
-              ],
-            ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(25.0),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return CalculatorBottomModelSheet();
-                    });
-              },
-              child: SvgPicture.asset(
-                'assets/menu.svg',
-              ),
-            )
-          ],
+        appBar: CustomAppbarWidget(
+          appbarTitle: 'Calculator',
         ),
         body: SingleChildScrollView(
             child: Container(
@@ -108,7 +59,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 "assets/bgImage.png",
               ),
             ),
-            color: bgColor,
+            color: CustomTheme.bgColor,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -121,7 +72,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       height: 7,
                       width: 7,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           borderRadius: BorderRadius.circular(50)),
                     ),
                     SizedBox(
@@ -130,7 +81,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     Text(
                       "Dry Fertilizers",
                       style: TextStyle(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -146,89 +97,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 54,
-                      width: 95,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.05,
-                              spreadRadius: 0.05,
-                            ),
-                          ]),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'pounds',
-                              style:
-                                  TextStyle(color: primaryColor, fontSize: 14),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 3),
-                              height: 2,
-                              width: 50,
-                              decoration: BoxDecoration(color: primaryColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Container(
-                      width: 225,
-                      height: 54,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.03,
-                              spreadRadius: 0.03,
-                            ),
-                          ]),
-                      child: TextFormField(
-                        textAlign: TextAlign.right,
-                        controller: poundController,
-                        cursorColor: primaryColor,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        style: TextStyle(),
-                        onTap: () {
-                          poundController.selection =
-                              TextSelection.fromPosition(TextPosition(
-                                  offset: poundController.text.length));
-                        },
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(right: 10),
-                            hintText: 'Amount',
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                            fillColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    )
-                  ],
+                CalculatorTextFieldWidget(
+                  title: 'pounds',
+                  hintText: 'Amount',
                 ),
                 const SizedBox(
                   height: 20,
@@ -269,12 +140,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 .dropdownItenClicked
                             ? Icon(
                                 Icons.expand_more_outlined,
-                                color: primaryColor,
+                                color: CustomTheme.primaryColor,
                                 size: 30,
                               )
                             : Icon(
                                 Icons.arrow_forward_ios,
-                                color: primaryColor,
+                                color: CustomTheme.primaryColor,
                               ),
                         const SizedBox(
                           width: 10,
@@ -331,7 +202,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofN,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -348,7 +220,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofP,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -364,7 +237,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofK,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -381,7 +255,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         width: 117,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: seconderyColor,
+                          color: CustomTheme.seconderyColor,
                         ),
                         child: const Center(
                             child: Text(
@@ -400,7 +274,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           width: 117,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: primaryColor,
+                            color: CustomTheme.primaryColor,
                           ),
                           child: const Center(
                               child: Text(
@@ -413,7 +287,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   height: 15,
                 ),
                 Divider(
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                   thickness: 2,
                 ),
                 const SizedBox(
@@ -426,7 +300,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       height: 7,
                       width: 7,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           borderRadius: BorderRadius.circular(50)),
                     ),
                     const SizedBox(
@@ -435,7 +309,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     Text(
                       "Liquid Fertilizers",
                       style: TextStyle(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -451,80 +325,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 54,
-                      width: 95,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.05,
-                              spreadRadius: 0.05,
-                            ),
-                          ]),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'gallons',
-                              style:
-                                  TextStyle(color: primaryColor, fontSize: 14),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 3),
-                              height: 2,
-                              width: 50,
-                              decoration: BoxDecoration(color: primaryColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Container(
-                      width: 225,
-                      height: 54,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.03,
-                              spreadRadius: 0.03,
-                            ),
-                          ]),
-                      child: TextFormField(
-                        textAlign: TextAlign.right,
-                        cursorColor: primaryColor,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(right: 10),
-                            hintText: 'Amount',
-                            hintStyle:
-                                TextStyle(fontSize: 14, color: Colors.grey),
-                            fillColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    )
-                  ],
+                CalculatorTextFieldWidget(
+                  title: 'gallons',
+                  hintText: 'Amount',
                 ),
                 const SizedBox(
                   height: 20,
@@ -536,81 +339,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 54,
-                      width: 95,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.05,
-                              spreadRadius: 0.05,
-                            ),
-                          ]),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'd(lbs/g)',
-                              style:
-                                  TextStyle(color: primaryColor, fontSize: 14),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 3),
-                              height: 2,
-                              width: 50,
-                              decoration: BoxDecoration(color: primaryColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Container(
-                      width: 225,
-                      height: 54,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 0.5),
-                              blurRadius: 0.03,
-                              spreadRadius: 0.03,
-                            ),
-                          ]),
-                      child: TextFormField(
-                        textAlign: TextAlign.right,
-                        cursorColor: primaryColor,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(right: 10),
-                            hintText: 'Density',
-                            hintStyle:
-                                TextStyle(fontSize: 14, color: Colors.grey),
-                            fillColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    ),
-                  ],
+                CalculatorTextFieldWidget(
+                  title: 'd(lbs/g)',
+                  hintText: 'Density',
                 ),
                 const SizedBox(
                   height: 20,
@@ -651,12 +382,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 .dropdownItenClicked1
                             ? Icon(
                                 Icons.expand_more_outlined,
-                                color: primaryColor,
+                                color: CustomTheme.primaryColor,
                                 size: 30,
                               )
                             : Icon(
                                 Icons.arrow_forward_ios,
-                                color: primaryColor,
+                                color: CustomTheme.primaryColor,
                               ),
                         const SizedBox(
                           width: 10,
@@ -713,7 +444,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofN,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -730,7 +462,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofP,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -746,7 +479,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                           .state
                                           .dropdownindex]
                                       .amountofK,
-                                  style: TextStyle(color: primaryColor),
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor),
                                 )
                               ],
                             ),
@@ -763,7 +497,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         width: 117,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: seconderyColor,
+                          color: CustomTheme.seconderyColor,
                         ),
                         child: const Center(
                             child: Text(
@@ -782,7 +516,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           width: 117,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: primaryColor,
+                            color: CustomTheme.primaryColor,
                           ),
                           child: const Center(
                               child: Text(
@@ -867,7 +601,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       height: 50,
                       width: 280.w,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           borderRadius: BorderRadius.circular(30)),
                       child: const Center(
                         child: Text(

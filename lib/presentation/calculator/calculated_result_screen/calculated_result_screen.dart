@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../utils/const.dart';
+import '../../../theme/custom_theme.dart';
+import '../../widgets/custom_appbar_widget.dart';
 import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'widget/result_bottom_model_sheet_widget.dart';
 
@@ -18,58 +19,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Container(
-            height: 34,
-            width: 250,
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: greylight,
-            ),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/grower_logo.png',
-                  height: 30,
-                ),
-                Text(
-                  'Calculated Results',
-                  style: TextStyle(color: primaryColor, fontSize: 14),
-                )
-              ],
-            ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(25.0),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return ResultBottomModelSheet();
-                    });
-              },
-              child: SvgPicture.asset(
-                'assets/menu.svg',
-              ),
-            )
-          ],
+        appBar: CustomAppbarWidget(
+          appbarTitle: 'Calculated Results',
         ),
-        backgroundColor: bgColor,
+        backgroundColor: CustomTheme.bgColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
@@ -83,7 +36,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       height: 7,
                       width: 7,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           borderRadius: BorderRadius.circular(50)),
                     ),
                     SizedBox(
@@ -92,7 +45,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     Text(
                       "Dry Fertilizers",
                       style: TextStyle(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -139,7 +92,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "40 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
@@ -192,7 +145,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -207,7 +160,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Nitrogen(N)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -215,7 +169,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -223,7 +178,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -239,7 +195,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6.40",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -247,7 +204,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -255,7 +213,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -268,7 +227,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "16",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -276,7 +236,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -284,7 +245,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -303,7 +265,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -318,7 +280,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "A",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -326,7 +289,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Boron (B)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -334,7 +298,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Calcium (Ca)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -342,7 +307,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "D",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -350,7 +316,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "E",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -366,7 +333,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -374,7 +342,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -382,7 +351,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -390,7 +360,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -398,7 +369,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -411,7 +383,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -419,7 +392,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -427,7 +401,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -435,7 +410,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -443,7 +419,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -457,7 +434,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   height: 24,
                 ),
                 Divider(
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                   thickness: 2,
                 ),
                 SizedBox(
@@ -470,7 +447,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       height: 7,
                       width: 7,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           borderRadius: BorderRadius.circular(50)),
                     ),
                     SizedBox(
@@ -479,7 +456,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     Text(
                       "Liquid Fertilizer",
                       style: TextStyle(
-                          color: primaryColor,
+                          color: CustomTheme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -526,7 +503,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "834.50 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
@@ -579,7 +556,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -594,7 +571,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Nitrogen(N)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -602,7 +580,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -610,7 +589,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -626,7 +606,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6.40",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -634,7 +615,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -642,7 +624,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -655,7 +638,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "16",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -663,7 +647,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -671,7 +656,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -690,7 +676,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -705,7 +691,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "A",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -713,7 +700,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Boron (B)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -721,7 +709,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Calcium (Ca)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -729,7 +718,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "D",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -737,7 +727,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "E",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -753,7 +744,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -761,7 +753,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -769,7 +762,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -777,7 +771,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -785,7 +780,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -798,7 +794,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -806,7 +803,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -814,7 +812,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -822,7 +821,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -830,7 +830,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -862,7 +863,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   child: Text(
                     'Calculated mixture is:',
                     style: TextStyle(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
                   ),
@@ -881,14 +882,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "874.50 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 24,
@@ -904,14 +905,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "83.45 lbs/g",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 12,
@@ -957,7 +958,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -972,7 +973,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Nitrogen(N)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -980,7 +982,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -988,7 +991,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Phosphorus(P)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1004,7 +1008,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6.40",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1012,7 +1017,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1020,7 +1026,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1033,7 +1040,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "16",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1041,7 +1049,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1049,7 +1058,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "0",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1068,7 +1078,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ],
                       ),
                       Divider(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         thickness: 1.5,
                       ),
                       Row(
@@ -1083,7 +1093,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "A",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1091,7 +1102,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Boron (B)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1099,7 +1111,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "Calcium (Ca)",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1107,7 +1120,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "D",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1115,7 +1129,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "E",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1131,7 +1146,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1139,7 +1155,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1147,7 +1164,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1155,7 +1173,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1163,7 +1182,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "6",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1176,7 +1196,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1184,7 +1205,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1192,7 +1214,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1200,7 +1223,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                                 SizedBox(
                                   height: 12,
@@ -1208,7 +1232,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                                 Text(
                                   "15",
                                   style: TextStyle(
-                                      fontSize: 14, color: primaryColor),
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor),
                                 ),
                               ],
                             ),
@@ -1232,14 +1257,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "9 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 24,
@@ -1255,14 +1280,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "75.11 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 24,
@@ -1278,14 +1303,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "40 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 24,
@@ -1301,14 +1326,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   "115.11 lbs",
                   style: TextStyle(
                       fontSize: 14,
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
                 Container(
                   height: 1,
                   width: 342,
                   margin: EdgeInsets.only(top: 5),
-                  color: primaryColor,
+                  color: CustomTheme.primaryColor,
                 ),
                 SizedBox(
                   height: 24,
@@ -1339,7 +1364,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                           ),
                           Text(
                             '106.11 lbs',
-                            style: TextStyle(fontSize: 16, color: primaryColor),
+                            style: TextStyle(
+                                fontSize: 16, color: CustomTheme.primaryColor),
                           ),
                         ],
                       ),
@@ -1386,7 +1412,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ),
                         Text(
                           'Home',
-                          style: TextStyle(color: primaryColor, fontSize: 12),
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor, fontSize: 12),
                         )
                       ]),
                     ),
@@ -1416,7 +1443,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ),
                         Text(
                           'Reset',
-                          style: TextStyle(color: primaryColor, fontSize: 12),
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor, fontSize: 12),
                         )
                       ]),
                     ),
@@ -1446,7 +1474,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                         ),
                         Text(
                           'PDF',
-                          style: TextStyle(color: primaryColor, fontSize: 12),
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor, fontSize: 12),
                         )
                       ]),
                     ),
@@ -1478,7 +1507,8 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                           ),
                           Text(
                             'Exit',
-                            style: TextStyle(color: primaryColor, fontSize: 12),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 12),
                           ),
                         ],
                       ),

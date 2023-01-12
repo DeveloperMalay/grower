@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
-import '../../utils/const.dart';
+import '../../theme/custom_theme.dart';
 import '../calculator/calculation_screen/widget/calculator_bottom_model_sheet.dart';
 import '../calculator/widgets/alert_dialog_widget.dart';
 
@@ -67,7 +67,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: greylight,
+              color: CustomTheme.greylight,
             ),
             child: Row(
               children: [
@@ -77,7 +77,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 ),
                 Text(
                   'Update Profile',
-                  style: TextStyle(color: primaryColor, fontSize: 14),
+                  style:
+                      TextStyle(color: CustomTheme.primaryColor, fontSize: 14),
                 )
               ],
             ),
@@ -118,7 +119,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   "assets/bgImage.png",
                 ),
               ),
-              color: bgColor,
+              color: CustomTheme.bgColor,
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -147,7 +148,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 5,
                   ),
                   TextFormField(
-                    cursorColor: primaryColor,
+                    cursorColor: CustomTheme.primaryColor,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -157,7 +158,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: primaryColor, width: 2),
+                        borderSide: BorderSide(
+                            color: CustomTheme.primaryColor, width: 2),
                       ),
                       hintText: 'Enter your name',
                     ),
@@ -180,7 +182,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 5,
                   ),
                   TextFormField(
-                    cursorColor: primaryColor,
+                    cursorColor: CustomTheme.primaryColor,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
@@ -194,7 +196,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: primaryColor, width: 2),
+                        borderSide: BorderSide(
+                            color: CustomTheme.primaryColor, width: 2),
                       ),
                       hintText: 'Enter your mobile number',
                     ),
@@ -217,11 +220,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 5,
                   ),
                   TextFormField(
-                    cursorColor: primaryColor,
+                    cursorColor: CustomTheme.primaryColor,
                     readOnly: true,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: greylight,
+                      fillColor: CustomTheme.greylight,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none),
@@ -239,7 +242,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 5,
                   ),
                   TextFormField(
-                    cursorColor: primaryColor,
+                    cursorColor: CustomTheme.primaryColor,
                     maxLines: 3,
                     decoration: InputDecoration(
                       filled: true,
@@ -250,7 +253,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: primaryColor, width: 2),
+                        borderSide: BorderSide(
+                            color: CustomTheme.primaryColor, width: 2),
                       ),
                       hintText: 'Enter your Address',
                     ),
@@ -286,11 +290,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(30),
-                              border: Border.all(color: primaryColor)),
+                              border:
+                                  Border.all(color: CustomTheme.primaryColor)),
                           child: Center(
                             child: Text('Cancel',
                                 style: TextStyle(
-                                    color: primaryColor, fontSize: 14)),
+                                    color: CustomTheme.primaryColor,
+                                    fontSize: 14)),
                           ),
                         ),
                       ),
@@ -338,9 +344,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 30),
                           decoration: BoxDecoration(
-                            color: primaryColor,
+                            color: CustomTheme.primaryColor,
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: primaryColor),
+                            border: Border.all(color: CustomTheme.primaryColor),
                           ),
                           child: const Center(
                             child: Text('Update',

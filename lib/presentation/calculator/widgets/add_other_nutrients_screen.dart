@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/utils/const.dart';
+
+import '../../../theme/custom_theme.dart';
 
 class AddOtherNutrientswidget extends StatelessWidget {
   const AddOtherNutrientswidget({super.key});
@@ -52,7 +53,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                         children: [
                           Text(
                             'A',
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 16),
                           ),
                           Text(
                             '15',
@@ -68,7 +70,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                         children: [
                           Text(
                             'Boron(B)',
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 16),
                           ),
                           Text(
                             '15',
@@ -84,7 +87,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                         children: [
                           Text(
                             'Calcium(Ca)',
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 16),
                           ),
                           Text(
                             '15',
@@ -100,7 +104,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                         children: [
                           Text(
                             'D',
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 16),
                           ),
                           Text(
                             '15',
@@ -116,7 +121,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                         children: [
                           Text(
                             'E',
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: CustomTheme.primaryColor, fontSize: 16),
                           ),
                           Text(
                             '15',
@@ -147,7 +153,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'Continue',
-                      style: TextStyle(color: primaryColor, fontSize: 16),
+                      style: TextStyle(
+                          color: CustomTheme.primaryColor, fontSize: 16),
                     ),
                   ),
                 ),

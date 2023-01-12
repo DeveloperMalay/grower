@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../utils/const.dart';
+import '../../../theme/custom_theme.dart';
 
 class AlertDialogWidget extends StatelessWidget {
   const AlertDialogWidget(
@@ -38,10 +38,10 @@ class AlertDialogWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: primaryColor)),
+                      border: Border.all(color: CustomTheme.primaryColor)),
                   child: Center(
                     child: Text(leftBtnTitle,
-                        style: TextStyle(color: primaryColor)),
+                        style: TextStyle(color: CustomTheme.primaryColor)),
                   ),
                 ),
               ),
@@ -58,9 +58,9 @@ class AlertDialogWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: CustomTheme.primaryColor,
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: primaryColor)),
+                      border: Border.all(color: CustomTheme.primaryColor)),
                   child: const Center(
                     child:
                         Text('No, Wait', style: TextStyle(color: Colors.white)),
