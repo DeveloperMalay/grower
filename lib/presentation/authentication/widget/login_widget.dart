@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/validator.dart';
 import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
 import 'package:grower/presentation/authentication/widget/otp_widget.dart';
+import '../../../data/repository/login_repository.dart';
 import '../../../heiper/navigator_function.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_button_widget.dart';
@@ -19,6 +20,21 @@ class _LoginWidgetState extends State<LoginWidget> {
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
   bool isFocused = false;
+
+  late TextEditingController emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -37,33 +53,36 @@ class _LoginWidgetState extends State<LoginWidget> {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: CustomTextFieldWidget(
-                hinttext: 'abc@gmail.com',
-                ontap: () {
-                  setState(() {
-                    isFocused = true;
-                  });
-                },
-                onChanged: (value) {
-                  setState(() {
-                    isValid = _formKey.currentState!.validate();
-                  });
-                },
-                validator: (value) {
-                  if (value.toString().isValidEmail != true ||
-                      value == null ||
-                      value.isEmpty) {
-                    return "Please enter a valid email address !";
-                  }
-                  return null;
-                }),
+              controller: emailController,
+              hinttext: 'abc@gmail.com',
+              ontap: () {
+                setState(() {
+                  isFocused = true;
+                });
+              },
+              onChanged: (value) {
+                setState(() {
+                  isValid = _formKey.currentState!.validate();
+                });
+              },
+              validator: (value) {
+                if (value.toString().isValidEmail != true ||
+                    value == null ||
+                    value.isEmpty) {
+                  return "Please enter a valid email address !";
+                }
+                return null;
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: Text(
               'Please enter your email to receive an OTP (One Time Password)',
               style: TextStyle(
-                  fontSize: 14.sp,
-                  color: CustomTheme.greyshade1.withOpacity(0.8)),
+                fontSize: 14.sp,
+                color: CustomTheme.greyshade1.withOpacity(0.8),
+              ),
             ),
           ),
           Spacer(),
@@ -72,10 +91,18 @@ class _LoginWidgetState extends State<LoginWidget> {
             btnTitle: 'Continue',
             onBtnPress: () {
               if (_formKey.currentState!.validate()) {
+                try {
+                  userLogin(emailController.text);
+                } catch (e) {
+                  print(e);
+                }
                 screenNavigator(
                     context,
                     CustomBackgroundWidget(
-                        widget: OtpWidget(), isLogin: false));
+                        widget: OtpWidget(
+                          email: emailController.text,
+                        ),
+                        isLogin: false));
               }
             },
           ),

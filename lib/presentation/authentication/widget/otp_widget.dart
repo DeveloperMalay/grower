@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/data/repository/otp_verify_repository.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import 'package:lottie/lottie.dart';
@@ -11,8 +12,8 @@ import '../../calculator/calculation_screen/calculator_screen.dart';
 import '../../widgets/success_popup_widget.dart';
 
 class OtpWidget extends StatefulWidget {
-  const OtpWidget({super.key});
-
+  const OtpWidget({super.key, required this.email});
+  final String email;
   @override
   State<OtpWidget> createState() => _OtpWidgetState();
 }
@@ -150,6 +151,7 @@ class _OtpWidgetState extends State<OtpWidget> {
           isValid: isValid,
           btnTitle: 'Continue',
           onBtnPress: () {
+            verifyOtp(widget.email, _otpController.text);
             isFocused || isValid
                 ? showDialog(
                     context: context,

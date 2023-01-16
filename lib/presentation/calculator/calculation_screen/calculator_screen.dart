@@ -177,7 +177,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
-                            // border: Border(bottom: BorderSide(color: greylight)),
                             boxShadow: const [
                               BoxShadow(
                                 color: Colors.grey,
@@ -222,7 +221,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                       .amountofP,
                                   style: TextStyle(
                                       color: CustomTheme.primaryColor),
-                                )
+                                ),
                               ],
                             ),
                             Row(
@@ -239,7 +238,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                       .amountofK,
                                   style: TextStyle(
                                       color: CustomTheme.primaryColor),
-                                )
+                                ),
                               ],
                             ),
                           ],

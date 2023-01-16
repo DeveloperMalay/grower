@@ -9,15 +9,17 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.onChanged,
     required this.ontap,
     required this.validator,
+    required this.controller,
   });
   final String hinttext;
   VoidCallback ontap;
   final FormFieldValidator<String> validator;
   ValueChanged<String>? onChanged;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      controller: controller,
       cursorColor: CustomTheme.primaryColor,
       decoration: CustomTheme.textFieldStyle(hinttext),
       onTap: ontap,
