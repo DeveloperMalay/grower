@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../theme/custom_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../widgets/custom_small_btn_widget.dart';
 
 class AlertDialogWidget extends StatelessWidget {
   const AlertDialogWidget(
@@ -22,28 +23,18 @@ class AlertDialogWidget extends StatelessWidget {
           content,
           style: TextStyle(fontSize: 14, color: Colors.grey),
         ),
+        actionsPadding: EdgeInsets.only(bottom: 30, left: 15, right: 15),
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap: () {
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.remove('isLoggedIn');
                   Navigator.pop(context);
                 },
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: CustomTheme.primaryColor)),
-                  child: Center(
-                    child: Text(leftBtnTitle,
-                        style: TextStyle(color: CustomTheme.primaryColor)),
-                  ),
-                ),
+                child: SmallBtnWidget.whiteBtn(leftBtnTitle, Colors.white),
               ),
               const SizedBox(
                 width: 20,
@@ -52,20 +43,7 @@ class AlertDialogWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Container(
-                  width: 120,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                  decoration: BoxDecoration(
-                      color: CustomTheme.primaryColor,
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: CustomTheme.primaryColor)),
-                  child: const Center(
-                    child:
-                        Text('No, Wait', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
+                child: SmallBtnWidget.filledColorBtn('No, Wait'),
               ),
             ],
           )

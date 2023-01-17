@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/data/repository/otp_verify_repository.dart';
 import 'package:grower/heiper/navigator_function.dart';
@@ -9,7 +9,10 @@ import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import '../../../theme/custom_theme.dart';
 import '../../calculator/calculation_screen/calculator_screen.dart';
+import '../../widgets/error_diolog.dart';
+import '../../widgets/loading_dialog.dart';
 import '../../widgets/success_popup_widget.dart';
+import '../cubit/verify_otp/verify_otp_cubit.dart';
 
 class OtpWidget extends StatefulWidget {
   const OtpWidget({super.key, required this.email});
@@ -76,101 +79,118 @@ class _OtpWidgetState extends State<OtpWidget> {
   );
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 30.0),
-          child: Text(
-              'We have successfully sent an OTP (One-Time-Password) to abcd@gmail.com'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10.0, left: 73.w, right: 73.w),
-          child: Pinput(
-            controller: _otpController,
-            length: 4,
-            defaultPinTheme: defaultPinTheme,
-            focusedPinTheme: focusedPinTheme,
-            submittedPinTheme: submittedPinTheme,
-            validator: (s) {
-              if (s!.isEmpty) {
-                return "invalid Otp!";
-              }
-            },
-            onTap: () {
-              setState(() {
-                isFocused = true;
+    return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
+      listener: (context, state) {
+        if (state.status == VerifyStatus.loading) {
+          return loadingDialog(context);
+        }
+        if (state.status == VerifyStatus.error) {
+          errorDialog(context, state.error.errMsg);
+        }
+        if (state.status == VerifyStatus.loaded) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return SuccessPopUpWidget(
+                  title: 'OTP Verification successful !',
+                );
               });
-            },
-            pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-            showCursor: true,
-            onCompleted: (pin) {
-              setState(() {
-                isValid = true;
-                isFocused = false;
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: 20.0,
-          ),
-          child: Center(
-            child: Text(
-              '00:20 sec',
-              style: TextStyle(color: Colors.grey),
+          Timer(Duration(seconds: 2), () {
+            screenNavigator(context, CalculatorScreen());
+          });
+        }
+      },
+      builder: (context, state) {
+        return Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 30.0),
+              child: Text(
+                'We have successfully sent an OTP (One-Time-\nPassword) to abcd@gmail.com',
+                style: TextStyle(fontSize: 14),
+              ),
             ),
-          ),
-        ),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: 20.0,
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 73.w, right: 73.w),
+              child: Pinput(
+                controller: _otpController,
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+                focusedPinTheme: focusedPinTheme,
+                submittedPinTheme: submittedPinTheme,
+                validator: (s) {
+                  if (s!.isEmpty) {
+                    return "invalid Otp!";
+                  }
+                },
+                onTap: () {
+                  setState(() {
+                    isFocused = true;
+                  });
+                },
+                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                showCursor: true,
+                onCompleted: (pin) {
+                  setState(() {
+                    isValid = true;
+                    isFocused = false;
+                  });
+                },
+              ),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Didn’t receive OTP yet?',
-                  style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20.0,
+              ),
+              child: Center(
+                child: Text(
+                  '00:20 sec',
+                  style: TextStyle(color: Colors.grey),
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Resend',
-                  style: TextStyle(
-                      fontSize: 14.sp, color: CustomTheme.primaryColor),
-                )
-              ],
+              ),
             ),
-          ),
-        ),
-        Spacer(),
-        CustomButtonWidget(
-          isValid: isValid,
-          btnTitle: 'Continue',
-          onBtnPress: () {
-            verifyOtp(widget.email, _otpController.text);
-            isFocused || isValid
-                ? showDialog(
-                    context: context,
-                    builder: (context) {
-                      return SuccessPopUpWidget();
-                    })
-                : null;
-
-            isFocused || isValid
-                ? Timer(Duration(seconds: 2), () {
-                    screenNavigator(context, CalculatorScreen());
-                  })
-                : null;
-          },
-        ),
-        SizedBox(
-          height: 20,
-        )
-      ],
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 20.0,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Didn’t receive OTP yet?',
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Resend',
+                      style: TextStyle(
+                          fontSize: 14.sp, color: CustomTheme.primaryColor),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            CustomButtonWidget(
+              isValid: isValid,
+              btnTitle: 'Continue',
+              onBtnPress: () {
+                if (isFocused || isValid) {
+                  context
+                      .read<VerifyOtpCubit>()
+                      .otpVerify(widget.email, _otpController.text);
+                }
+              },
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        );
+      },
     );
   }
 }

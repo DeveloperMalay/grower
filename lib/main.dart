@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/heiper/islogged_in_checker.dart';
+import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 
 import 'heiper/navigator_function.dart';
+import 'presentation/authentication/cubit/verify_otp/verify_otp_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
+import 'presentation/onboarding_screen/welcome_back_screen.dart';
 import 'presentation/onboarding_screen/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'presentation/update_profile/cubit/update_profile/update_profile_cubit.dart';
 import 'theme/custom_theme.dart';
 
 void main() {
@@ -33,6 +38,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => DropdownitemClickCubit()),
               BlocProvider(create: (context) => DropdownIndexCubit1()),
               BlocProvider(create: (context) => DropdownitemClickCubit1()),
+              BlocProvider(create: (context) => LoginCubit()),
+              BlocProvider(create: (context) => VerifyOtpCubit()),
+              BlocProvider(create: (context) => UpdateProfileCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -58,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     startTimer();
   }
 
@@ -94,9 +103,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startTimer() {
-    Timer(const Duration(seconds: 3), () {
-      screenReplaceNavigator(
-          context, WelcomeScreen()); //It will redirect  after 3 seconds
+    Timer(const Duration(seconds: 3), () async {
+      if (await getBool('isLoggedIn')) {
+        screenReplaceNavigator(context, WelcomeBackScreen());
+      } else {
+        screenReplaceNavigator(context, WelcomeScreen());
+      }
+      //It will redirect  after 3 seconds
     });
   }
 }

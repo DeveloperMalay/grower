@@ -18,6 +18,8 @@ class CustomTheme {
 //textformfield style
   static textFieldStyle(String hintText) {
     return InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: primaryColor, width: 1),

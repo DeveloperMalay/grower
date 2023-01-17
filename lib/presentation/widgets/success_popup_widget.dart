@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccessPopUpWidget extends StatelessWidget {
-  const SuccessPopUpWidget({super.key});
-
+  const SuccessPopUpWidget({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -25,7 +25,7 @@ class SuccessPopUpWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text('OTP Verification successful !'),
+          Text(title),
           const SizedBox(
             height: 20,
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
 
 import '../../../update_profile/update_profile_screen.dart';
@@ -67,13 +69,16 @@ class ReminderPopUp extends StatelessWidget {
                 width: 20,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(context);
                   context.read<ReminderCubit>().noOfHit();
-                  Navigator.push(
+                  final prefs = await SharedPreferences.getInstance();
+                  String email = await prefs.getString('email')!;
+                  screenNavigator(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => UpdateProfileScreen()));
+                      UpdateProfileScreen(
+                        email: email,
+                      ));
                 },
                 child: Container(
                   width: 120,

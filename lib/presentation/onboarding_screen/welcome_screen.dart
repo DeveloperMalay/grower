@@ -117,7 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       isValid: true,
                       btnTitle: 'Sign Up',
                       onBtnPress: () {
-                        screenNavigator(
+                        screenReplaceNavigator(
                             context,
                             CustomBackgroundWidget(
                               widget: LoginWidget(),
