@@ -13,6 +13,7 @@ Future<VerifyOtpModel> verifyOtp(String email, String otp) async {
     VerifyOtpModel res = VerifyOtpModel.fromMap(response.data);
     prefs.setBool('isLoggedIn', true);
     prefs.setString('email', email);
+    print(response);
     return res;
   } catch (e) {
     print('error-->$e');

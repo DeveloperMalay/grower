@@ -11,13 +11,14 @@ class AddOtherNutrientswidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-      child: Container(
-        color: Colors.black.withOpacity(0.5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AlertDialog(
+      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 245,
+            left: 0,
+            right: 0,
+            child: AlertDialog(
               contentPadding: EdgeInsets.all(0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
@@ -35,12 +36,17 @@ class AddOtherNutrientswidget extends StatelessWidget {
                 ),
               ),
             ),
-            AlertDialog(
+          ),
+          Positioned(
+            top: 290,
+            left: 0,
+            right: 0,
+            child: AlertDialog(
               contentPadding: EdgeInsets.all(0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               content: Container(
-                  width: 342.w,
+                  width: 342,
                   padding:
                       EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
@@ -136,7 +142,12 @@ class AddOtherNutrientswidget extends StatelessWidget {
                     ],
                   )),
             ),
-            AlertDialog(
+          ),
+          Positioned(
+            top: 530,
+            left: 0,
+            right: 0,
+            child: AlertDialog(
               contentPadding: EdgeInsets.all(0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25)),
@@ -159,9 +170,9 @@ class AddOtherNutrientswidget extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -84,8 +84,11 @@ flutter:
     - assets/otp_logo.png
     - assets/green_tick.png
     - assets/avatar.png
+    - assets/avatar1.png
     - assets/avatar.svg
     - assets/green_tick.json
+    - assets/tick.png
+    - assets/tick.svg
     - assets/bgImage.png
     - assets/menu.png
     - assets/menu.svg
@@ -96,6 +99,7 @@ flutter:
     - assets/exit.svg
     - assets/sad_avatar.svg
     - assets/sad_avatar.png
+    - assets/sad_avatar1.png
     - assets/profile.svg
     - assets/bg.png
     - assets/bg2.png

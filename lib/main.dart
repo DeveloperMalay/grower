@@ -6,6 +6,8 @@ import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart'
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 
 import 'heiper/navigator_function.dart';
+import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
+import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
 import 'presentation/authentication/cubit/verify_otp/verify_otp_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
@@ -40,7 +42,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => DropdownitemClickCubit1()),
               BlocProvider(create: (context) => LoginCubit()),
               BlocProvider(create: (context) => VerifyOtpCubit()),
-              BlocProvider(create: (context) => UpdateProfileCubit())
+              BlocProvider(create: (context) => UpdateProfileCubit()),
+              BlocProvider(create: (context) => EmailCheckerCubit()),
+              BlocProvider(create: (context) => IsSigninValidCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 class CustomTheme {
   //colors
@@ -7,7 +8,7 @@ class CustomTheme {
   static const Color bgColor = Color(0XFFF0F6FF);
   static const Color greylight = Color(0XFFE7E7E7);
   static const Color greyshade1 = Color(0XFF2F3237);
-
+  static const Color textColor = Color(0XFF2F3237);
 //font size for the app
   static const Map<String, double> fontsize = {
     "sm": 14,
@@ -20,9 +21,17 @@ class CustomTheme {
     return InputDecoration(
       filled: true,
       fillColor: Colors.white,
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: primaryColor, width: 1),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 1),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -30,7 +39,7 @@ class CustomTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: primaryColor, width: 2),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
       ),
       hintText: hintText,
       hintStyle: TextStyle(
@@ -70,4 +79,20 @@ class CustomTheme {
         ),
         border: UnderlineInputBorder(borderSide: BorderSide.none));
   }
+
+//otp pin theme
+
+  static final pintheme = PinTheme(
+    width: 40,
+    height: 40,
+    textStyle: const TextStyle(
+      fontSize: 14,
+      color: Colors.black,
+    ),
+    decoration: BoxDecoration(
+      color: CustomTheme.seconderyColor.withOpacity(0.3),
+      border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
+      borderRadius: BorderRadius.circular(10),
+    ),
+  );
 }

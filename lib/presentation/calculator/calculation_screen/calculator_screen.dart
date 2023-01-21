@@ -1,22 +1,24 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
+import 'package:grower/presentation/calculator/calculation_screen/widget/drop_down1_options_widget.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
 import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
+import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../../theme/custom_theme.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'cubit/reminder/reminder_cubit.dart';
-import '../widgets/fertilizer_model.dart';
 import 'widget/calculator_textfield_widget.dart';
+import 'widget/drop_down_options_widget.dart';
+import 'widget/instruction_widget.dart';
+import 'widget/other_nutrients_btn.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -30,7 +32,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   void initState() {
     super.initState();
-    poundController.text = 'Initial text';
+    // poundController.text = 'Initial text';
     Timer(Duration(seconds: 1), () {
       print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
@@ -47,6 +49,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       child: Scaffold(
         appBar: CustomAppbarWidget(
           appbarTitle: 'Calculator',
+          isresult: false,
         ),
         body: SingleChildScrollView(
             child: Container(
@@ -111,177 +114,35 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                InkWell(
+                CustomDropDown(
                   onTap: () {
                     context.read<DropdownitemClickCubit>().clickedDropDown();
                   },
-                  child: Container(
-                    height: 54,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.white),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0, 0.5),
-                            blurRadius: 0.03,
-                            spreadRadius: 0.03,
-                          ),
-                        ]),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        context
-                                .watch<DropdownitemClickCubit>()
-                                .state
-                                .dropdownItenClicked
-                            ? Icon(
-                                Icons.expand_more_outlined,
-                                color: CustomTheme.primaryColor,
-                                size: 30,
-                              )
-                            : Icon(
-                                Icons.arrow_forward_ios,
-                                color: CustomTheme.primaryColor,
-                              ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          context.watch<DropdownIndexCubit>().state.fertilizer,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-                context
-                        .watch<DropdownitemClickCubit>()
-                        .state
-                        .dropdownItenClicked
-                    ? CustomDropDown()
-                    : Container(),
+
                 SizedBox(
                   height: 5,
                 ),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
-                        'Choose fertilizer*'
+                        'Select fertilizer'
                     ? Container()
-                    : Container(
-                        height: 28,
-                        width: 342,
-                        padding: const EdgeInsets.only(top: 0, left: 0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0, 0.5),
-                                blurRadius: 0.03,
-                                spreadRadius: 0.03,
-                              ),
-                            ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('N'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData[context
-                                          .watch<DropdownIndexCubit>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofN,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('P'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData[context
-                                          .watch<DropdownIndexCubit>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofP,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text('K'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData[context
-                                          .watch<DropdownIndexCubit>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofK,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                    : DropDownOptionsWidget(), //showting option after selecting
                 const SizedBox(
                   height: 15,
                 ),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
-                        'Choose fertilizer*'
-                    ? Container(
-                        height: 24,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: CustomTheme.seconderyColor,
-                        ),
-                        child: const Center(
-                            child: Text(
-                          'Other nutrients',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        )),
+                        'Select fertilizer'
+                    ? OtherNutrientsBtnWidget(
+                        active: false,
+                        onTap: () {},
                       )
-                    : InkWell(
+                    : OtherNutrientsBtnWidget(
+                        active: true,
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (context) => AddOtherNutrientswidget());
-                        },
-                        child: Container(
-                          height: 24,
-                          width: 117,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: CustomTheme.primaryColor,
-                          ),
-                          child: const Center(
-                              child: Text(
-                            'Other nutrients',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          )),
-                        ),
-                      ),
+                        }),
                 const SizedBox(
                   height: 15,
                 ),
@@ -409,206 +270,47 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   height: 5,
                 ),
                 context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                        'Choose fertilizer*'
+                        'Select fertilizer'
                     ? Container()
-                    : Container(
-                        height: 28,
-                        width: 342,
-                        padding: const EdgeInsets.only(top: 0, left: 0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            // border: Border(bottom: BorderSide(color: greylight)),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0, 0.5),
-                                blurRadius: 0.03,
-                                spreadRadius: 0.03,
-                              ),
-                            ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('N'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData1[context
-                                          .watch<DropdownIndexCubit1>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofN,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('P'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData1[context
-                                          .watch<DropdownIndexCubit1>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofP,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text('K'),
-                                SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  fertilizerData1[context
-                                          .watch<DropdownIndexCubit1>()
-                                          .state
-                                          .dropdownindex]
-                                      .amountofK,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                    : DropDown1OptionsWidget(), //showing options after seleting 2nd dropdown
                 const SizedBox(
                   height: 15,
                 ),
                 context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                        'Choose fertilizer*'
-                    ? Container(
-                        height: 24,
-                        width: 117,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: CustomTheme.seconderyColor,
-                        ),
-                        child: const Center(
-                            child: Text(
-                          'Other nutrients',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        )),
+                        'Select fertilizer'
+                    ? OtherNutrientsBtnWidget(
+                        active: false,
+                        onTap: () {},
                       )
-                    : InkWell(
+                    : OtherNutrientsBtnWidget(
+                        active: true,
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (context) => AddOtherNutrientswidget());
                         },
-                        child: Container(
-                          height: 24,
-                          width: 117,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: CustomTheme.primaryColor,
-                          ),
-                          child: const Center(
-                              child: Text(
-                            'Other nutrients',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          )),
-                        ),
                       ),
+
                 const SizedBox(
                   height: 10,
                 ),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
-                            'Choose fertilizer*' ||
+                            'Select fertilizer' ||
                         context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                            'Choose fertilizer*'
+                            'Select fertilizer'
                     ? Container()
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Instructions:',
-                            style: TextStyle(color: Colors.red, fontSize: 15),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 5,
-                                width: 5,
-                                margin:
-                                    EdgeInsets.only(right: 10, top: 5, left: 7),
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(50)),
-                              ),
-                              Text(
-                                'We do not recommend adding more than a 1:1\n ratio of dry fertilizer to water.',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 5,
-                                width: 5,
-                                margin:
-                                    EdgeInsets.only(right: 10, top: 5, left: 7),
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(50)),
-                              ),
-                              Text(
-                                'Less than a 1:1 ratio of dry fertilizer to liquids\nwith other dissolved materials.',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 15),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => DisclaimerAlertDialog());
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 17.w, vertical: 40),
-                      height: 50,
-                      width: 280.w,
-                      decoration: BoxDecoration(
-                          color: CustomTheme.primaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Center(
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ),
-                    ),
+                    : InstructionWidget(),
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: CustomButtonWidget(
+                    btnTitle: 'Continue',
+                    isValid: true,
+                    onBtnPress: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => DisclaimerAlertDialog());
+                    },
                   ),
                 ),
               ],

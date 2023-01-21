@@ -21,6 +21,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
       child: Scaffold(
         appBar: CustomAppbarWidget(
           appbarTitle: 'Calculated Results',
+          isresult: true,
         ),
         backgroundColor: CustomTheme.bgColor,
         body: SingleChildScrollView(

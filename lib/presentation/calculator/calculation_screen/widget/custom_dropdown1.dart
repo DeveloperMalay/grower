@@ -34,24 +34,22 @@ class _CustomDropDown1State extends State<CustomDropDown1> {
               child: Container(
                 height: 54,
                 width: 342,
-                padding: const EdgeInsets.only(top: 17, left: 33),
+                padding: const EdgeInsets.only(top: 17, left: 50),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: index == 5
+                    border: index == 4
                         ? null
                         : Border(
                             bottom: BorderSide(color: CustomTheme.greylight)),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0, 0.5),
-                        blurRadius: 0.03,
-                        spreadRadius: 0.03,
-                      ),
-                    ]),
+                    borderRadius: index == 4
+                        ? BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          )
+                        : null),
                 child: Text(
                   fertilizerData1[index].title,
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(color: CustomTheme.textColor, fontSize: 16),
                 ),
               ),
             );

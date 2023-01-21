@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../theme/custom_theme.dart';
+import '../calculator/calculated_result_screen/widget/result_bottom_model_sheet_widget.dart';
 import '../calculator/calculation_screen/widget/calculator_bottom_model_sheet.dart';
 
 class CustomAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  const CustomAppbarWidget({super.key, required this.appbarTitle});
+  const CustomAppbarWidget(
+      {super.key, required this.appbarTitle, required this.isresult});
   final String appbarTitle;
+  final bool isresult;
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class CustomAppbarWidget extends StatelessWidget
           },
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: CustomTheme.primaryColor,
           )),
       title: Container(
         height: 34,
@@ -52,7 +55,9 @@ class CustomAppbarWidget extends StatelessWidget
                 ),
                 context: context,
                 builder: (context) {
-                  return CalculatorBottomModelSheet();
+                  return isresult
+                      ? ResultBottomModelSheet()
+                      : CalculatorBottomModelSheet();
                 });
           },
           child: SvgPicture.asset(

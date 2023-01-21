@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../theme/custom_theme.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
 class ResultBottomModelSheet extends StatefulWidget {
@@ -17,13 +18,21 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
         topRight: Radius.circular(20.0),
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 30),
+        height: 321,
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
-                height: 20,
+              Center(
+                child: Container(
+                  height: 7,
+                  width: 103,
+                  decoration: BoxDecoration(color: CustomTheme.bgColor),
+                ),
+              ),
+              SizedBox(
+                height: 24,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -146,6 +155,6 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
             ]),
       ),
     );
-    ;
+    
   }
 }

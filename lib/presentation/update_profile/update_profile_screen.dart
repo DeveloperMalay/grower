@@ -51,6 +51,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         resizeToAvoidBottomInset: false,
         appBar: CustomAppbarWidget(
           appbarTitle: 'Update Profile',
+          isresult: false,
         ),
         body: BlocConsumer<UpdateProfileCubit, UpdateProfileState>(
           listener: (context, state) {
@@ -73,7 +74,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   context: context,
                   builder: (context) {
                     return SuccessPopUpWidget(
-                      title: 'Your profile successfully updated!',
+                      title: 'Your profile successfully\n updated!',
                     );
                   });
             }
@@ -202,42 +203,47 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       SizedBox(
                         height: 44,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialogWidget(
-                                        title: 'Are you want to cancel?',
-                                        content: 'You profile is not updated!',
-                                        leftBtnTitle: 'Yes, Exit',
-                                      ));
-                            },
-                            child: SmallBtnWidget.whiteBtn(
-                                'Cencel', Colors.transparent),
-                          ),
-                          const SizedBox(
-                            width: 70,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                context
-                                    .read<UpdateProfileCubit>()
-                                    .userDetailsUpdate(
-                                        nameController.text,
-                                        addressController.text,
-                                        numberController.text);
-                                nameController.clear();
-                                addressController.clear();
-                                numberController.clear();
-                              }
-                            },
-                            child: SmallBtnWidget.filledColorBtn('Update'),
-                          ),
-                        ],
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialogWidget(
+                                          title:
+                                              'Are you sure you want to cancel?',
+                                          content:
+                                              'Your profile is not updated!',
+                                          leftBtnTitle: 'Yes, Exit',
+                                        ));
+                              },
+                              child: SmallBtnWidget.whiteBtn(
+                                  'Cencel', Colors.transparent),
+                            ),
+                            const SizedBox(
+                              width: 40,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  context
+                                      .read<UpdateProfileCubit>()
+                                      .userDetailsUpdate(
+                                          nameController.text,
+                                          addressController.text,
+                                          numberController.text);
+                                  nameController.clear();
+                                  addressController.clear();
+                                  numberController.clear();
+                                }
+                              },
+                              child: SmallBtnWidget.filledColorBtn('Update'),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

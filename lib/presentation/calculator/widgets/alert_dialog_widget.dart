@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_small_btn_widget.dart';
 
 class AlertDialogWidget extends StatelessWidget {
@@ -18,34 +21,56 @@ class AlertDialogWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        title: Text(title),
-        content: Text(
-          content,
-          style: TextStyle(fontSize: 14, color: Colors.grey),
-        ),
-        actionsPadding: EdgeInsets.only(bottom: 30, left: 15, right: 15),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        content: Container(
+          width: 390,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              InkWell(
-                onTap: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.remove('isLoggedIn');
-                  Navigator.pop(context);
-                },
-                child: SmallBtnWidget.whiteBtn(leftBtnTitle, Colors.white),
+              SizedBox(
+                height: 22,
               ),
-              const SizedBox(
-                width: 20,
+              Text(title, style: TextStyle(fontSize: 16, color: Colors.black)),
+              SizedBox(
+                height: 15,
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: SmallBtnWidget.filledColorBtn('No, Wait'),
+              Text(
+                content,
+                style: TextStyle(fontSize: 14, color: CustomTheme.textColor),
               ),
             ],
+          ),
+        ),
+        actionsPadding: EdgeInsets.only(bottom: 30, left: 10, right: 10),
+        actions: [
+          SizedBox(
+            height: 12,
+          ),
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.remove('isLoggedIn');
+                    Navigator.pop(context);
+                    screenReplaceNavigator(context, SplashScreen());
+                  },
+                  child: SmallBtnWidget.whiteBtn(leftBtnTitle, Colors.white),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: SmallBtnWidget.filledColorBtn('No, Wait'),
+                ),
+              ],
+            ),
           )
         ],
       ),

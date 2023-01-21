@@ -5,8 +5,10 @@ import '../../theme/custom_theme.dart';
 class SmallBtnWidget {
   static filledColorBtn(String btnTitle) {
     return Container(
-      width: 130,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      width: 100,
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
       decoration: BoxDecoration(
         color: CustomTheme.primaryColor,
         borderRadius: BorderRadius.circular(30),
@@ -21,8 +23,10 @@ class SmallBtnWidget {
 
   static whiteBtn(String btnTitle, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      width: 130,
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      width: 100,
       decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(30),

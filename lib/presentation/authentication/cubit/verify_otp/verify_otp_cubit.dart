@@ -10,8 +10,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit() : super(VerifyOtpState.initial());
 
   Future<void> otpVerify(String email, String otp) async {
-    emit(state.copyWith(status: VerifyStatus.loading));
     try {
+      emit(state.copyWith(status: VerifyStatus.loading));
       VerifyOtpModel data = await verifyOtp(email, otp);
       print(data);
       emit(state.copyWith(status: VerifyStatus.loaded, verifyotp: data));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/validator.dart';
+import 'package:grower/presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
 import 'package:grower/presentation/authentication/widget/otp_widget.dart';
@@ -12,6 +13,7 @@ import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_button_widget.dart';
 import '../../widgets/custom_textfield_widget.dart';
 import '../../widgets/loading_dialog.dart';
+import '../cubit/isSignInValid/is_signin_valid_cubit.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -67,7 +69,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: EdgeInsets.only(top: 40.0, left: 2),
                 child: Text(
                   'Email Address',
                   style: TextStyle(
@@ -76,30 +78,50 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 12.0),
-                child: CustomTextFieldWidget(
-                  controller: emailController,
-                  hinttext: 'abc@gmail.com',
-                  ontap: () {
-                    setState(() {
-                      isFocused = true;
-                    });
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      isValid = _formKey.currentState!.validate();
-                    });
-                  },
-                  validator: (value) {
-                    if (value.toString().isValidEmail != true ||
-                        value == null ||
-                        value.isEmpty) {
-                      return "Please enter a valid email address !";
-                    }
-                    return null;
-                  },
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: isFocused
+                        ? [
+                            BoxShadow(
+                              color:
+                                  CustomTheme.seconderyColor.withOpacity(0.8),
+                              offset: Offset(0, 0),
+                              spreadRadius: 0.0,
+                              blurRadius: 12,
+                            ),
+                          ]
+                        : [],
+                  ),
+                  child: CustomTextFieldWidget(
+                    controller: emailController,
+                    hinttext: 'abc@gmail.com',
+                    ontap: () {
+                      setState(() {
+                        isFocused = true;
+                      });
+                    },
+                    onChanged: (value) {
+                      context.read<EmailCheckerCubit>().checkEmail(value);
+                      context.read<IsSigninValidCubit>().checkSignIn(
+                          context.read<EmailCheckerCubit>().state.isemailValid);
+                    },
+                    validator: (value) {
+                      return null;
+                    },
+                  ),
                 ),
               ),
+              context.watch<EmailCheckerCubit>().state.isemailValid
+                  ? Container()
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 7.0, left: 5),
+                      child: Text('Please enter a valid email address !',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.red,
+                          )),
+                    ),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0),
                 child: Text(
@@ -111,21 +133,43 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
               Spacer(),
-              CustomButtonWidget(
-                isValid: isValid,
-                btnTitle: 'Continue',
-                onBtnPress: () {
-                  if (_formKey.currentState!.validate()) {
-                    try {
-                      context
-                          .read<LoginCubit>()
-                          .loginUser(emailController.text);
-                    } catch (e) {
-                      print(e);
-                    }
-                  }
-                },
-              ),
+              context.watch<IsSigninValidCubit>().state.isSignInValid
+                  ? CustomButtonWidget(
+                      isValid: context
+                          .read<IsSigninValidCubit>()
+                          .state
+                          .isSignInValid,
+                      btnTitle: 'Continue',
+                      onBtnPress: () {
+                        print(context
+                            .read<IsSigninValidCubit>()
+                            .state
+                            .isSignInValid);
+                        if (_formKey.currentState!.validate() ||
+                            emailController.text.isNotEmpty) {
+                          try {
+                            context
+                                .read<LoginCubit>()
+                                .loginUser(emailController.text);
+                          } catch (e) {
+                            print(e);
+                          }
+                        }
+                      },
+                    )
+                  : CustomButtonWidget(
+                      isValid: context
+                          .watch<IsSigninValidCubit>()
+                          .state
+                          .isSignInValid,
+                      btnTitle: 'Continue',
+                      onBtnPress: () {
+                        print(context
+                            .read<IsSigninValidCubit>()
+                            .state
+                            .isSignInValid);
+                      },
+                    ),
               isFocused
                   ? Container()
                   : Center(

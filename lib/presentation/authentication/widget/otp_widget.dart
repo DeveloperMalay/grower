@@ -28,7 +28,8 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   final formKey = GlobalKey<FormState>();
   TextEditingController _otpController = TextEditingController();
-
+  int _timerDuration = 60;
+  int _remainingTime = 0;
   @override
   void dispose() {
     pinController.dispose();
@@ -36,47 +37,47 @@ class _OtpWidgetState extends State<OtpWidget> {
     super.dispose();
   }
 
-  final defaultPinTheme = PinTheme(
-    width: 40,
-    height: 40,
-    textStyle: const TextStyle(
-      fontSize: 14,
-      color: Colors.black,
-    ),
-    decoration: BoxDecoration(
-      border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
+  // final defaultPinTheme = PinTheme(
+  //   width: 40,
+  //   height: 40,
+  //   textStyle: const TextStyle(
+  //     fontSize: 14,
+  //     color: Colors.black,
+  //   ),
+  //   decoration: BoxDecoration(
+  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
+  //     borderRadius: BorderRadius.circular(10),
+  //   ),
+  // );
 
-  final focusedPinTheme = PinTheme(
-    width: 40,
-    height: 40,
-    textStyle: const TextStyle(
-      fontSize: 14,
-      color: Colors.black,
-    ),
-    decoration: BoxDecoration(
-      color: CustomTheme.seconderyColor.withOpacity(0.3),
-      border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
+  // final focusedPinTheme = PinTheme(
+  //   width: 40,
+  //   height: 40,
+  //   textStyle: const TextStyle(
+  //     fontSize: 14,
+  //     color: Colors.black,
+  //   ),
+  //   decoration: BoxDecoration(
+  //     color: CustomTheme.seconderyColor.withOpacity(0.3),
+  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
+  //     borderRadius: BorderRadius.circular(10),
+  //   ),
+  // );
 
-  // PinTheme? focusedPinTheme;
-  final submittedPinTheme = PinTheme(
-    width: 40,
-    height: 40,
-    textStyle: const TextStyle(
-      fontSize: 14,
-      color: Colors.black,
-    ),
-    decoration: BoxDecoration(
-      color: CustomTheme.seconderyColor.withOpacity(0.3),
-      border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
+  // // PinTheme? focusedPinTheme;
+  // final submittedPinTheme = PinTheme(
+  //   width: 40,
+  //   height: 40,
+  //   textStyle: const TextStyle(
+  //     fontSize: 14,
+  //     color: Colors.black,
+  //   ),
+  //   decoration: BoxDecoration(
+  //     color: CustomTheme.seconderyColor.withOpacity(0.3),
+  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
+  //     borderRadius: BorderRadius.circular(10),
+  //   ),
+  // );
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
@@ -87,7 +88,8 @@ class _OtpWidgetState extends State<OtpWidget> {
         if (state.status == VerifyStatus.error) {
           errorDialog(context, state.error.errMsg);
         }
-        if (state.status == VerifyStatus.loaded) {
+        if (state.status == VerifyStatus.loaded &&
+            context.read<VerifyOtpCubit>().state.verifyotp.status == 200) {
           showDialog(
               context: context,
               builder: (context) {
@@ -96,28 +98,37 @@ class _OtpWidgetState extends State<OtpWidget> {
                 );
               });
           Timer(Duration(seconds: 2), () {
-            screenNavigator(context, CalculatorScreen());
+            screenReplaceNavigator(context, CalculatorScreen());
           });
         }
       },
       builder: (context, state) {
         return Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 30.0),
-              child: Text(
-                'We have successfully sent an OTP (One-Time-\nPassword) to abcd@gmail.com',
-                style: TextStyle(fontSize: 14),
-              ),
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                  text:
+                      'We have successfully sent an OTP (One-Time-\nPassword) to ',
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                ),
+                TextSpan(
+                  text: widget.email,
+                  style:
+                      TextStyle(color: CustomTheme.primaryColor, fontSize: 14),
+                ),
+              ])),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, left: 73.w, right: 73.w),
               child: Pinput(
                 controller: _otpController,
                 length: 4,
-                defaultPinTheme: defaultPinTheme,
-                focusedPinTheme: focusedPinTheme,
-                submittedPinTheme: submittedPinTheme,
+                defaultPinTheme: CustomTheme.pintheme,
+                focusedPinTheme: CustomTheme.pintheme,
+                submittedPinTheme: CustomTheme.pintheme,
                 validator: (s) {
                   if (s!.isEmpty) {
                     return "invalid Otp!";
@@ -138,6 +149,9 @@ class _OtpWidgetState extends State<OtpWidget> {
                 },
               ),
             ),
+            context.read<VerifyOtpCubit>().state.verifyotp.status == 403
+                ? Text('Invalid Otp !')
+                : Container(),
             Padding(
               padding: EdgeInsets.only(
                 top: 20.0,

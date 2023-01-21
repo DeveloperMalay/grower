@@ -12,7 +12,7 @@ class DropdownIndexState1 extends Equatable {
 
   factory DropdownIndexState1.initial() {
     return DropdownIndexState1(
-        dropdownindex: 0, fertilizer: 'Choose fertilizer*');
+        dropdownindex: 0, fertilizer: 'Select fertilizer');
   }
   @override
   List<Object?> get props => [dropdownindex];
