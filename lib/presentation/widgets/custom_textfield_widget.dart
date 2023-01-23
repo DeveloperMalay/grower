@@ -13,9 +13,11 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.maxline = 1,
     // this.maxlength,
     this.inputType,
+    required this.isfocused,
   });
   final String hinttext;
   VoidCallback ontap;
+  final bool isfocused;
   final FormFieldValidator<String> validator;
   ValueChanged<String>? onChanged;
   final TextEditingController controller;
@@ -24,17 +26,31 @@ class CustomTextFieldWidget extends StatelessWidget {
   TextInputType? inputType;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      
-      controller: controller,
-      maxLines: maxline,
-      // maxLength: maxlength,
-      keyboardType: inputType,
-      cursorColor: CustomTheme.primaryColor,
-      decoration: CustomTheme.textFieldStyle(hinttext),
-      onTap: ontap,
-      validator: validator,
-      onChanged: onChanged,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        boxShadow: isfocused
+            ? [
+                BoxShadow(
+                  color: CustomTheme.seconderyColor.withOpacity(0.8),
+                  offset: Offset(0, 0),
+                  spreadRadius: 0.0,
+                  blurRadius: 12,
+                ),
+              ]
+            : [],
+      ),
+      child: TextFormField(
+        controller: controller,
+        maxLines: maxline,
+        // maxLength: maxlength,
+        keyboardType: inputType,
+        cursorColor: CustomTheme.primaryColor,
+        decoration: CustomTheme.textFieldStyle(hinttext),
+        onTap: ontap,
+        validator: validator,
+        onChanged: onChanged,
+      ),
     );
   }
 }

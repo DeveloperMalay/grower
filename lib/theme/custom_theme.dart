@@ -9,6 +9,7 @@ class CustomTheme {
   static const Color greylight = Color(0XFFE7E7E7);
   static const Color greyshade1 = Color(0XFF2F3237);
   static const Color textColor = Color(0XFF2F3237);
+  static const Color redErrorColor = Color(0XFFFF1515);
 //font size for the app
   static const Map<String, double> fontsize = {
     "sm": 14,
@@ -81,7 +82,6 @@ class CustomTheme {
   }
 
 //otp pin theme
-
   static final pintheme = PinTheme(
     width: 40,
     height: 40,
@@ -95,4 +95,8 @@ class CustomTheme {
       borderRadius: BorderRadius.circular(10),
     ),
   );
+
+//error textStyle
+
+  static final errorTextStyle = TextStyle(color: redErrorColor, fontSize: 10);
 }

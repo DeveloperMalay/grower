@@ -22,8 +22,8 @@ class ReminderPopUp extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             context.watch<ReminderCubit>().state.hitReminder == 0
-                ? Image.asset('assets/sad_avatar.png')
-                : Image.asset('assets/avatar.png'),
+                ? Image.asset('assets/sad_avatar1.png')
+                : Image.asset('assets/avatar1.png'),
             const SizedBox(
               height: 30,
             ),

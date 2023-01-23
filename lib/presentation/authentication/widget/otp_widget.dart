@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/data/repository/otp_verify_repository.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
-import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import '../../../theme/custom_theme.dart';
 import '../../calculator/calculation_screen/calculator_screen.dart';
@@ -28,56 +26,35 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   final formKey = GlobalKey<FormState>();
   TextEditingController _otpController = TextEditingController();
-  int _timerDuration = 60;
-  int _remainingTime = 0;
+  int _timerDuration = 20;
+
+  void startTimer() {
+    // String twoDigits(int n) => n.toString().padLeft(2, '0');
+    // final seconds = twoDigits(_timerDuration.remainder(60));
+    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      if (_timerDuration == 1) {
+        setState(() {
+          timer.cancel();
+        });
+      }
+      setState(() {
+        _timerDuration--;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
   @override
   void dispose() {
     pinController.dispose();
-
     super.dispose();
   }
 
-  // final defaultPinTheme = PinTheme(
-  //   width: 40,
-  //   height: 40,
-  //   textStyle: const TextStyle(
-  //     fontSize: 14,
-  //     color: Colors.black,
-  //   ),
-  //   decoration: BoxDecoration(
-  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-  //     borderRadius: BorderRadius.circular(10),
-  //   ),
-  // );
-
-  // final focusedPinTheme = PinTheme(
-  //   width: 40,
-  //   height: 40,
-  //   textStyle: const TextStyle(
-  //     fontSize: 14,
-  //     color: Colors.black,
-  //   ),
-  //   decoration: BoxDecoration(
-  //     color: CustomTheme.seconderyColor.withOpacity(0.3),
-  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-  //     borderRadius: BorderRadius.circular(10),
-  //   ),
-  // );
-
-  // // PinTheme? focusedPinTheme;
-  // final submittedPinTheme = PinTheme(
-  //   width: 40,
-  //   height: 40,
-  //   textStyle: const TextStyle(
-  //     fontSize: 14,
-  //     color: Colors.black,
-  //   ),
-  //   decoration: BoxDecoration(
-  //     color: CustomTheme.seconderyColor.withOpacity(0.3),
-  //     border: Border.all(color: CustomTheme.seconderyColor.withOpacity(0.3)),
-  //     borderRadius: BorderRadius.circular(10),
-  //   ),
-  // );
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
@@ -158,7 +135,7 @@ class _OtpWidgetState extends State<OtpWidget> {
               ),
               child: Center(
                 child: Text(
-                  '00:20 sec',
+                  '00:$_timerDuration sec',
                   style: TextStyle(color: Colors.grey),
                 ),
               ),
@@ -178,10 +155,13 @@ class _OtpWidgetState extends State<OtpWidget> {
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'Resend',
-                      style: TextStyle(
-                          fontSize: 14.sp, color: CustomTheme.primaryColor),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'Resend',
+                        style: TextStyle(
+                            fontSize: 14.sp, color: CustomTheme.primaryColor),
+                      ),
                     )
                   ],
                 ),
@@ -196,6 +176,13 @@ class _OtpWidgetState extends State<OtpWidget> {
                   context
                       .read<VerifyOtpCubit>()
                       .otpVerify(widget.email, _otpController.text);
+                  if (state.status == VerifyStatus.loaded &&
+                      context.read<VerifyOtpCubit>().state.verifyotp.status ==
+                          200) {
+                    Timer(Duration(seconds: 2), () {
+                      Navigator.pop(context);
+                    });
+                  }
                 }
               },
             ),

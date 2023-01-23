@@ -32,7 +32,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   void initState() {
     super.initState();
-    // poundController.text = 'Initial text';
+
     Timer(Duration(seconds: 1), () {
       print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
@@ -213,59 +213,59 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                InkWell(
+                // InkWell(
+                //   onTap: () {
+                //     context.read<DropdownitemClickCubit1>().clickedDropDown();
+                //   },
+                //   child: Container(
+                //     height: 54,
+                //     decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(10),
+                //         color: Colors.white,
+                //         border: Border.all(color: Colors.white),
+                //         boxShadow: const [
+                //           BoxShadow(
+                //             color: Colors.grey,
+                //             offset: Offset(0, 0.5),
+                //             blurRadius: 0.03,
+                //             spreadRadius: 0.03,
+                //           ),
+                //         ]),
+                //     child: Row(
+                //       children: [
+                //         const SizedBox(
+                //           width: 10,
+                //         ),
+                //         context
+                //                 .watch<DropdownitemClickCubit1>()
+                //                 .state
+                //                 .dropdownItenClicked1
+                //             ? Icon(
+                //                 Icons.expand_more_outlined,
+                //                 color: CustomTheme.primaryColor,
+                //                 size: 30,
+                //               )
+                //             : Icon(
+                //                 Icons.arrow_forward_ios,
+                //                 color: CustomTheme.primaryColor,
+                //               ),
+                //         const SizedBox(
+                //           width: 10,
+                //         ),
+                //         Text(
+                //           context.watch<DropdownIndexCubit1>().state.fertilizer,
+                //           style: TextStyle(color: Colors.grey),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                CustomDropDown1(
                   onTap: () {
                     context.read<DropdownitemClickCubit1>().clickedDropDown();
                   },
-                  child: Container(
-                    height: 54,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.white),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0, 0.5),
-                            blurRadius: 0.03,
-                            spreadRadius: 0.03,
-                          ),
-                        ]),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        context
-                                .watch<DropdownitemClickCubit1>()
-                                .state
-                                .dropdownItenClicked1
-                            ? Icon(
-                                Icons.expand_more_outlined,
-                                color: CustomTheme.primaryColor,
-                                size: 30,
-                              )
-                            : Icon(
-                                Icons.arrow_forward_ios,
-                                color: CustomTheme.primaryColor,
-                              ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          context.watch<DropdownIndexCubit1>().state.fertilizer,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-                context
-                        .watch<DropdownitemClickCubit1>()
-                        .state
-                        .dropdownItenClicked1
-                    ? CustomDropDown1()
-                    : Container(),
+
                 SizedBox(
                   height: 5,
                 ),

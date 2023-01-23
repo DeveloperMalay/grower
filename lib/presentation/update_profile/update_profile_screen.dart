@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
+import 'package:grower/presentation/update_profile/widget/error_text_widget.dart';
 import 'package:grower/presentation/widgets/custom_textfield_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../theme/custom_theme.dart';
 import '../calculator/widgets/alert_dialog_widget.dart';
 import '../widgets/custom_appbar_widget.dart';
 import '../widgets/custom_small_btn_widget.dart';
 import '../widgets/error_diolog.dart';
-import '../widgets/loading_dialog.dart';
 import '../widgets/success_popup_widget.dart';
+import 'cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
+import 'cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'cubit/update_profile/update_profile_cubit.dart';
+import 'widget/email_field_widget.dart';
+import 'widget/form_validator_function.dart';
+import 'widget/text_field_header_widget.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key, required this.email});
@@ -28,7 +32,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-
     nameController = TextEditingController();
     numberController = TextEditingController();
     addressController = TextEditingController();
@@ -86,10 +89,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(
-                    left: 30,
-                    right: 30,
-                    top: 30,
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                  left: 15,
+                  right: 15,
+                  top: 30,
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                     image: AssetImage(
@@ -103,8 +107,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
-                        child: SvgPicture.asset(
-                          'assets/profile.svg',
+                        child: Image.asset(
+                          'assets/profile.png',
                           height: 35,
                         ),
                       ),
@@ -117,96 +121,86 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       SizedBox(
                         height: 44,
                       ),
-                      const Text(
-                        'Name*',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      TextFieldHeaderWidget(title: 'Name*'),
                       CustomTextFieldWidget(
+                        isfocused:
+                            context.read<TextfieldFocusCubit>().state.namefocus,
                         controller: nameController,
                         hinttext: 'Enter your name',
-                        ontap: () {},
+                        ontap: () {
+                          context.read<TextfieldFocusCubit>().focusName();
+                        },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please fill the above required field!";
-                          }
                           return null;
                         },
                       ),
+                      context.watch<NotEtyStrValidatorCubit>().state.validname
+                          ? Container()
+                          : ErrorTextWidget(
+                              errorText:
+                                  "Please fill the above required field!"),
                       SizedBox(
                         height: 24,
                       ),
-                      const Text(
-                        'Mobile Number*',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      TextFieldHeaderWidget(title: 'Mobile Number*'),
                       CustomTextFieldWidget(
+                        isfocused: context
+                            .read<TextfieldFocusCubit>()
+                            .state
+                            .numberfocus,
                         controller: numberController,
                         hinttext: 'Enter your mobile number',
                         inputType: TextInputType.number,
-                        ontap: () {},
+                        ontap: () {
+                          context.read<TextfieldFocusCubit>().focusNumber();
+                        },
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.length != 10) {
-                            return "Please enter a valid mobile number!";
-                          }
                           return null;
                         },
                       ),
+                      context.watch<ValidNumberCubit>().state.validphone
+                          ? Container()
+                          : ErrorTextWidget(
+                              errorText: "Please enter a valid mobile number!"),
                       SizedBox(
                         height: 24,
                       ),
-                      Text('Email Address'),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        cursorColor: CustomTheme.primaryColor,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: CustomTheme.greylight,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none),
-                          hintText: widget.email,
-                        ),
-                      ),
+                      TextFieldHeaderWidget(title: 'Email Address*'),
+                      EmailFieldWidget(
+                          email: widget.email), //widget to show email field
                       SizedBox(
                         height: 24,
                       ),
-                      const Text(
-                        'Address*',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      TextFieldHeaderWidget(title: 'Address*'),
                       CustomTextFieldWidget(
+                        isfocused: context
+                            .read<TextfieldFocusCubit>()
+                            .state
+                            .addressfocus,
                         maxline: 3,
                         controller: addressController,
                         hinttext: 'Enter your Address',
-                        ontap: () {},
+                        ontap: () {
+                          context.read<TextfieldFocusCubit>().focusAddress();
+                        },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please fill the above required field!";
-                          }
                           return null;
                         },
                       ),
+                      context
+                              .watch<NotEtyStrValidatorCubit>()
+                              .state
+                              .validaddress
+                          ? Container()
+                          : ErrorTextWidget(
+                              errorText:
+                                  "Please fill the above required field!"),
                       SizedBox(
                         height: 44,
                       ),
                       Center(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
                               onTap: () {
@@ -229,15 +223,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             InkWell(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
+                                  validateForm(
+                                      context,
+                                      nameController.text,
+                                      numberController.text,
+                                      addressController
+                                          .text); //function to check if the form is valid or not
                                   context
                                       .read<UpdateProfileCubit>()
                                       .userDetailsUpdate(
                                           nameController.text,
                                           addressController.text,
                                           numberController.text);
-                                  nameController.clear();
-                                  addressController.clear();
-                                  numberController.clear();
                                 }
                               },
                               child: SmallBtnWidget.filledColorBtn('Update'),

@@ -25,17 +25,34 @@ class _CustomDropDownState extends State<CustomDropDown> {
           child: Container(
             height: 54,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: context
+                        .watch<DropdownitemClickCubit>()
+                        .state
+                        .dropdownItenClicked
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))
+                    : BorderRadius.circular(10),
                 color: Colors.white,
-                border: Border.all(color: Colors.white),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0, 0.5),
-                    blurRadius: 0.03,
-                    spreadRadius: 0.03,
-                  ),
-                ]),
+                border: context
+                        .watch<DropdownitemClickCubit>()
+                        .state
+                        .dropdownItenClicked
+                    ? null
+                    : Border.all(color: Colors.white),
+                boxShadow: context
+                        .watch<DropdownitemClickCubit>()
+                        .state
+                        .dropdownItenClicked
+                    ? []
+                    : const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 0.5),
+                          blurRadius: 0.03,
+                          spreadRadius: 0.03,
+                        ),
+                      ]),
             child: Row(
               children: [
                 const SizedBox(
@@ -86,11 +103,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
                           padding: const EdgeInsets.only(top: 17, left: 50),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              border: index == 5
-                                  ? null
-                                  : Border(
+                              border: index == 0
+                                  ? Border(
+                                      top: BorderSide(color: Colors.grey),
                                       bottom: BorderSide(
-                                          color: CustomTheme.greylight)),
+                                          color: CustomTheme.greylight))
+                                  : index == 5
+                                      ? null
+                                      : Border(
+                                          bottom: BorderSide(
+                                              color: CustomTheme.greylight)),
                               borderRadius: index == 5
                                   ? BorderRadius.only(
                                       bottomLeft: Radius.circular(10),

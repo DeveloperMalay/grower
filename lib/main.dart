@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
-
+import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
 import 'heiper/navigator_function.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
@@ -16,7 +16,8 @@ import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropd
 import 'presentation/onboarding_screen/welcome_back_screen.dart';
 import 'presentation/onboarding_screen/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'presentation/update_profile/cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
+import 'presentation/update_profile/cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'presentation/update_profile/cubit/update_profile/update_profile_cubit.dart';
 import 'theme/custom_theme.dart';
 
@@ -44,7 +45,10 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => VerifyOtpCubit()),
               BlocProvider(create: (context) => UpdateProfileCubit()),
               BlocProvider(create: (context) => EmailCheckerCubit()),
-              BlocProvider(create: (context) => IsSigninValidCubit())
+              BlocProvider(create: (context) => IsSigninValidCubit()),
+              BlocProvider(create: (context) => NotEtyStrValidatorCubit()),
+              BlocProvider(create: (context) => ValidNumberCubit()),
+              BlocProvider(create: (context) => TextfieldFocusCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

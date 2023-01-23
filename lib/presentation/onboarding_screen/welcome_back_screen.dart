@@ -48,7 +48,7 @@ class WelcomeBackScreen extends StatelessWidget {
                 bottom: 62.h,
                 child: InkWell(
                   onTap: () {
-                    screenNavigator(context, CalculatorScreen());
+                    screenReplaceNavigator(context, CalculatorScreen());
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 40.w),
