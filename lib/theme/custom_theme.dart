@@ -96,7 +96,26 @@ class CustomTheme {
     ),
   );
 
-//error textStyle
+//result screen decoration
+  static final shadowDecoration = BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.white,
+      border: Border.all(color: Colors.white),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.blue[100]!,
+          offset: Offset(3.5, 4),
+          blurRadius: 10,
+          spreadRadius: 0.4,
+        ),
+      ]);
 
+//pink text style
+  static primarytextStyle(double fontsize, FontWeight fontweight) {
+    return TextStyle(
+        fontSize: fontsize, color: primaryColor, fontWeight: fontweight);
+  }
+
+//error textStyle
   static final errorTextStyle = TextStyle(color: redErrorColor, fontSize: 10);
 }

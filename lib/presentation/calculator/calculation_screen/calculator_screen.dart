@@ -16,6 +16,7 @@ import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'cubit/reminder/reminder_cubit.dart';
 import 'widget/calculator_textfield_widget.dart';
+import '../widgets/dot_header_widget.dart';
 import 'widget/drop_down_options_widget.dart';
 import 'widget/instruction_widget.dart';
 import 'widget/other_nutrients_btn.dart';
@@ -32,7 +33,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   void initState() {
     super.initState();
-
     Timer(Duration(seconds: 1), () {
       print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
@@ -68,61 +68,24 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 7,
-                      width: 7,
-                      decoration: BoxDecoration(
-                          color: CustomTheme.primaryColor,
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Dry Fertilizers",
-                      style: TextStyle(
-                          color: CustomTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Enter your required amount*',
-                  style: TextStyle(fontSize: 14),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
+                DotHeaderWidget(header: "Dry Fertilizers"), //header with dot
+                const Text('Enter your required amount*',
+                    style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 12),
                 CalculatorTextFieldWidget(
                   title: 'pounds',
                   hintText: 'Amount',
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Choose fertilizer*',
-                  style: TextStyle(fontSize: 14),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
+                const SizedBox(height: 20),
+                const Text('Choose fertilizer*',
+                    style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 12),
                 CustomDropDown(
                   onTap: () {
                     context.read<DropdownitemClickCubit>().clickedDropDown();
                   },
-                ),
-
-                SizedBox(
-                  height: 5,
-                ),
+                ), //this widget will show dry fertilizer dropdown
+                SizedBox(height: 5),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
                         'Select fertilizer'
                     ? Container()
@@ -132,10 +95,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
                         'Select fertilizer'
-                    ? OtherNutrientsBtnWidget(
-                        active: false,
-                        onTap: () {},
-                      )
+                    ? OtherNutrientsBtnWidget(active: false, onTap: () {})
                     : OtherNutrientsBtnWidget(
                         active: true,
                         onTap: () {
@@ -143,157 +103,47 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               context: context,
                               builder: (context) => AddOtherNutrientswidget());
                         }),
-                const SizedBox(
-                  height: 15,
-                ),
-                Divider(
-                  color: CustomTheme.primaryColor,
-                  thickness: 2,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 7,
-                      width: 7,
-                      decoration: BoxDecoration(
-                          color: CustomTheme.primaryColor,
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Liquid Fertilizers",
-                      style: TextStyle(
-                          color: CustomTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Enter your required amount in gallon*',
-                  style: TextStyle(fontSize: 14),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child:
+                        Divider(color: CustomTheme.primaryColor, thickness: 2)),
+                DotHeaderWidget(header: "Liquid Fertilizers"), //header with dot
+                const Text('Enter your required amount in gallon*',
+                    style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 12),
+                CalculatorTextFieldWidget(title: 'gallons', hintText: 'Amount'),
+                const SizedBox(height: 20),
+                const Text('Enter density of liquid*',
+                    style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 12),
                 CalculatorTextFieldWidget(
-                  title: 'gallons',
-                  hintText: 'Amount',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Enter density of liquid*',
-                  style: TextStyle(fontSize: 14),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                CalculatorTextFieldWidget(
-                  title: 'd(lbs/g)',
-                  hintText: 'Density',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Choose fertilizer*',
-                  style: TextStyle(fontSize: 14),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                // InkWell(
-                //   onTap: () {
-                //     context.read<DropdownitemClickCubit1>().clickedDropDown();
-                //   },
-                //   child: Container(
-                //     height: 54,
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(10),
-                //         color: Colors.white,
-                //         border: Border.all(color: Colors.white),
-                //         boxShadow: const [
-                //           BoxShadow(
-                //             color: Colors.grey,
-                //             offset: Offset(0, 0.5),
-                //             blurRadius: 0.03,
-                //             spreadRadius: 0.03,
-                //           ),
-                //         ]),
-                //     child: Row(
-                //       children: [
-                //         const SizedBox(
-                //           width: 10,
-                //         ),
-                //         context
-                //                 .watch<DropdownitemClickCubit1>()
-                //                 .state
-                //                 .dropdownItenClicked1
-                //             ? Icon(
-                //                 Icons.expand_more_outlined,
-                //                 color: CustomTheme.primaryColor,
-                //                 size: 30,
-                //               )
-                //             : Icon(
-                //                 Icons.arrow_forward_ios,
-                //                 color: CustomTheme.primaryColor,
-                //               ),
-                //         const SizedBox(
-                //           width: 10,
-                //         ),
-                //         Text(
-                //           context.watch<DropdownIndexCubit1>().state.fertilizer,
-                //           style: TextStyle(color: Colors.grey),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                    title: 'd(lbs/g)', hintText: 'Density'),
+                const SizedBox(height: 20),
+                const Text('Choose fertilizer*',
+                    style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 12),
                 CustomDropDown1(
                   onTap: () {
                     context.read<DropdownitemClickCubit1>().clickedDropDown();
                   },
-                ),
-
-                SizedBox(
-                  height: 5,
-                ),
+                ), //this widget will show liquid fertilizer dropdown
+                SizedBox(height: 5),
                 context.watch<DropdownIndexCubit1>().state.fertilizer ==
                         'Select fertilizer'
                     ? Container()
                     : DropDown1OptionsWidget(), //showing options after seleting 2nd dropdown
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 context.watch<DropdownIndexCubit1>().state.fertilizer ==
                         'Select fertilizer'
-                    ? OtherNutrientsBtnWidget(
-                        active: false,
-                        onTap: () {},
-                      )
+                    ? OtherNutrientsBtnWidget(active: false, onTap: () {})
                     : OtherNutrientsBtnWidget(
                         active: true,
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (context) => AddOtherNutrientswidget());
-                        },
-                      ),
-
-                const SizedBox(
-                  height: 10,
-                ),
+                        }),
+                const SizedBox(height: 10),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
                             'Select fertilizer' ||
                         context.watch<DropdownIndexCubit1>().state.fertilizer ==
@@ -304,14 +154,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: CustomButtonWidget(
-                    btnTitle: 'Continue',
-                    isValid: true,
-                    onBtnPress: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => DisclaimerAlertDialog());
-                    },
-                  ),
+                      btnTitle: 'Continue',
+                      isValid: true,
+                      onBtnPress: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => DisclaimerAlertDialog());
+                      }),
                 ),
               ],
             ),

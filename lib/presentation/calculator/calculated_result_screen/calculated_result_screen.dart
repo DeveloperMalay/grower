@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:grower/presentation/calculator/calculation_screen/widget/fertilizer_container.dart';
+import 'package:grower/presentation/calculator/widgets/dot_header_widget.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_appbar_widget.dart';
 import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
-import 'widget/result_bottom_model_sheet_widget.dart';
+import 'widget/bottom_options_widgets.dart';
+import 'widget/fertilizer_result_widget.dart';
 
 class CalculatedResultScreen extends StatefulWidget {
   const CalculatedResultScreen({super.key});
@@ -30,55 +33,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 7,
-                      width: 7,
-                      decoration: BoxDecoration(
-                          color: CustomTheme.primaryColor,
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Dry Fertilizers",
-                      style: TextStyle(
-                          color: CustomTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 54,
-                  width: 342,
-                  padding: EdgeInsets.only(
-                    top: 18,
-                    left: 20,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.white),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 0.5),
-                          blurRadius: 0.03,
-                          spreadRadius: 0.03,
-                        ),
-                      ]),
-                  child: Text(
-                    context.watch<DropdownIndexCubit>().state.fertilizer,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
+                DotHeaderWidget(header: 'Dry Fertilizer'), //header with dot
+                FertilizerContainer(
+                    title:
+                        context.watch<DropdownIndexCubit>().state.fertilizer),
                 SizedBox(
                   height: 12,
                 ),
@@ -89,348 +47,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 SizedBox(
                   height: 12,
                 ),
-                Text(
-                  "40 lbs",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: CustomTheme.primaryColor,
-                      fontWeight: FontWeight.w500),
-                ),
+                Text("40 lbs",
+                    style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                 Container(
-                  height: 1,
-                  width: 226,
-                  margin: EdgeInsets.only(top: 5),
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.white),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blue[100]!,
-                          offset: Offset(3.5, 4),
-                          blurRadius: 10,
-                          spreadRadius: 0.4,
-                        ),
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 173,
-                            child: Text(
-                              "Nutrients",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            "TDW(lbs)",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Text(
-                            "NPK(%)",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: CustomTheme.primaryColor,
-                        thickness: 1.5,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 110,
-                            // color: Colors.red,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Nitrogen(N)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "Phosphorus(P)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "Phosphorus(P)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Container(
-                            width: 70,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "6.40",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 60,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "16",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Other added nutrients",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: CustomTheme.primaryColor,
-                        thickness: 1.5,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 110,
-                            // color: Colors.red,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "A",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "Boron (B)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "Calcium (Ca)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "D",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "E",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Container(
-                            width: 70,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "6",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "6",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "6",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "6",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "6",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 60,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "15",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "15",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "15",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "15",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  "15",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: CustomTheme.primaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                    height: 1,
+                    width: 226,
+                    margin: EdgeInsets.only(top: 5),
+                    color: Colors.grey),
+                SizedBox(height: 12),
+                DryFertilizerResultWidget(),
                 SizedBox(
                   height: 24,
                 ),
@@ -438,68 +63,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   color: CustomTheme.primaryColor,
                   thickness: 2,
                 ),
-                SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 7,
-                      width: 7,
-                      decoration: BoxDecoration(
-                          color: CustomTheme.primaryColor,
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Liquid Fertilizer",
-                      style: TextStyle(
-                          color: CustomTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 54,
-                  width: 342,
-                  padding: EdgeInsets.only(
-                    top: 18,
-                    left: 20,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.white),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 0.5),
-                          blurRadius: 0.03,
-                          spreadRadius: 0.03,
-                        ),
-                      ]),
-                  child: Text(
-                    context.watch<DropdownIndexCubit>().state.fertilizer,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  "Total weight of liquid fertilizer:",
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
+                SizedBox(height: 24),
+                DotHeaderWidget(header: "Liquid Fertilizer"), //header with dot
+                FertilizerContainer(
+                    title:
+                        context.watch<DropdownIndexCubit>().state.fertilizer),
+                SizedBox(height: 12),
+                Text("Total weight of liquid fertilizer:",
+                    style: TextStyle(fontSize: 16)),
+                SizedBox(height: 12),
                 Text(
                   "834.50 lbs",
                   style: TextStyle(
@@ -1380,144 +952,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 60,
-                      // height: 60,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blue[100]!,
-                              offset: Offset(3.5, 4),
-                              blurRadius: 10,
-                              spreadRadius: 0.4,
-                            ),
-                          ]),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        SvgPicture.asset(
-                          'assets/home.svg',
-                          height: 25,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Home',
-                          style: TextStyle(
-                              color: CustomTheme.primaryColor, fontSize: 12),
-                        )
-                      ]),
-                    ),
-                    Container(
-                      width: 60,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blue[100]!,
-                              offset: Offset(3.5, 4),
-                              blurRadius: 10,
-                              spreadRadius: 0.4,
-                            ),
-                          ]),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        SvgPicture.asset(
-                          'assets/reset.svg',
-                          height: 25,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Reset',
-                          style: TextStyle(
-                              color: CustomTheme.primaryColor, fontSize: 12),
-                        )
-                      ]),
-                    ),
-                    Container(
-                      width: 60,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blue[100]!,
-                              offset: Offset(3.5, 4),
-                              blurRadius: 10,
-                              spreadRadius: 0.4,
-                            ),
-                          ]),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        SvgPicture.asset(
-                          'assets/pdf.svg',
-                          height: 25,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'PDF',
-                          style: TextStyle(
-                              color: CustomTheme.primaryColor, fontSize: 12),
-                        )
-                      ]),
-                    ),
-                    Container(
-                      width: 60,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blue[100]!,
-                              offset: Offset(3.5, 4),
-                              blurRadius: 10,
-                              spreadRadius: 0.4,
-                            ),
-                          ]),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/exit.svg',
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Exit',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: BottomOptionsWidget(), //showing bottom optins
                 ),
               ],
             ),
