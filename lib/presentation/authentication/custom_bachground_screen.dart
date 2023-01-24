@@ -48,7 +48,7 @@ class CustomBackgroundWidget extends StatelessWidget {
                   height: 70.h,
                 ),
                 Container(
-                  height: 437.h,
+                  height: 437.6.h,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(
                     left: 20,
@@ -57,10 +57,11 @@ class CustomBackgroundWidget extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(
-                          'assets/bg_round.png',
-                        ),
-                        fit: BoxFit.cover),
+                      image: AssetImage(
+                        'assets/bg_round.png',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: widget,
                 )

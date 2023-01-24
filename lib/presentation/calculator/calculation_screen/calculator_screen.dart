@@ -47,23 +47,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        appBar: CustomAppbarWidget(
-          appbarTitle: 'Calculator',
-          isresult: false,
-        ),
+        appBar: CustomAppbarWidget(appbarTitle: 'Calculator', isresult: false),
         body: SingleChildScrollView(
             child: Container(
           height: MediaQuery.of(context).size.height * .9,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
           decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage(
-                "assets/bgImage.png",
-              ),
-            ),
-            color: CustomTheme.bgColor,
-          ),
+              image: const DecorationImage(
+                  image: AssetImage("assets/bgImage.png")),
+              color: CustomTheme.bgColor),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,10 +65,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const Text('Enter your required amount*',
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
-                CalculatorTextFieldWidget(
-                  title: 'pounds',
-                  hintText: 'Amount',
-                ),
+                CalculatorTextFieldWidget(title: 'pounds', hintText: 'Amount'),
                 const SizedBox(height: 20),
                 const Text('Choose fertilizer*',
                     style: TextStyle(fontSize: 14)),
@@ -90,9 +80,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         'Select fertilizer'
                     ? Container()
                     : DropDownOptionsWidget(), //showting option after selecting
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
                         'Select fertilizer'
                     ? OtherNutrientsBtnWidget(active: false, onTap: () {})

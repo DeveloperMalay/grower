@@ -117,82 +117,78 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
               Spacer(),
-              context.watch<IsSigninValidCubit>().state.isSignInValid
-                  ? CustomButtonWidget(
-                      isValid: context
-                          .read<IsSigninValidCubit>()
-                          .state
-                          .isSignInValid,
-                      btnTitle: 'Continue',
-                      onBtnPress: () {
-                        print(context
-                            .read<IsSigninValidCubit>()
-                            .state
-                            .isSignInValid);
-                        if (_formKey.currentState!.validate() ||
-                            emailController.text.isNotEmpty) {
-                          try {
-                            context
-                                .read<LoginCubit>()
-                                .loginUser(emailController.text);
-                          } catch (e) {
-                            print(e);
-                          }
-                        }
-                      },
-                    )
-                  : CustomButtonWidget(
-                      isValid: context
-                          .watch<IsSigninValidCubit>()
-                          .state
-                          .isSignInValid,
-                      btnTitle: 'Continue',
-                      onBtnPress: () {
-                        print(context
-                            .read<IsSigninValidCubit>()
-                            .state
-                            .isSignInValid);
-                      },
-                    ),
-              isFocused
-                  ? Container()
-                  : Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'By Clicking Continue, you agree to our ',
-                            style: TextStyle(fontSize: 10, color: Colors.black),
-                          ),
-                          Text(
-                            ' Terms of Services',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: CustomTheme.primaryColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Text(
-                            ' and',
-                            style: TextStyle(fontSize: 10, color: Colors.black),
-                          )
-                        ],
-                      ),
-                    ),
-              isFocused
-                  ? Container()
-                  : Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 18.0),
-                        child: Text(
-                          'Privacy Policy.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: CustomTheme.primaryColor,
-                              fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  context.watch<IsSigninValidCubit>().state.isSignInValid
+                      ? CustomButtonWidget(
+                          isValid: context
+                              .read<IsSigninValidCubit>()
+                              .state
+                              .isSignInValid,
+                          btnTitle: 'Continue',
+                          onBtnPress: () {
+                            print(context
+                                .read<IsSigninValidCubit>()
+                                .state
+                                .isSignInValid);
+                            if (_formKey.currentState!.validate() ||
+                                emailController.text.isNotEmpty) {
+                              try {
+                                context
+                                    .read<LoginCubit>()
+                                    .loginUser(emailController.text);
+                              } catch (e) {
+                                print(e);
+                              }
+                            }
+                          },
+                        )
+                      : CustomButtonWidget(
+                          isValid: context
+                              .watch<IsSigninValidCubit>()
+                              .state
+                              .isSignInValid,
+                          btnTitle: 'Continue',
+                          onBtnPress: () {
+                            print(context
+                                .read<IsSigninValidCubit>()
+                                .state
+                                .isSignInValid);
+                          },
                         ),
-                      ),
-                    ),
+                  isFocused
+                      ? Container()
+                      : RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'By Clicking Continue, you agree to our ',
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.black),
+                              ),
+                              TextSpan(
+                                  text: ' Terms of Services',
+                                  style: CustomTheme.primarytextStyle(
+                                      10, FontWeight.bold)),
+                              TextSpan(
+                                text: ' and',
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ),
+                  isFocused
+                      ? Container()
+                      : Center(
+                          child: Padding(
+                              padding: EdgeInsets.only(bottom: 18.0.h),
+                              child: Text('Privacy Policy.',
+                                  textAlign: TextAlign.center,
+                                  style: CustomTheme.primarytextStyle(
+                                      10, FontWeight.bold))))
+                ],
+              ),
             ],
           ),
         );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../theme/custom_theme.dart';
 
-class DryFertilizerResultWidget extends StatelessWidget {
-  const DryFertilizerResultWidget({super.key});
+class FertilizerResultWidget extends StatelessWidget {
+  const FertilizerResultWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
