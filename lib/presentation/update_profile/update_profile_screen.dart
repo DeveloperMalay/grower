@@ -56,9 +56,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           appbarTitle: 'Update Profile',
           isresult: false,
         ),
-        body: BlocConsumer<UpdateProfileCubit, UpdateProfileState>(
+        body: BlocConsumer<UserProfileCubit, UpdateProfileState>(
           listener: (context, state) {
-            if (state.status == UpdateProfileStatus.error) {
+            if (state.status == UserProfileStatus.error) {
               errorDialog(context, state.error.errMsg);
             }
             // if (state.status == UpdateProfileStatus.loading) {
@@ -72,7 +72,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             //         );
             //       });
             // }
-            if (state.status == UpdateProfileStatus.loaded) {
+            if (state.status == UserProfileStatus.loaded) {
               showDialog(
                   context: context,
                   builder: (context) {
@@ -212,10 +212,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                           content:
                                               'Your profile is not updated!',
                                           leftBtnTitle: 'Yes, Exit',
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
                                         ));
                               },
                               child: SmallBtnWidget.whiteBtn(
-                                  'Cencel', Colors.transparent),
+                                  'Cancel', Colors.transparent),
                             ),
                             const SizedBox(
                               width: 40,
@@ -230,7 +233,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                       addressController
                                           .text); //function to check if the form is valid or not
                                   context
-                                      .read<UpdateProfileCubit>()
+                                      .read<UserProfileCubit>()
                                       .userDetailsUpdate(
                                           nameController.text,
                                           addressController.text,

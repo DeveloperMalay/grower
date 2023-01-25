@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grower/heiper/navigator_function.dart';
-import 'package:grower/main.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_small_btn_widget.dart';
@@ -10,10 +9,12 @@ class AlertDialogWidget extends StatelessWidget {
       {super.key,
       required this.content,
       required this.leftBtnTitle,
-      required this.title});
+      required this.title,
+      required this.onTap});
   final String content;
   final String leftBtnTitle;
   final String title;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,12 +53,13 @@ class AlertDialogWidget extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.remove('isLoggedIn');
-                    Navigator.pop(context);
-                    screenReplaceNavigator(context, SplashScreen());
-                  },
+                  onTap: onTap,
+                  // onTap: () async {
+                  //   final prefs = await SharedPreferences.getInstance();
+                  //   prefs.remove('isLoggedIn');
+
+                  //   SystemNavigator.pop();
+                  // },
                   child: SmallBtnWidget.whiteBtn(leftBtnTitle, Colors.white),
                 ),
                 const SizedBox(

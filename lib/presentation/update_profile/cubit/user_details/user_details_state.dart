@@ -1,4 +1,4 @@
-part of 'update_profile_cubit.dart';
+part of 'user_details_cubit.dart';
 
 enum UserProfileStatus {
   initial,
@@ -7,18 +7,18 @@ enum UserProfileStatus {
   error,
 }
 
-class UpdateProfileState extends Equatable {
+class UserDetailsState extends Equatable {
   final UserProfileStatus status;
   final UserDetails userDetails;
   final CustomError error;
-  UpdateProfileState({
+  UserDetailsState({
     required this.status,
     required this.userDetails,
     required this.error,
   });
 
-  factory UpdateProfileState.initial() {
-    return UpdateProfileState(
+  factory UserDetailsState.initial() {
+    return UserDetailsState(
         status: UserProfileStatus.initial,
         userDetails: UserDetails(
             data: Data(
@@ -28,18 +28,18 @@ class UpdateProfileState extends Equatable {
                 address: "Address")),
         error: CustomError());
   }
-  UpdateProfileState copyWith({
+  @override
+  List<Object> get props => [status, userDetails, error];
+
+  UserDetailsState copyWith({
     UserProfileStatus? status,
     UserDetails? userDetails,
     CustomError? error,
   }) {
-    return UpdateProfileState(
+    return UserDetailsState(
       status: status ?? this.status,
       userDetails: userDetails ?? this.userDetails,
       error: error ?? this.error,
     );
   }
-
-  @override
-  List<Object> get props => [status, userDetails, error];
 }

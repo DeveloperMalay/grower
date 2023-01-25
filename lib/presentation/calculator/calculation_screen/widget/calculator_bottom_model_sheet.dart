@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
@@ -50,6 +52,9 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                             content: 'You are going to Exit Calculator.',
                             leftBtnTitle: "Yes, Exit",
                             title: 'Are you sure?',
+                            onTap: () {
+                              SystemNavigator.pop();
+                            },
                           ));
                 },
                 child: Padding(
@@ -76,9 +81,17 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialogWidget(
-                          content: 'You are going to logout Calculator.',
-                          leftBtnTitle: 'Yes, Logout',
-                          title: 'Are you sure?'));
+                            content: 'You are going to logout Calculator.',
+                            leftBtnTitle: 'Yes, Logout',
+                            title: 'Are you sure?',
+                            onTap: () async {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.remove('isLoggedIn');
+
+                              SystemNavigator.pop();
+                            },
+                          ));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(

@@ -13,6 +13,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.maxline = 1,
     // this.maxlength,
     this.inputType,
+    this.readOnly = false,
     required this.isfocused,
   });
   final String hinttext;
@@ -24,6 +25,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   int? maxline;
   // int? maxlength;
   TextInputType? inputType;
+  bool readOnly;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +43,7 @@ class CustomTextFieldWidget extends StatelessWidget {
             : [],
       ),
       child: TextFormField(
+        readOnly: readOnly,
         controller: controller,
         maxLines: maxline,
         // maxLength: maxlength,

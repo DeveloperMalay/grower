@@ -1,33 +1,33 @@
 class UserDetails {
   int? status;
   String? message;
-  Data? data;
+  late Data data;
 
-  UserDetails({this.status, this.message, this.data});
+  UserDetails({this.status, this.message, required this.data});
 
   UserDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = Data.fromJson(json['data']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
+
+    data['data'] = this.data.toJson();
+
     return data;
   }
 }
 
 class Data {
   int? id;
-  String? name;
-  String? email;
-  String? address;
-  String? number;
+  late String name;
+  late String email;
+  late String address;
+  late String number;
   int? profileSetup;
   String? hitRemaining;
   String? otp;
@@ -35,10 +35,10 @@ class Data {
 
   Data(
       {this.id,
-      this.name,
-      this.email,
-      this.address,
-      this.number,
+      required this.name,
+      required this.email,
+      required this.address,
+      required this.number,
       this.profileSetup,
       this.hitRemaining,
       this.otp,

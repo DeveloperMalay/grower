@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/update_profile/user_profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
@@ -18,7 +23,7 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
         topRight: Radius.circular(20.0),
       ),
       child: Container(
-        height: 321,
+        height: 300.h,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,6 +47,29 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   onTap: () {},
                   child: const Text(
                     'Home',
+                    style: TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                ),
+                child: InkWell(
+                  onTap: () {
+                    screenNavigator(context, UserProfileScreen());
+                  },
+                  child: const Text(
+                    'View Profile',
                     style: TextStyle(color: Colors.black, fontSize: 14),
                   ),
                 ),
@@ -85,9 +113,13 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialogWidget(
-                            content: 'You are going to Reset Calculator.',
-                            leftBtnTitle: "Yes, Reset ",
-                            title: 'Are you want to Reset?'));
+                              content: 'You are going to Reset Calculator.',
+                              leftBtnTitle: "Yes, Reset ",
+                              title: 'Are you want to Reset?',
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ));
                   },
                   child: const Text(
                     'Reset calculator',
@@ -116,6 +148,9 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                               content: 'You are going to Exit Calculator.',
                               leftBtnTitle: "Yes, Exit",
                               title: 'Are you sure?',
+                              onTap: () {
+                                SystemNavigator.pop();
+                              },
                             ));
                   },
                   child: const Text(
@@ -142,9 +177,17 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialogWidget(
-                            content: 'You are going to logout Calculator.',
-                            leftBtnTitle: 'Yes, Logout',
-                            title: 'Are you sure?'));
+                              content: 'You are going to logout Calculator.',
+                              leftBtnTitle: 'Yes, Logout',
+                              title: 'Are you sure?',
+                              onTap: () async {
+                                final prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.remove('isLoggedIn');
+
+                                SystemNavigator.pop();
+                              },
+                            ));
                   },
                   child: const Text(
                     'Log Out',
@@ -155,6 +198,5 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
             ]),
       ),
     );
-    
   }
 }

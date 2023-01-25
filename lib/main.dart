@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
+import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
 import 'heiper/navigator_function.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
@@ -43,12 +44,13 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => DropdownitemClickCubit1()),
               BlocProvider(create: (context) => LoginCubit()),
               BlocProvider(create: (context) => VerifyOtpCubit()),
-              BlocProvider(create: (context) => UpdateProfileCubit()),
+              BlocProvider(create: (context) => UserProfileCubit()),
               BlocProvider(create: (context) => EmailCheckerCubit()),
               BlocProvider(create: (context) => IsSigninValidCubit()),
               BlocProvider(create: (context) => NotEtyStrValidatorCubit()),
               BlocProvider(create: (context) => ValidNumberCubit()),
-              BlocProvider(create: (context) => TextfieldFocusCubit())
+              BlocProvider(create: (context) => TextfieldFocusCubit()),
+              BlocProvider(create: (context) => UserDetailsCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
