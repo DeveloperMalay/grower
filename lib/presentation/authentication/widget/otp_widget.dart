@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import 'package:pinput/pinput.dart';
+import '../../../data/repository/resend_otp_repositoty.dart';
 import '../../../theme/custom_theme.dart';
 import '../../calculator/calculation_screen/calculator_screen.dart';
 import '../../widgets/error_diolog.dart';
@@ -161,7 +162,12 @@ class _OtpWidgetState extends State<OtpWidget> {
                       width: 5,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        print('tap');
+                        _timerDuration == 0
+                            ? await resendOtp(widget.email)
+                            : null;
+                      },
                       child: Text(
                         'Resend',
                         style: TextStyle(

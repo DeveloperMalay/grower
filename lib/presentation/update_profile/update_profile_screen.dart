@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
 import 'package:grower/presentation/update_profile/widget/error_text_widget.dart';
 import 'package:grower/presentation/widgets/custom_textfield_widget.dart';
@@ -73,6 +78,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             //       });
             // }
             if (state.status == UserProfileStatus.loaded) {
+              Timer(Duration(seconds: 2), () {
+                print('run');
+                screenReplaceNavigator(context, CalculatorScreen());
+              });
               showDialog(
                   context: context,
                   builder: (context) {
@@ -80,6 +89,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       title: 'Your profile successfully\n updated!',
                     );
                   });
+              // context.go('/calculator');
             }
           },
           builder: (context, state) {
@@ -213,7 +223,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                               'Your profile is not updated!',
                                           leftBtnTitle: 'Yes, Exit',
                                           onTap: () {
-                                            Navigator.pop(context);
+                                            context.push('/calculator');
                                           },
                                         ));
                               },
@@ -232,12 +242,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                       numberController.text,
                                       addressController
                                           .text); //function to check if the form is valid or not
-                                  context
-                                      .read<UserProfileCubit>()
-                                      .userDetailsUpdate(
-                                          nameController.text,
-                                          addressController.text,
-                                          numberController.text);
+                                  shouldUpdate(context)
+                                      ? context
+                                          .read<UserProfileCubit>()
+                                          .userDetailsUpdate(
+                                              nameController.text,
+                                              addressController.text,
+                                              numberController.text)
+                                      : null;
                                 }
                               },
                               child: SmallBtnWidget.filledColorBtn('Update'),

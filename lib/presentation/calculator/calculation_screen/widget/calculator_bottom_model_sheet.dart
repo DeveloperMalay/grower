@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
@@ -108,7 +109,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                                   await SharedPreferences.getInstance();
                               prefs.remove('isLoggedIn');
 
-                              SystemNavigator.pop();
+                              context.go('/');
                             },
                           ));
                 },

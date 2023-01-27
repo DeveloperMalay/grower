@@ -7,7 +7,6 @@ import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart'
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
-import 'heiper/navigator_function.dart';
 import 'heiper/router.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
@@ -16,8 +15,6 @@ import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
-import 'presentation/onboarding_screen/welcome_back_screen.dart';
-import 'presentation/onboarding_screen/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/update_profile/cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
 import 'presentation/update_profile/cubit/textfield_focus/textfield_focus_cubit.dart';
