@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
 import 'heiper/navigator_function.dart';
+import 'heiper/router.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
 import 'presentation/authentication/cubit/verify_otp/verify_otp_cubit.dart';
@@ -52,11 +54,12 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => TextfieldFocusCubit()),
               BlocProvider(create: (context) => UserDetailsCubit())
             ],
-            child: MaterialApp(
+            child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
+              routerConfig: router,
               title: 'Grower',
               theme: ThemeData(primaryColor: CustomTheme.primaryColor),
-              home: const SplashScreen(),
+              // home: const SplashScreen(),
             ),
           );
         });
@@ -115,9 +118,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void startTimer() {
     Timer(const Duration(seconds: 3), () async {
       if (await getBool('isLoggedIn')) {
-        screenReplaceNavigator(context, WelcomeBackScreen());
+        context.go('/welcomeback');
+        // screenReplaceNavigator(context, WelcomeBackScreen());
       } else {
-        screenReplaceNavigator(context, WelcomeScreen());
+        context.go('/welcome');
+        // screenReplaceNavigator(context, WelcomeScreen());
       }
       //It will redirect  after 3 seconds
     });

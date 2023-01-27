@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/heiper/navigator_function.dart';
+import 'package:go_router/go_router.dart';
 import '../../theme/custom_theme.dart';
-import '../calculator/calculation_screen/calculator_screen.dart';
 
 class WelcomeBackScreen extends StatelessWidget {
   const WelcomeBackScreen({super.key});
@@ -48,7 +47,8 @@ class WelcomeBackScreen extends StatelessWidget {
                 bottom: 62.h,
                 child: InkWell(
                   onTap: () {
-                    screenReplaceNavigator(context, CalculatorScreen());
+                    context.go('/calculator');
+                    // screenReplaceNavigator(context, CalculatorScreen());
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 40.w),

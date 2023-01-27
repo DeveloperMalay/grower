@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
+import '../../../update_profile/user_profile_screen.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
 class CalculatorBottomModelSheet extends StatelessWidget {
@@ -16,7 +18,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        height: 198,
+        height: 265,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -46,6 +48,29 @@ class CalculatorBottomModelSheet extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  screenNavigator(context, UserProfileScreen());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                  ),
+                  child: const Text(
+                    'View Profile',
+                    style: TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialogWidget(
@@ -68,13 +93,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
+                height: 36,
               ),
               InkWell(
                 onTap: () {
@@ -102,7 +121,10 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 14),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 36,
+              ),
             ]),
       ),
     );

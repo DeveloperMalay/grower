@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
@@ -51,13 +52,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           return loadingDialog(context);
         }
         if (state.status == LoginStatus.loaded) {
-          screenReplaceNavigator(
-              context,
-              CustomBackgroundWidget(
-                  widget: OtpWidget(
-                    email: emailController.text,
-                  ),
-                  isLogin: false));
+          context.goNamed('otp', params: {'email': emailController.text});
         }
       },
       builder: (context, state) {

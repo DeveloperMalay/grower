@@ -65,7 +65,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "Phosphorus(P)",
+                      "Potassium(K)",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),

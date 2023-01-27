@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
 import 'package:grower/presentation/authentication/widget/login_widget.dart';
@@ -117,12 +118,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       isValid: true,
                       btnTitle: 'Sign Up',
                       onBtnPress: () {
-                        screenReplaceNavigator(
-                            context,
-                            CustomBackgroundWidget(
-                              widget: LoginWidget(),
-                              isLogin: true,
-                            ));
+                        context.go('/login');
+                        // screenReplaceNavigator(
+                        //     context,
+                        //     CustomBackgroundWidget(
+                        //       widget: LoginWidget(),
+                        //       isLogin: true,
+                        //     ));
                       }),
                 )
               ],

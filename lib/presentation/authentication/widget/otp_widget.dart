@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import 'package:pinput/pinput.dart';
@@ -75,6 +76,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 );
               });
           Timer(Duration(seconds: 2), () {
+            context.go('/calculator');
             screenReplaceNavigator(context, CalculatorScreen());
           });
         }
@@ -127,7 +129,10 @@ class _OtpWidgetState extends State<OtpWidget> {
               ),
             ),
             context.read<VerifyOtpCubit>().state.verifyotp.status == 403
-                ? Text('Invalid Otp !')
+                ? Text(
+                    'Invalid Otp !',
+                    style: TextStyle(color: CustomTheme.redErrorColor),
+                  )
                 : Container(),
             Padding(
               padding: EdgeInsets.only(

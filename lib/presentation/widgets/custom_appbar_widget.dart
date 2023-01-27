@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../theme/custom_theme.dart';
 import '../calculator/calculated_result_screen/widget/result_bottom_model_sheet_widget.dart';
@@ -17,7 +18,9 @@ class CustomAppbarWidget extends StatelessWidget
       backgroundColor: Colors.white,
       leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            appbarTitle == 'Calculator'
+                ? SystemNavigator.pop()
+                : Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back_ios,

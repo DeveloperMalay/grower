@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/navigator_function.dart';
@@ -75,11 +76,15 @@ class ReminderPopUp extends StatelessWidget {
                     context.read<ReminderCubit>().noOfHit();
                     final prefs = await SharedPreferences.getInstance();
                     String email = await prefs.getString('email')!;
-                    screenNavigator(
-                        context,
-                        UpdateProfileScreen(
-                          email: email,
-                        ));
+                    context.goNamed(
+                      '/updateprofile',
+                      params: {"email": email},
+                    );
+                    // screenNavigator(
+                    //     context,
+                    //     UpdateProfileScreen(
+                    //       email: email,
+                    //     ));
                   },
                   child: Container(
                     width: 120,
