@@ -8,7 +8,6 @@ import '../presentation/calculator/calculated_result_screen/calculated_result_sc
 import '../presentation/calculator/calculation_screen/calculator_screen.dart';
 import '../presentation/onboarding_screen/welcome_back_screen.dart';
 import '../presentation/pdf_preview/pdf_preview_screen.dart';
-import '../presentation/update_profile/update_profile_screen.dart';
 import '../presentation/update_profile/user_profile_screen.dart';
 
 final GoRouter router = GoRouter(

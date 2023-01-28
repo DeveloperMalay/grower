@@ -71,14 +71,13 @@ class ReminderPopUp extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
+                    context.read<ReminderCubit>().hitreduce();
+                    print('hit');
                     Navigator.pop(context);
-                    context.read<ReminderCubit>().noOfHit();
+                    // context.read<ReminderCubit>().noOfHit();
                     final prefs = await SharedPreferences.getInstance();
                     String email = await prefs.getString('email')!;
-                    // context.goNamed(
-                    //   'updateprofile',
-                    //   params: {"email": email},
-                    // );
+
                     screenNavigator(
                         context,
                         UpdateProfileScreen(
@@ -106,6 +105,5 @@ class ReminderPopUp extends StatelessWidget {
         ),
       ),
     );
-  
   }
 }
