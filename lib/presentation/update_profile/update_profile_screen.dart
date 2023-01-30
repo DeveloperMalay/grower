@@ -60,6 +60,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         appBar: CustomAppbarWidget(
           appbarTitle: 'Update Profile',
           isresult: false,
+          ontapbackarrow: () {
+            Navigator.pop(context);
+          },
         ),
         body: BlocConsumer<UserProfileCubit, UpdateProfileState>(
           listener: (context, state) {

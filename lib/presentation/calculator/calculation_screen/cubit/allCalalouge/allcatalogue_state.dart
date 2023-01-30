@@ -28,6 +28,8 @@ class AllcatalogueState extends Equatable {
   @override
   List<Object> get props => [allCatalogue];
 
+ 
+
   AllcatalogueState copyWith({
     AllcatalogueStatus? status,
     CatelogueDetails? allCatalogue,

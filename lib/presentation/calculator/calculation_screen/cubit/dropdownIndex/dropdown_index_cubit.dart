@@ -9,4 +9,8 @@ class DropdownIndexCubit extends Cubit<DropdownIndexState> {
   void getdropdowndetails(int index, String fertilizer) {
     emit(state.copyWith(dropdownindex: index, fertilizer: fertilizer));
   }
+
+  void getinitialState() {
+    emit(DropdownIndexState.initial());
+  }
 }

@@ -10,6 +10,7 @@ import 'package:grower/presentation/calculator/calculation_screen/widget/drop_do
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
 import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
+import '../../../heiper/clear_textField.dart';
 import '../../../theme/custom_theme.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
@@ -31,6 +32,8 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   final poundController = TextEditingController();
+  final gallonController = TextEditingController();
+  final densityController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -49,12 +52,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        appBar: CustomAppbarWidget(appbarTitle: 'Calculator', isresult: false),
+        appBar: CustomAppbarWidget(
+          appbarTitle: 'Calculator',
+          isresult: false,
+          ontapbackarrow: () {
+            cleatTextField(
+                context, poundController, gallonController, densityController);
+          },
+        ),
         body: SingleChildScrollView(
             child: Container(
           height: MediaQuery.of(context).size.height * .9,
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+          padding: const EdgeInsets.only(
+            left: 30,
+            right: 30,
+          ),
           decoration: BoxDecoration(
               image: const DecorationImage(
                   image: AssetImage("assets/bgImage.png")),
@@ -63,20 +76,25 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 30,
+                ),
                 DotHeaderWidget(header: "Dry Fertilizers"), //header with dot
                 const Text('Enter your required amount*',
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
-                CalculatorTextFieldWidget(title: 'pounds', hintText: 'Amount'),
+                CalculatorTextFieldWidget(
+                  title: 'pounds',
+                  hintText: 'Amount',
+                  controller: poundController,
+                ),
                 const SizedBox(height: 20),
                 const Text('Choose fertilizer*',
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
-                CustomDropDown(
-                  onTap: () {
-                    context.read<DropdownitemClickCubit>().clickedDropDown();
-                  },
-                ), //this widget will show dry fertilizer dropdown
+                CustomDropDown(onTap: () {
+                  context.read<DropdownitemClickCubit>().clickedDropDown();
+                }), //this widget will show dry fertilizer dropdown
                 SizedBox(height: 5),
                 context.watch<DropdownIndexCubit>().state.fertilizer ==
                         'Select fertilizer'
@@ -101,13 +119,18 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const Text('Enter your required amount in gallon*',
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
-                CalculatorTextFieldWidget(title: 'gallons', hintText: 'Amount'),
+                CalculatorTextFieldWidget(
+                    title: 'gallons',
+                    hintText: 'Amount',
+                    controller: gallonController),
                 const SizedBox(height: 20),
                 const Text('Enter density of liquid*',
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
                 CalculatorTextFieldWidget(
-                    title: 'd(lbs/g)', hintText: 'Density'),
+                    title: 'd(lbs/g)',
+                    hintText: 'Density',
+                    controller: densityController),
                 const SizedBox(height: 20),
                 const Text('Choose fertilizer*',
                     style: TextStyle(fontSize: 14)),
@@ -141,8 +164,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ? Container()
                     : InstructionWidget(),
                 Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  padding: EdgeInsets.only(bottom: 30),
                   child: CustomButtonWidget(
                       btnTitle: 'Continue',
                       isValid: true,

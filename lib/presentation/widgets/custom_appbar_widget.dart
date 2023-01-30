@@ -8,24 +8,26 @@ import '../calculator/calculation_screen/widget/calculator_bottom_model_sheet.da
 class CustomAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomAppbarWidget(
-      {super.key, required this.appbarTitle, required this.isresult});
+      {super.key,
+      required this.appbarTitle,
+      required this.isresult,
+      required this.ontapbackarrow});
   final String appbarTitle;
   final bool isresult;
+  final VoidCallback ontapbackarrow;
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
-          onPressed: () {
-            appbarTitle == 'Calculator'
-                ? SystemNavigator.pop()
-                : Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: CustomTheme.primaryColor,
-          )),
+          onPressed: ontapbackarrow,
+          icon: appbarTitle == 'Calculator'
+              ? Image.asset('assets/cycle.png')
+              : const Icon(
+                  Icons.arrow_back_ios,
+                  color: CustomTheme.primaryColor,
+                )),
       title: Container(
         height: 34,
         width: 250,

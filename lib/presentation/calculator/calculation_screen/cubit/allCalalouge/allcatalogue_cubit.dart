@@ -12,8 +12,16 @@ class AllcatalogueCubit extends Cubit<AllcatalogueState> {
     emit(state.copyWith(status: AllcatalogueStatus.loading));
     try {
       var catalogue = await getCategoryDetails();
-      print(catalogue);
-
+      // var data = catalogue.catalogues!
+      //     .where((e) => e.type == 'dry fertilizer')
+      //     .toList();
+      // var catalogue = await getCategoryDetails().then((value) => value
+      //     .catalogues!
+      //     .where((e) => e.type == 'liquid fertilizer')
+      //     .toList());
+      // print(
+      //   data.length,
+      // );
       emit(state.copyWith(
           allCatalogue: catalogue, status: AllcatalogueStatus.loaded));
     } on CustomError catch (e) {

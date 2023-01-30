@@ -124,12 +124,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
                                       top: BorderSide(color: Colors.grey),
                                       bottom: BorderSide(
                                           color: CustomTheme.greylight))
-                                  : index == 5
+                                  : index == 1
                                       ? null
                                       : Border(
                                           bottom: BorderSide(
                                               color: CustomTheme.greylight)),
-                              borderRadius: index == 5
+                              borderRadius: index == 1
                                   ? BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10),

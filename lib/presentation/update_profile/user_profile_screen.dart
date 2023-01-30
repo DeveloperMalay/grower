@@ -46,6 +46,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         appBar: CustomAppbarWidget(
           appbarTitle: 'User Profile',
           isresult: false,
+          ontapbackarrow: () {
+            Navigator.pop(context);
+          },
         ),
         body: BlocConsumer<UserDetailsCubit, UserDetailsState>(
           listener: (context, state) {},

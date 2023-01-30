@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
 import 'package:grower/presentation/update_profile/user_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../theme/custom_theme.dart';
@@ -44,7 +45,9 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   horizontal: 25,
                 ),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    screenReplaceNavigator(context, CalculatorScreen());
+                  },
                   child: const Text(
                     'Home',
                     style: TextStyle(color: Colors.black, fontSize: 14),

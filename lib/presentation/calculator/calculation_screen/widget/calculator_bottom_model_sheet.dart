@@ -94,7 +94,13 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 36,
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               InkWell(
                 onTap: () {

@@ -25,6 +25,9 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
         appBar: CustomAppbarWidget(
           appbarTitle: 'Calculated Results',
           isresult: true,
+          ontapbackarrow: () {
+            Navigator.pop(context);
+          },
         ),
         backgroundColor: CustomTheme.bgColor,
         body: SingleChildScrollView(
@@ -40,7 +43,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 SizedBox(
                   height: 12,
                 ),
-                
+
                 Text(
                   "Total weight of dry fertilizer:",
                   style: TextStyle(fontSize: 16),

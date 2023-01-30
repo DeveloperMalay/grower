@@ -4,9 +4,13 @@ import '../../../../theme/custom_theme.dart';
 
 class CalculatorTextFieldWidget extends StatelessWidget {
   const CalculatorTextFieldWidget(
-      {super.key, required this.title, required this.hintText});
+      {super.key,
+      required this.title,
+      required this.hintText,
+      required this.controller});
   final String title;
   final String hintText;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -42,6 +46,7 @@ class CalculatorTextFieldWidget extends StatelessWidget {
           height: 54,
           decoration: CustomTheme.calculatorContianerStyle,
           child: TextFormField(
+            controller: controller,
             textAlign: TextAlign.right,
             cursorColor: CustomTheme.primaryColor,
             keyboardType: TextInputType.number,
