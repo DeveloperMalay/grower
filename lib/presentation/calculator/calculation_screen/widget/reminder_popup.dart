@@ -78,11 +78,7 @@ class ReminderPopUp extends StatelessWidget {
                     final prefs = await SharedPreferences.getInstance();
                     String email = await prefs.getString('email')!;
 
-                    screenNavigator(
-                        context,
-                        UpdateProfileScreen(
-                          email: email,
-                        ));
+                    screenNavigator(context, UpdateProfileScreen(email: email));
                   },
                   child: Container(
                     width: 120,

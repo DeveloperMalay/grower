@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grower/presentation/calculator/calculation_screen/cubit/allCalalouge/allcatalogue_cubit.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/fertilizer_model.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
@@ -16,6 +17,13 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
+  @override
+  void initState() {
+    context.read<AllcatalogueCubit>().getCatalogue();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,11 +55,10 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     ? []
                     : const [
                         BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 0.5),
-                          blurRadius: 0.03,
-                          spreadRadius: 0.03,
-                        ),
+                            color: Colors.grey,
+                            offset: Offset(0, 0.5),
+                            blurRadius: 0.03,
+                            spreadRadius: 0.03)
                       ]),
             child: Row(
               children: [
@@ -62,37 +69,46 @@ class _CustomDropDownState extends State<CustomDropDown> {
                         .watch<DropdownitemClickCubit>()
                         .state
                         .dropdownItenClicked
-                    ? Icon(
-                        Icons.expand_more_outlined,
-                        color: CustomTheme.primaryColor,
-                        size: 30,
-                      )
-                    : Icon(
-                        Icons.arrow_forward_ios,
-                        color: CustomTheme.primaryColor,
-                      ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  context.watch<DropdownIndexCubit>().state.fertilizer,
-                  style: TextStyle(color: Colors.grey),
-                ),
+                    ? Icon(Icons.expand_more_outlined,
+                        color: CustomTheme.primaryColor, size: 30)
+                    : Icon(Icons.arrow_forward_ios,
+                        color: CustomTheme.primaryColor),
+                const SizedBox(width: 10),
+                Text(context.watch<DropdownIndexCubit>().state.fertilizer,
+                    style: TextStyle(color: Colors.grey)),
               ],
             ),
           ),
         ),
         context.watch<DropdownitemClickCubit>().state.dropdownItenClicked
             ? SizedBox(
-                height: 55 * fertilizerData.length.toDouble(),
+                height: 55 *
+                    context
+                        .read<AllcatalogueCubit>()
+                        .state
+                        .allCatalogue
+                        .catalogues!
+                        .length
+                        .toDouble(),
                 child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: fertilizerData.length,
+                    itemCount: context
+                        .read<AllcatalogueCubit>()
+                        .state
+                        .allCatalogue
+                        .catalogues!
+                        .length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           context.read<DropdownIndexCubit>().getdropdowndetails(
-                              index, fertilizerData[index].title);
+                              index,
+                              context
+                                  .read<AllcatalogueCubit>()
+                                  .state
+                                  .allCatalogue
+                                  .catalogues![index]
+                                  .name!);
                           context
                               .read<DropdownitemClickCubit>()
                               .clickedDropDown();
@@ -120,7 +136,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
                                     )
                                   : null),
                           child: Text(
-                            fertilizerData[index].title,
+                            context
+                                .read<AllcatalogueCubit>()
+                                .state
+                                .allCatalogue
+                                .catalogues![index]
+                                .name!,
                             style: TextStyle(
                                 color: CustomTheme.textColor, fontSize: 16),
                           ),

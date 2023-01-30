@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
+import 'package:grower/presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/custom_dropdown1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
@@ -40,6 +41,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         builder: (context) => ReminderPopUp(),
       );
     });
+    context.read<OtherNutrientsCubit>().getOtherNutrients();
   }
 
   @override

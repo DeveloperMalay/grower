@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../theme/custom_theme.dart';
+import '../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 
 class AddOtherNutrientswidget extends StatelessWidget {
   const AddOtherNutrientswidget({super.key});
@@ -46,101 +48,150 @@ class AddOtherNutrientswidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               content: Container(
-                  width: 342,
-                  padding:
-                      EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'A',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 16),
-                          ),
-                          Text(
-                            '15',
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Boron(B)',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 16),
-                          ),
-                          Text(
-                            '15',
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Calcium(Ca)',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 16),
-                          ),
-                          Text(
-                            '15',
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'D',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 16),
-                          ),
-                          Text(
-                            '15',
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'E',
-                            style: TextStyle(
-                                color: CustomTheme.primaryColor, fontSize: 16),
-                          ),
-                          Text(
-                            '15',
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                    ],
-                  )),
+                width: 342,
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+
+                child: Container(
+                  height: 36 *
+                      context
+                          .read<OtherNutrientsCubit>()
+                          .state
+                          .otherNutrients
+                          .otherNutrients
+                          .length
+                          .toDouble(),
+                  child: ListView.builder(
+                      itemCount: context
+                          .read<OtherNutrientsCubit>()
+                          .state
+                          .otherNutrients
+                          .otherNutrients
+                          .length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context
+                                      .watch<OtherNutrientsCubit>()
+                                      .state
+                                      .otherNutrients
+                                      .otherNutrients[index]
+                                      .name,
+                                  style: TextStyle(
+                                      color: CustomTheme.primaryColor,
+                                      fontSize: 16),
+                                ),
+                                Text(
+                                  '15',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                          ],
+                        );
+                      }),
+                ),
+                // child: Column(
+                //   children: [
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'A',
+                //           style: TextStyle(
+                //               color: CustomTheme.primaryColor, fontSize: 16),
+                //         ),
+                //         Text(
+                //           '15',
+                //           style: TextStyle(color: Colors.black, fontSize: 16),
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey,
+                //     ),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'Boron(B)',
+                //           style: TextStyle(
+                //               color: CustomTheme.primaryColor, fontSize: 16),
+                //         ),
+                //         Text(
+                //           '15',
+                //           style: TextStyle(color: Colors.black, fontSize: 16),
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey,
+                //     ),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'Calcium(Ca)',
+                //           style: TextStyle(
+                //               color: CustomTheme.primaryColor, fontSize: 16),
+                //         ),
+                //         Text(
+                //           '15',
+                //           style: TextStyle(color: Colors.black, fontSize: 16),
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey,
+                //     ),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'D',
+                //           style: TextStyle(
+                //               color: CustomTheme.primaryColor, fontSize: 16),
+                //         ),
+                //         Text(
+                //           '15',
+                //           style: TextStyle(color: Colors.black, fontSize: 16),
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey,
+                //     ),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'E',
+                //           style: TextStyle(
+                //               color: CustomTheme.primaryColor, fontSize: 16),
+                //         ),
+                //         Text(
+                //           '15',
+                //           style: TextStyle(color: Colors.black, fontSize: 16),
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey,
+                //     ),
+                //   ],
+                // ),
+              ),
             ),
           ),
           Positioned(

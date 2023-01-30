@@ -11,11 +11,13 @@ import 'heiper/router.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
 import 'presentation/authentication/cubit/verify_otp/verify_otp_cubit.dart';
+import 'presentation/calculator/calculation_screen/cubit/allCalalouge/allcatalogue_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 import 'presentation/update_profile/cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
 import 'presentation/update_profile/cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'presentation/update_profile/cubit/update_profile/update_profile_cubit.dart';
@@ -49,7 +51,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => NotEtyStrValidatorCubit()),
               BlocProvider(create: (context) => ValidNumberCubit()),
               BlocProvider(create: (context) => TextfieldFocusCubit()),
-              BlocProvider(create: (context) => UserDetailsCubit())
+              BlocProvider(create: (context) => UserDetailsCubit()),
+              BlocProvider(create: (context) => AllcatalogueCubit()),
+              BlocProvider(create: (context) => OtherNutrientsCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,

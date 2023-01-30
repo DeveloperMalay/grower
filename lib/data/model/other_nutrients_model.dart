@@ -1,9 +1,10 @@
 class OtherNutrientsDetails {
   int? status;
   String? message;
-  List<OtherNutrients>? otherNutrients;
+  late List<OtherNutrients> otherNutrients;
 
-  OtherNutrientsDetails({this.status, this.message, this.otherNutrients});
+  OtherNutrientsDetails(
+      {this.status, this.message, required this.otherNutrients});
 
   OtherNutrientsDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -11,7 +12,7 @@ class OtherNutrientsDetails {
     if (json['otherNutrients'] != null) {
       otherNutrients = <OtherNutrients>[];
       json['otherNutrients'].forEach((v) {
-        otherNutrients!.add(OtherNutrients.fromJson(v));
+        otherNutrients.add(OtherNutrients.fromJson(v));
       });
     }
   }
@@ -22,7 +23,7 @@ class OtherNutrientsDetails {
     data['message'] = this.message;
     if (this.otherNutrients != null) {
       data['otherNutrients'] =
-          this.otherNutrients!.map((v) => v.toJson()).toList();
+          this.otherNutrients.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -30,11 +31,11 @@ class OtherNutrientsDetails {
 
 class OtherNutrients {
   int? id;
-  String? name;
+  late String name;
 
   OtherNutrients({
     this.id,
-    this.name,
+    required this.name,
   });
 
   OtherNutrients.fromJson(Map<String, dynamic> json) {

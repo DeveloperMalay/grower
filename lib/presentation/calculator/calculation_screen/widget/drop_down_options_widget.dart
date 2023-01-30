@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/fertilizer_model.dart';
+import '../cubit/allCalalouge/allcatalogue_cubit.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
 
 class DropDownOptionsWidget extends StatelessWidget {
@@ -35,9 +36,13 @@ class DropDownOptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData[
+                context
+                    .read<AllcatalogueCubit>()
+                    .state
+                    .allCatalogue
+                    .catalogues![
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
-                    .amountofN,
+                    .percentN!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               )
             ],
@@ -50,9 +55,13 @@ class DropDownOptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData[
+                context
+                    .read<AllcatalogueCubit>()
+                    .state
+                    .allCatalogue
+                    .catalogues![
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
-                    .amountofP,
+                    .percentP!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               ),
             ],
@@ -64,9 +73,13 @@ class DropDownOptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData[
+                context
+                    .read<AllcatalogueCubit>()
+                    .state
+                    .allCatalogue
+                    .catalogues![
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
-                    .amountofK,
+                    .percentK!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               ),
             ],
