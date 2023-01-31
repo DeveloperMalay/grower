@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => DropdownitemClickCubit1()),
               BlocProvider(create: (context) => LoginCubit()),
               BlocProvider(create: (context) => VerifyOtpCubit()),
-              BlocProvider(create: (context) => UserProfileCubit()),
+              BlocProvider(create: (context) => UpdateProfileCubit()),
               BlocProvider(create: (context) => EmailCheckerCubit()),
               BlocProvider(create: (context) => IsSigninValidCubit()),
               BlocProvider(create: (context) => NotEtyStrValidatorCubit()),

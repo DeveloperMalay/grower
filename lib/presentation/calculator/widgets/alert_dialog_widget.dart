@@ -69,7 +69,7 @@ class AlertDialogWidget extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: SmallBtnWidget.filledColorBtn('No, Wait'),
+                  child: SmallBtnWidget.filledColorBtn('No, Wait', true),
                 ),
               ],
             ),

@@ -1,15 +1,15 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../theme/custom_theme.dart';
 import '../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 
+// ignore: must_be_immutable
 class AddOtherNutrientswidget extends StatelessWidget {
-  const AddOtherNutrientswidget({super.key});
-
+  AddOtherNutrientswidget({super.key});
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -89,7 +89,7 @@ class AddOtherNutrientswidget extends StatelessWidget {
                                       fontSize: 16),
                                 ),
                                 Text(
-                                  '15',
+                                  '0',
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 16),
                                 ),
@@ -97,6 +97,22 @@ class AddOtherNutrientswidget extends StatelessWidget {
                             ),
                             Divider(
                               color: Colors.grey,
+                            ),
+                            TextFormField(
+                              controller: controller,
+                              textAlign: TextAlign.right,
+                              cursorColor: CustomTheme.primaryColor,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: CustomTheme.calculatorTextStyle(
+                                  context
+                                      .watch<OtherNutrientsCubit>()
+                                      .state
+                                      .otherNutrients
+                                      .otherNutrients[index]
+                                      .name),
                             ),
                           ],
                         );

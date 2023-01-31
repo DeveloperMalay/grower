@@ -12,6 +12,7 @@ import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../../heiper/clear_textField.dart';
 import '../../../theme/custom_theme.dart';
+import '../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
@@ -37,6 +38,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<UserDetailsCubit>().userDetails();
     Timer(Duration(seconds: 1), () {
       print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
@@ -84,10 +86,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 12),
                 CalculatorTextFieldWidget(
-                  title: 'pounds',
-                  hintText: 'Amount',
-                  controller: poundController,
-                ),
+                    title: 'pounds',
+                    hintText: 'Amount',
+                    controller: poundController),
                 const SizedBox(height: 20),
                 const Text('Choose fertilizer*',
                     style: TextStyle(fontSize: 14)),

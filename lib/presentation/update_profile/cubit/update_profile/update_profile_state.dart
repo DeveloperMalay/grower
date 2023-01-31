@@ -1,6 +1,6 @@
 part of 'update_profile_cubit.dart';
 
-enum UserProfileStatus {
+enum UpdateProfileStatus {
   initial,
   loading,
   loaded,
@@ -8,7 +8,7 @@ enum UserProfileStatus {
 }
 
 class UpdateProfileState extends Equatable {
-  final UserProfileStatus status;
+  final UpdateProfileStatus status;
   final UserDetails userDetails;
   final CustomError error;
   UpdateProfileState({
@@ -19,7 +19,7 @@ class UpdateProfileState extends Equatable {
 
   factory UpdateProfileState.initial() {
     return UpdateProfileState(
-        status: UserProfileStatus.initial,
+        status: UpdateProfileStatus.initial,
         userDetails: UserDetails(
             data: Data(
                 name: 'Name',
@@ -29,7 +29,7 @@ class UpdateProfileState extends Equatable {
         error: CustomError());
   }
   UpdateProfileState copyWith({
-    UserProfileStatus? status,
+    UpdateProfileStatus? status,
     UserDetails? userDetails,
     CustomError? error,
   }) {

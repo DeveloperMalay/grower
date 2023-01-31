@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../theme/custom_theme.dart';
 
 class SmallBtnWidget {
-  static filledColorBtn(String btnTitle) {
+  static filledColorBtn(String btnTitle, bool enable) {
     return Container(
       width: 100,
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: CustomTheme.primaryColor,
+        color: enable ? CustomTheme.primaryColor : CustomTheme.seconderyColor,
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: CustomTheme.primaryColor),
       ),

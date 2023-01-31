@@ -5,7 +5,8 @@ import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
-import '../../../update_profile/update_profile_screen.dart';
+import '../../../update_profile/cubit/user_details/user_details_cubit.dart';
+import '../../../update_profile/user_profile_screen.dart';
 
 class ReminderPopUp extends StatelessWidget {
   const ReminderPopUp({super.key});
@@ -21,19 +22,31 @@ class ReminderPopUp extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            context.watch<ReminderCubit>().state.hitReminder == 0
+            context
+                        .watch<UserDetailsCubit>()
+                        .state
+                        .userDetails
+                        .data
+                        .hitRemaining ==
+                    0
                 ? Image.asset('assets/sad_avatar1.png')
                 : Image.asset('assets/avatar1.png'),
             const SizedBox(
               height: 30,
             ),
-            context.watch<ReminderCubit>().state.hitReminder == 0
+            context
+                        .watch<UserDetailsCubit>()
+                        .state
+                        .userDetails
+                        .data
+                        .hitRemaining ==
+                    0
                 ? Text(
                     'You’ve used up your hits!',
                     style: TextStyle(fontSize: 24),
                   )
                 : Text(
-                    '${context.watch<ReminderCubit>().state.hitReminder} Hits Left!',
+                    '${context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining} Hits Left!',
                     style: TextStyle(fontSize: 24),
                   ),
             const SizedBox(height: 15),
@@ -59,7 +72,13 @@ class ReminderPopUp extends StatelessWidget {
                         border: Border.all(color: CustomTheme.primaryColor)),
                     child: Center(
                       child: Text(
-                          context.watch<ReminderCubit>().state.hitReminder == 0
+                          context
+                                      .watch<UserDetailsCubit>()
+                                      .state
+                                      .userDetails
+                                      .data
+                                      .hitRemaining ==
+                                  0
                               ? "Exit"
                               : 'Skip',
                           style: TextStyle(color: CustomTheme.primaryColor)),
@@ -78,7 +97,7 @@ class ReminderPopUp extends StatelessWidget {
                     final prefs = await SharedPreferences.getInstance();
                     String email = await prefs.getString('email')!;
 
-                    screenNavigator(context, UpdateProfileScreen(email: email));
+                    screenNavigator(context, UserProfileScreen());
                   },
                   child: Container(
                     width: 120,
