@@ -5,7 +5,7 @@ import 'package:grower/presentation/update_profile/user_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
-import '../../../update_profile/user_profile.dart';
+
 import '../../widgets/alert_dialog_widget.dart';
 
 class CalculatorBottomModelSheet extends StatelessWidget {
