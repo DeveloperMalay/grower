@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grower/presentation/calculator/calculation_screen/cubit/allCalalouge/allcatalogue_cubit.dart';
+import 'package:grower/presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 import '../../../../theme/custom_theme.dart';
-import '../../widgets/fertilizer_model.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
 
@@ -19,8 +18,7 @@ class CustomDropDown extends StatefulWidget {
 class _CustomDropDownState extends State<CustomDropDown> {
   @override
   void initState() {
-    context.read<AllcatalogueCubit>().getCatalogue();
-
+    context.read<DryFertilizerCubit>().getDryFertilizer();
     super.initState();
   }
 
@@ -84,19 +82,17 @@ class _CustomDropDownState extends State<CustomDropDown> {
             ? SizedBox(
                 height: 55 *
                     context
-                        .read<AllcatalogueCubit>()
+                        .read<DryFertilizerCubit>()
                         .state
-                        .allCatalogue
-                        .catalogues!
+                        .dryFertilizer
                         .length
                         .toDouble(),
                 child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: context
-                        .read<AllcatalogueCubit>()
+                        .read<DryFertilizerCubit>()
                         .state
-                        .allCatalogue
-                        .catalogues!
+                        .dryFertilizer
                         .length,
                     itemBuilder: (context, index) {
                       return InkWell(
@@ -104,10 +100,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                           context.read<DropdownIndexCubit>().getdropdowndetails(
                               index,
                               context
-                                  .read<AllcatalogueCubit>()
+                                  .read<DryFertilizerCubit>()
                                   .state
-                                  .allCatalogue
-                                  .catalogues![index]
+                                  .dryFertilizer[index]
                                   .name!);
                           context
                               .read<DropdownitemClickCubit>()
@@ -118,29 +113,41 @@ class _CustomDropDownState extends State<CustomDropDown> {
                           width: 342,
                           padding: const EdgeInsets.only(top: 17, left: 50),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: index == 0
-                                  ? Border(
-                                      top: BorderSide(color: Colors.grey),
-                                      bottom: BorderSide(
-                                          color: CustomTheme.greylight))
-                                  : index == 1
-                                      ? null
-                                      : Border(
-                                          bottom: BorderSide(
-                                              color: CustomTheme.greylight)),
-                              borderRadius: index == 1
-                                  ? BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                    )
-                                  : null),
+                            color: Colors.white,
+                            // border: index == 0
+                            //     ? Border(
+                            //         top: BorderSide(color: Colors.grey),
+                            //         bottom: BorderSide(
+                            //             color: CustomTheme.greylight))
+                            //     : index ==
+                            //             context
+                            //                     .read<DryFertilizerCubit>()
+                            //                     .state
+                            //                     .dryFertilizer
+                            //                     .length -
+                            //                 1
+                            //         ? null
+                            //         : Border(
+                            //             bottom: BorderSide(
+                            //                 color: CustomTheme.greylight)),
+                            // borderRadius: index ==
+                            //         context
+                            //                 .read<DryFertilizerCubit>()
+                            //                 .state
+                            //                 .dryFertilizer
+                            //                 .length -
+                            //             1
+                            //     ? BorderRadius.only(
+                            //         bottomLeft: Radius.circular(10),
+                            //         bottomRight: Radius.circular(10),
+                            //       )
+                            //     : null,
+                          ),
                           child: Text(
                             context
-                                .read<AllcatalogueCubit>()
+                                .read<DryFertilizerCubit>()
                                 .state
-                                .allCatalogue
-                                .catalogues![index]
+                                .dryFertilizer[index]
                                 .name!,
                             style: TextStyle(
                                 color: CustomTheme.textColor, fontSize: 16),

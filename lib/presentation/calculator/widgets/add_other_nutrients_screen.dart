@@ -54,9 +54,8 @@ class AddOtherNutrientswidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
-
                 child: Container(
-                  height: 36 *
+                  height: 60 *
                       context
                           .read<OtherNutrientsCubit>()
                           .state
@@ -88,125 +87,58 @@ class AddOtherNutrientswidget extends StatelessWidget {
                                       color: CustomTheme.primaryColor,
                                       fontSize: 16),
                                 ),
-                                Text(
-                                  '0',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
+
+                                SizedBox(
+                                  width: 10,
+                                  child: TextFormField(
+                                    controller: controller,
+                                    textAlign: TextAlign.right,
+                                    cursorColor: CustomTheme.primaryColor,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    decoration:
+                                        CustomTheme.calculatorTextStyle('0'),
+                                  ),
                                 ),
+
+                                // SizedBox(
+                                //   width: 20,
+                                //   child: TextFormField(
+                                //     decoration: InputDecoration(hintText: '0'),
+                                //   ),
+                                // ),
+                                // Text(
+                                //   '0',
+                                //   style: TextStyle(
+                                //       color: Colors.black, fontSize: 16),
+                                // ),
                               ],
                             ),
                             Divider(
                               color: Colors.grey,
                             ),
-                            TextFormField(
-                              controller: controller,
-                              textAlign: TextAlign.right,
-                              cursorColor: CustomTheme.primaryColor,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: CustomTheme.calculatorTextStyle(
-                                  context
-                                      .watch<OtherNutrientsCubit>()
-                                      .state
-                                      .otherNutrients
-                                      .otherNutrients[index]
-                                      .name),
-                            ),
+                            // TextFormField(
+                            //   controller: controller,
+                            //   textAlign: TextAlign.right,
+                            //   cursorColor: CustomTheme.primaryColor,
+                            //   keyboardType: TextInputType.number,
+                            //   inputFormatters: <TextInputFormatter>[
+                            //     FilteringTextInputFormatter.digitsOnly
+                            //   ],
+                            //   decoration: CustomTheme.calculatorTextStyle(
+                            //       context
+                            //           .watch<OtherNutrientsCubit>()
+                            //           .state
+                            //           .otherNutrients
+                            //           .otherNutrients[index]
+                            //           .name),
+                            // ),
                           ],
                         );
                       }),
                 ),
-                // child: Column(
-                //   children: [
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'A',
-                //           style: TextStyle(
-                //               color: CustomTheme.primaryColor, fontSize: 16),
-                //         ),
-                //         Text(
-                //           '15',
-                //           style: TextStyle(color: Colors.black, fontSize: 16),
-                //         ),
-                //       ],
-                //     ),
-                //     Divider(
-                //       color: Colors.grey,
-                //     ),
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'Boron(B)',
-                //           style: TextStyle(
-                //               color: CustomTheme.primaryColor, fontSize: 16),
-                //         ),
-                //         Text(
-                //           '15',
-                //           style: TextStyle(color: Colors.black, fontSize: 16),
-                //         ),
-                //       ],
-                //     ),
-                //     Divider(
-                //       color: Colors.grey,
-                //     ),
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'Calcium(Ca)',
-                //           style: TextStyle(
-                //               color: CustomTheme.primaryColor, fontSize: 16),
-                //         ),
-                //         Text(
-                //           '15',
-                //           style: TextStyle(color: Colors.black, fontSize: 16),
-                //         ),
-                //       ],
-                //     ),
-                //     Divider(
-                //       color: Colors.grey,
-                //     ),
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'D',
-                //           style: TextStyle(
-                //               color: CustomTheme.primaryColor, fontSize: 16),
-                //         ),
-                //         Text(
-                //           '15',
-                //           style: TextStyle(color: Colors.black, fontSize: 16),
-                //         ),
-                //       ],
-                //     ),
-                //     Divider(
-                //       color: Colors.grey,
-                //     ),
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'E',
-                //           style: TextStyle(
-                //               color: CustomTheme.primaryColor, fontSize: 16),
-                //         ),
-                //         Text(
-                //           '15',
-                //           style: TextStyle(color: Colors.black, fontSize: 16),
-                //         ),
-                //       ],
-                //     ),
-                //     Divider(
-                //       color: Colors.grey,
-                //     ),
-                //   ],
-                // ),
               ),
             ),
           ),

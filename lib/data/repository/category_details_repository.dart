@@ -14,6 +14,7 @@ Future<CatelogueDetails> getCategoryDetails() async {
     }
 
     var categoryDetails = CatelogueDetails.fromJson(response.data);
+
     print('category-->$categoryDetails');
     return categoryDetails;
   } catch (e) {

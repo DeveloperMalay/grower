@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../theme/custom_theme.dart';
-import '../../widgets/fertilizer_model.dart';
-import '../cubit/allCalalouge/allcatalogue_cubit.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
+import '../cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 
 class DropDownOptionsWidget extends StatelessWidget {
   const DropDownOptionsWidget({super.key});
@@ -37,10 +36,9 @@ class DropDownOptionsWidget extends StatelessWidget {
               ),
               Text(
                 context
-                    .read<AllcatalogueCubit>()
+                    .read<DryFertilizerCubit>()
                     .state
-                    .allCatalogue
-                    .catalogues![
+                    .dryFertilizer[
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
                     .percentN!,
                 style: TextStyle(color: CustomTheme.primaryColor),
@@ -56,10 +54,9 @@ class DropDownOptionsWidget extends StatelessWidget {
               ),
               Text(
                 context
-                    .read<AllcatalogueCubit>()
+                    .read<DryFertilizerCubit>()
                     .state
-                    .allCatalogue
-                    .catalogues![
+                    .dryFertilizer[
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
                     .percentP!,
                 style: TextStyle(color: CustomTheme.primaryColor),
@@ -74,10 +71,9 @@ class DropDownOptionsWidget extends StatelessWidget {
               ),
               Text(
                 context
-                    .read<AllcatalogueCubit>()
+                    .read<DryFertilizerCubit>()
                     .state
-                    .allCatalogue
-                    .catalogues![
+                    .dryFertilizer[
                         context.watch<DropdownIndexCubit>().state.dropdownindex]
                     .percentK!,
                 style: TextStyle(color: CustomTheme.primaryColor),

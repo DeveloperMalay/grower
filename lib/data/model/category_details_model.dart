@@ -5,6 +5,11 @@ class CatelogueDetails {
 
   CatelogueDetails({this.status, this.message, this.catalogues});
 
+  // factory CatelogueDetails.initial() {
+  //   return CatelogueDetails(catalogues: [
+  //     Catalogues(name: '', percentN: '', percentP: '', percentK: '')
+  //   ]);
+  // }
   CatelogueDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];

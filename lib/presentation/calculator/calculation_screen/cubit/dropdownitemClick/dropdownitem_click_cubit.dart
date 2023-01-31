@@ -9,4 +9,8 @@ class DropdownitemClickCubit extends Cubit<DropdownitemClickState> {
   void clickedDropDown() {
     emit(state.copyWith(dropdownItenClicked: !state.dropdownItenClicked));
   }
+
+  // void clickReversed() {
+  //   emit(state.copyWith(dropdownItenClicked: false));
+  // }
 }

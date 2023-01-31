@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/fertilizer_model.dart';
 import '../cubit/dropdownIndex1/dropdown_index_cubit1.dart';
+import '../cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 
 class DropDown1OptionsWidget extends StatelessWidget {
   const DropDown1OptionsWidget({super.key});
@@ -36,11 +37,14 @@ class DropDown1OptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData1[context
+                context
+                    .watch<LiquidFertilizerCubit>()
+                    .state
+                    .liquidFertilizer[context
                         .watch<DropdownIndexCubit1>()
                         .state
                         .dropdownindex]
-                    .amountofN,
+                    .percentN!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               )
             ],
@@ -53,11 +57,14 @@ class DropDown1OptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData1[context
+                context
+                    .read<LiquidFertilizerCubit>()
+                    .state
+                    .liquidFertilizer[context
                         .watch<DropdownIndexCubit1>()
                         .state
                         .dropdownindex]
-                    .amountofP,
+                    .percentP!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               )
             ],
@@ -69,11 +76,14 @@ class DropDown1OptionsWidget extends StatelessWidget {
                 width: 18,
               ),
               Text(
-                fertilizerData1[context
+                context
+                    .read<LiquidFertilizerCubit>()
+                    .state
+                    .liquidFertilizer[context
                         .watch<DropdownIndexCubit1>()
                         .state
                         .dropdownindex]
-                    .amountofK,
+                    .percentK!,
                 style: TextStyle(color: CustomTheme.primaryColor),
               )
             ],

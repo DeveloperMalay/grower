@@ -47,11 +47,5 @@ final GoRouter router = GoRouter(
       path: "/pdf",
       builder: (context, state) => const PdfPreviewScreen(),
     ),
-    // GoRoute(
-    //   name: 'updateprofile',
-    //   path: "/updateprofile/:email",
-    //   builder: (context, state) =>
-    //       UpdateProfileScreen(email: state.params['email'].toString()),
-    // ),
   ],
 );

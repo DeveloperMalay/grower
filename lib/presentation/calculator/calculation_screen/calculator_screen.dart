@@ -40,7 +40,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     super.initState();
     context.read<UserDetailsCubit>().userDetails();
     Timer(Duration(seconds: 1), () {
-      print(context.read<ReminderCubit>().state.hitReminder);
       showDialog(
         context: context,
         builder: (context) => ReminderPopUp(),
