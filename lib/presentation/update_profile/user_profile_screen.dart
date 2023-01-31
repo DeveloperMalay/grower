@@ -147,6 +147,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .name,
                         ontap: () {
                           context.read<TextfieldFocusCubit>().focusName();
+                          shouldUpdate(context);
                         },
                         validator: (value) {
                           return null;
