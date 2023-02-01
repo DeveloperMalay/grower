@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../theme/custom_theme.dart';
 
 class CalculatorTextFieldWidget extends StatelessWidget {
@@ -42,7 +43,7 @@ class CalculatorTextFieldWidget extends StatelessWidget {
           width: 12,
         ),
         Container(
-          width: 225,
+          width: 193.w,
           height: 54,
           decoration: CustomTheme.calculatorContianerStyle,
           child: TextFormField(

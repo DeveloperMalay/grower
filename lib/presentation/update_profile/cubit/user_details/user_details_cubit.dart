@@ -15,7 +15,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
     String email = await prefs.getString('email')!;
     try {
       var userData = await getUserDetails(email);
-      print(userData);
+      print('userdata==>${userData}');
       emit(state.copyWith(
           status: UserProfileStatus.loaded, userDetails: userData));
     } on CustomError catch (e) {

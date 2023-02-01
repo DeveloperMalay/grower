@@ -66,8 +66,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           height: MediaQuery.of(context).size.height * .9,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.only(
-            left: 30,
-            right: 30,
+            left: 28,
+            right: 28,
           ),
           decoration: BoxDecoration(
               image: const DecorationImage(

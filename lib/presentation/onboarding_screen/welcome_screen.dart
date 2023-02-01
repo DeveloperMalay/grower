@@ -90,7 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     )),
                 Positioned(
-                    bottom: 145.h,
+                    bottom: 155.h,
                     left: 46.w,
                     child: const Text(
                       "Let's",
@@ -100,7 +100,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           fontWeight: FontWeight.bold),
                     )),
                 Positioned(
-                  bottom: 120.h,
+                  bottom: 130.h,
                   left: 43.w,
                   child: Text(
                     "Get Started!",
@@ -114,18 +114,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   bottom: 62.h,
                   left: 20.w,
                   right: 20.w,
-                  child: CustomButtonWidget(
-                      isValid: true,
-                      btnTitle: 'Sign Up',
-                      onBtnPress: () {
-                        context.go('/login');
-                        // screenReplaceNavigator(
-                        //     context,
-                        //     CustomBackgroundWidget(
-                        //       widget: LoginWidget(),
-                        //       isLogin: true,
-                        //     ));
-                      }),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: CustomButtonWidget(
+                        isValid: true,
+                        btnTitle: 'Sign Up',
+                        onBtnPress: () {
+                          context.go('/login');
+                        }),
+                  ),
                 )
               ],
             ),

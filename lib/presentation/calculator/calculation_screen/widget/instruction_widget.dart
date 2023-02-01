@@ -16,6 +16,7 @@ class InstructionWidget extends StatelessWidget {
           height: 5,
         ),
         Row(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -27,7 +28,7 @@ class InstructionWidget extends StatelessWidget {
             ),
             Text(
               'We do not recommend adding more than a 1:1\n ratio of dry fertilizer to water.',
-              style: TextStyle(color: Colors.red, fontSize: 15),
+              style: TextStyle(color: Colors.red, fontSize: 13),
             ),
           ],
         ),
@@ -46,7 +47,7 @@ class InstructionWidget extends StatelessWidget {
             ),
             Text(
               'Less than a 1:1 ratio of dry fertilizer to liquids\nwith other dissolved materials.',
-              style: TextStyle(color: Colors.red, fontSize: 15),
+              style: TextStyle(color: Colors.red, fontSize: 13),
             ),
           ],
         ),

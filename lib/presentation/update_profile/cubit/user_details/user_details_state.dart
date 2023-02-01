@@ -25,7 +25,8 @@ class UserDetailsState extends Equatable {
                 name: 'Name',
                 email: "Email",
                 number: "Number",
-                address: "Address")),
+                address: "Address",
+                hitRemaining: 'loading..')),
         error: CustomError());
   }
   @override

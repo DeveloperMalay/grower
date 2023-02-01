@@ -29,7 +29,7 @@ class Data {
   late String address;
   late String number;
   int? profileSetup;
-  String? hitRemaining;
+  late String hitRemaining;
   String? otp;
   String? freeHit;
 
@@ -40,16 +40,16 @@ class Data {
       required this.address,
       required this.number,
       this.profileSetup,
-      this.hitRemaining,
+      required this.hitRemaining,
       this.otp,
       this.freeHit});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    name = json['name'] == null ? 'name' : json['name'];
     email = json['email'];
-    address = json['address'];
-    number = json['number'];
+    address = json['address'] == null ? 'address' : json['address'];
+    number = json['number'] == null ? 'number' : json['number'];
     profileSetup = json['profile_setup'];
     hitRemaining = json['hit_remaining'];
     otp = json['otp'];

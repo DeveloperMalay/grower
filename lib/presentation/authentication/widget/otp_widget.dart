@@ -171,7 +171,10 @@ class _OtpWidgetState extends State<OtpWidget> {
                       child: Text(
                         'Resend',
                         style: TextStyle(
-                            fontSize: 14.sp, color: CustomTheme.primaryColor),
+                            fontSize: 14.sp,
+                            color: state.status == VerifyStatus.loaded
+                                ? CustomTheme.primaryColor
+                                : CustomTheme.seconderyColor),
                       ),
                     )
                   ],

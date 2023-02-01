@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../theme/custom_theme.dart';
 import '../calculator/calculated_result_screen/widget/result_bottom_model_sheet_widget.dart';
@@ -23,7 +22,7 @@ class CustomAppbarWidget extends StatelessWidget
       leading: IconButton(
           onPressed: ontapbackarrow,
           icon: appbarTitle == 'Calculator'
-              ? Image.asset('assets/cycle.png')
+              ? SvgPicture.asset('assets/cycle.svg')
               : const Icon(
                   Icons.arrow_back_ios,
                   color: CustomTheme.primaryColor,

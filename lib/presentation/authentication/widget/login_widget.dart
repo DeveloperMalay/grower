@@ -4,10 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
-import 'package:grower/presentation/authentication/custom_bachground_screen.dart';
-import 'package:grower/presentation/authentication/widget/otp_widget.dart';
 import 'package:grower/presentation/widgets/error_diolog.dart';
-import '../../../heiper/navigator_function.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_button_widget.dart';
 import '../../widgets/custom_textfield_widget.dart';
@@ -62,7 +59,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 40.0, left: 10),
+                padding: EdgeInsets.only(top: 30.0, left: 10),
                 child: Text(
                   'Email Address',
                   style: TextStyle(
@@ -177,7 +174,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ? Container()
                       : Center(
                           child: Padding(
-                              padding: EdgeInsets.only(bottom: 18.0.h),
+                              padding: EdgeInsets.only(bottom: 18.h),
                               child: Text('Privacy Policy.',
                                   textAlign: TextAlign.center,
                                   style: CustomTheme.primarytextStyle(

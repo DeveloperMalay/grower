@@ -48,7 +48,7 @@ class CustomBackgroundWidget extends StatelessWidget {
                   height: 70.h,
                 ),
                 Container(
-                  height: 437.6.h,
+                  height: 437.h,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(
                     left: 20,
