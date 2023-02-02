@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grower/heiper/calculation_function.dart';
+import 'package:grower/heiper/storing_calculation_data.dart';
 import 'package:grower/presentation/calculator/calculated_result_screen/widget/result_text_widget.dart';
+import 'package:grower/presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/fertilizer_container.dart';
 import 'package:grower/presentation/calculator/widgets/dot_header_widget.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_appbar_widget.dart';
 import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
+import '../calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
+import '../calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 import 'widget/bottom_options_widgets.dart';
 import 'widget/fertilizer_result_widget.dart';
 
@@ -17,8 +22,53 @@ class CalculatedResultScreen extends StatefulWidget {
 }
 
 class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
+  String? totalDryWeight;
+  String? totalLiquidWeight;
+  String? density;
+  String? tdwofN;
+  String? tdwofP;
+  String? tdwofK;
+  String? totalWeight;
+  String? tdwoflN;
+  String? tdwoflP;
+  String? tdwoflK;
+  String? totalN;
+  String? totalP;
+  String? totalK;
+
+  getresult() async {
+    totalDryWeight = await getString('dryweight');
+    totalLiquidWeight = await getString('tlw');
+    density = await getString('density');
+    tdwofN = await getString('tdwofN');
+    tdwofP = await getString('tdwofP');
+    tdwofK = await getString('tdwofK');
+    tdwoflN = await getString('tdwoflN');
+    tdwoflP = await getString('tdwoflP');
+    tdwoflK = await getString('tdwoflK');
+    totalN = await getString('totalN');
+    totalP = await getString('totalP');
+    totalK = await getString('totalK');
+    totalWeight = await getString('totalWeight');
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getresult();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var dryfertilizerCubit =
+        context.read<DryFertilizerCubit>().state.dryFertilizer;
+    var dryfertilizerIndex =
+        context.watch<DropdownIndexCubit>().state.dropdownindex;
+    var liquidfertilizerCubit =
+        context.read<LiquidFertilizerCubit>().state.liquidFertilizer;
+    var liquidfertilizerIndex =
+        context.watch<DropdownIndexCubit1>().state.dropdownindex;
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -51,7 +101,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 SizedBox(
                   height: 12,
                 ),
-                Text("40 lbs",
+                Text("${totalDryWeight} lbs",
                     style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                 Container(
                     height: 1,
@@ -59,7 +109,13 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     margin: EdgeInsets.only(top: 5),
                     color: Colors.grey),
                 SizedBox(height: 12),
-                FertilizerResultWidget(), //dry fertilizer details widget
+                FertilizerResultWidget(
+                  data: dryfertilizerCubit,
+                  index: dryfertilizerIndex,
+                  tdwofN: tdwofN!,
+                  tdwofK: tdwofK!,
+                  tdwofP: tdwofP!,
+                ), //dry fertilizer details widget
                 SizedBox(
                   height: 24,
                 ),
@@ -68,12 +124,12 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 DotHeaderWidget(header: "Liquid Fertilizer"), //header with dot
                 FertilizerContainer(
                     title:
-                        context.watch<DropdownIndexCubit>().state.fertilizer),
+                        context.watch<DropdownIndexCubit1>().state.fertilizer),
                 SizedBox(height: 12),
                 Text("Total weight of liquid fertilizer:",
                     style: TextStyle(fontSize: 16)),
                 SizedBox(height: 12),
-                Text("834.50 lbs",
+                Text("${totalLiquidWeight} lbs",
                     style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                 Container(
                     height: 1,
@@ -81,7 +137,13 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     margin: EdgeInsets.only(top: 5),
                     color: Colors.grey),
                 SizedBox(height: 12),
-                FertilizerResultWidget(), //dry fertilizer details widget
+                FertilizerResultWidget(
+                  data: liquidfertilizerCubit,
+                  index: liquidfertilizerIndex,
+                  tdwofN: tdwoflN!,
+                  tdwofK: tdwoflK!,
+                  tdwofP: tdwoflP!,
+                ), //liquid fertilizer details widget
                 SizedBox(height: 24),
                 Container(
                   height: 30,
@@ -96,10 +158,17 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 ),
                 ResultTextWidget(
                     header: "Total dry + liquid fertilizer weight :",
-                    result: "874.50 lbs"),
+                    result: '${totalWeight!} Ibs'),
                 ResultTextWidget(
-                    header: "Density of a mixture:", result: "83.45 lbs/g"),
-                FertilizerResultWidget(), //dry fertilizer details widget
+                    header: "Density of a mixture:",
+                    result: "${density} lbs/g"),
+                FertilizerResultWidget(
+                  data: liquidfertilizerCubit,
+                  index: liquidfertilizerIndex,
+                  tdwofN: totalN!,
+                  tdwofK: totalK!,
+                  tdwofP: totalP!,
+                ), //total fertilizer details widget
                 SizedBox(height: 24),
                 ResultTextWidget(
                     header: "Max dry matter per gallon water", result: "9 lbs"),

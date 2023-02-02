@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
+import 'package:grower/presentation/authentication/cubit/is_focus/is_foces_cubit.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/widgets/error_diolog.dart';
 import '../../../theme/custom_theme.dart';
@@ -20,9 +21,6 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final _formKey = GlobalKey<FormState>();
-  bool isValid = false;
-  bool isFocused = false;
-
   late TextEditingController emailController;
 
   @override
@@ -40,6 +38,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    bool isFocused = context.watch<IsFocesCubit>().state.isFocus;
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.error) {
@@ -74,9 +73,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   controller: emailController,
                   hinttext: 'abc@gmail.com',
                   ontap: () {
-                    setState(() {
-                      isFocused = true;
-                    });
+                    context.read<IsFocesCubit>().focusChanger();
                   },
                   onChanged: (value) {
                     context.read<EmailCheckerCubit>().checkEmail(value);
@@ -119,10 +116,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                               .isSignInValid,
                           btnTitle: 'Continue',
                           onBtnPress: () {
-                            print(context
-                                .read<IsSigninValidCubit>()
-                                .state
-                                .isSignInValid);
                             if (_formKey.currentState!.validate() ||
                                 emailController.text.isNotEmpty) {
                               try {

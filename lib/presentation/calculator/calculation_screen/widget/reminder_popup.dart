@@ -38,15 +38,21 @@ class ReminderPopUp extends StatelessWidget {
               height: 30,
             ),
             hitremain
-                ? Text(
-                    'You’ve used up your hits!',
-                    style: TextStyle(fontSize: 24),
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Text(
+                      'You’ve used up your hits!',
+                      style: TextStyle(fontSize: 24),
+                    ),
                   )
                 : context.watch<UserDetailsCubit>().state.status ==
                         UserProfileStatus.loaded
-                    ? Text(
-                        '${context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining} Hits Left!',
-                        style: TextStyle(fontSize: 24),
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          '${context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining} Hits Left!',
+                          style: TextStyle(fontSize: 24),
+                        ),
                       )
                     : SizedBox(
                         height: 20,

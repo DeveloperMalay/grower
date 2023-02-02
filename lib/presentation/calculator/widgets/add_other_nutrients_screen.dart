@@ -10,6 +10,10 @@ import '../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 class AddOtherNutrientswidget extends StatelessWidget {
   AddOtherNutrientswidget({super.key});
   TextEditingController controller = TextEditingController();
+  List<TextEditingController> _controllers = [
+    TextEditingController(),
+    TextEditingController()
+  ];
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -76,64 +80,60 @@ class AddOtherNutrientswidget extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  context
-                                      .watch<OtherNutrientsCubit>()
-                                      .state
-                                      .otherNutrients
-                                      .otherNutrients[index]
-                                      .name,
-                                  style: TextStyle(
-                                      color: CustomTheme.primaryColor,
-                                      fontSize: 16),
-                                ),
+                                // Text(
+                                //   context
+                                //       .watch<OtherNutrientsCubit>()
+                                //       .state
+                                //       .otherNutrients
+                                //       .otherNutrients[index]
+                                //       .name,
+                                //   style: TextStyle(
+                                //       color: CustomTheme.primaryColor,
+                                //       fontSize: 16),
+                                // ),
 
-                                SizedBox(
-                                  width: 10,
-                                  child: TextFormField(
-                                    controller: controller,
-                                    textAlign: TextAlign.right,
-                                    cursorColor: CustomTheme.primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    decoration:
-                                        CustomTheme.calculatorTextStyle('0'),
+                                Expanded(
+                                  child: SizedBox(
+                                    width: 100,
+                                    child: TextFormField(
+                                      controller: _controllers[index],
+                                      textAlign: TextAlign.right,
+                                      cursorColor: CustomTheme.primaryColor,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              bottom: 0, top: 25, right: 10),
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: CustomTheme
+                                                      .primaryColor)),
+                                          prefixIcon: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 20.0),
+                                            child: Text(
+                                              context
+                                                  .watch<OtherNutrientsCubit>()
+                                                  .state
+                                                  .otherNutrients
+                                                  .otherNutrients[index]
+                                                  .name,
+                                              style: TextStyle(
+                                                  color:
+                                                      CustomTheme.primaryColor,
+                                                  fontSize: 16),
+                                            ),
+                                          ),
+                                          hintText: '0'),
+                                    ),
                                   ),
                                 ),
-
-                                // SizedBox(
-                                //   width: 20,
-                                //   child: TextFormField(
-                                //     decoration: InputDecoration(hintText: '0'),
-                                //   ),
-                                // ),
-                                // Text(
-                                //   '0',
-                                //   style: TextStyle(
-                                //       color: Colors.black, fontSize: 16),
-                                // ),
                               ],
                             ),
-                            Divider(
-                              color: Colors.grey,
-                            ),
-                            // TextFormField(
-                            //   controller: controller,
-                            //   textAlign: TextAlign.right,
-                            //   cursorColor: CustomTheme.primaryColor,
-                            //   keyboardType: TextInputType.number,
-                            //   inputFormatters: <TextInputFormatter>[
-                            //     FilteringTextInputFormatter.digitsOnly
-                            //   ],
-                            //   decoration: CustomTheme.calculatorTextStyle(
-                            //       context
-                            //           .watch<OtherNutrientsCubit>()
-                            //           .state
-                            //           .otherNutrients
-                            //           .otherNutrients[index]
-                            //           .name),
+                            // Divider(
+                            //   color: Colors.grey,
                             // ),
                           ],
                         );

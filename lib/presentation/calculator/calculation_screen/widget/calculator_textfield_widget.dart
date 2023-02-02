@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../theme/custom_theme.dart';
 
 class CalculatorTextFieldWidget extends StatelessWidget {
@@ -16,45 +15,51 @@ class CalculatorTextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          height: 54,
-          width: 95,
-          decoration: CustomTheme.calculatorContianerStyle,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style:
-                      TextStyle(color: CustomTheme.primaryColor, fontSize: 14),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 3),
-                  height: 2,
-                  width: 50,
-                  decoration: BoxDecoration(color: CustomTheme.primaryColor),
-                )
-              ],
+        Expanded(
+          flex: 3,
+          child: Container(
+            height: 54,
+            // width: 95,
+            decoration: CustomTheme.calculatorContianerStyle,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                        color: CustomTheme.primaryColor, fontSize: 14),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 3),
+                    height: 2,
+                    width: 50,
+                    decoration: BoxDecoration(color: CustomTheme.primaryColor),
+                  )
+                ],
+              ),
             ),
           ),
         ),
         const SizedBox(
           width: 12,
         ),
-        Container(
-          width: 193.w,
-          height: 54,
-          decoration: CustomTheme.calculatorContianerStyle,
-          child: TextFormField(
-            controller: controller,
-            textAlign: TextAlign.right,
-            cursorColor: CustomTheme.primaryColor,
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
-            decoration: CustomTheme.calculatorTextStyle(hintText),
+        Expanded(
+          flex: 7,
+          child: Container(
+            // width: 193.w,
+            height: 54,
+            decoration: CustomTheme.calculatorContianerStyle,
+            child: TextFormField(
+              controller: controller,
+              textAlign: TextAlign.right,
+              cursorColor: CustomTheme.primaryColor,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
+              decoration: CustomTheme.calculatorTextStyle(hintText),
+            ),
           ),
         )
       ],

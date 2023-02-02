@@ -10,6 +10,7 @@ import 'package:grower/presentation/update_profile/cubit/valid_number/valid_numb
 import 'heiper/router.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
+import 'presentation/authentication/cubit/is_focus/is_foces_cubit.dart';
 import 'presentation/authentication/cubit/verify_otp/verify_otp_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => LiquidFertilizerCubit()),
               BlocProvider(create: (context) => OtherNutrientsCubit()),
               BlocProvider(create: (context) => DryFertilizerCubit()),
+              BlocProvider(create: (context) => IsFocesCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
@@ -95,8 +97,8 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 250,
-              width: 250,
+              height: 156,
+              width: 156,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/grower_logo.png"),

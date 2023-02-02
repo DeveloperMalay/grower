@@ -59,6 +59,8 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final seconds = twoDigits(_timerDuration);
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listener: (context, state) {
         if (state.status == VerifyStatus.loading) {
@@ -141,7 +143,7 @@ class _OtpWidgetState extends State<OtpWidget> {
               ),
               child: Center(
                 child: Text(
-                  '00:$_timerDuration sec',
+                  '00:$seconds sec',
                   style: TextStyle(color: Colors.grey),
                 ),
               ),
@@ -172,7 +174,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                         'Resend',
                         style: TextStyle(
                             fontSize: 14.sp,
-                            color: state.status == VerifyStatus.loaded
+                            color: _timerDuration == 0
                                 ? CustomTheme.primaryColor
                                 : CustomTheme.seconderyColor),
                       ),

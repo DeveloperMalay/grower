@@ -24,7 +24,7 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
         topRight: Radius.circular(20.0),
       ),
       child: Container(
-        height: 320.h,
+        height: 315.w,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

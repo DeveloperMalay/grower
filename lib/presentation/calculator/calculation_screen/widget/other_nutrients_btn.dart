@@ -23,7 +23,7 @@ class OtherNutrientsBtnWidget extends StatelessWidget {
                 color: Colors.grey,
                 offset: Offset(0, 2),
                 blurRadius: 4,
-                spreadRadius: 2,
+                spreadRadius: 0.5,
               ),
             ]),
         child: const Center(

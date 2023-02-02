@@ -19,4 +19,8 @@ class DryFertilizerCubit extends Cubit<DryFertilizerState> {
       emit(state.copyWith(status: DryFertilizerStatus.error, error: e));
     }
   }
+
+  getinitialState() {
+    emit(DryFertilizerState.initial());
+  }
 }

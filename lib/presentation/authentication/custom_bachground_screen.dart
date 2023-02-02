@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../theme/custom_theme.dart';
 
 class CustomBackgroundWidget extends StatelessWidget {
@@ -20,11 +21,35 @@ class CustomBackgroundWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: CustomTheme.primaryColor,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
-                  height: 87.h,
-                ),
+                isLogin
+                    ? Container()
+                    : InkWell(
+                        onTap: () {
+                          context.go('/login');
+                        },
+                        child: Container(
+                          height: 38,
+                          width: 38,
+                          margin: EdgeInsets.only(top: 20, left: 20),
+                          decoration: BoxDecoration(
+                              color: CustomTheme.seconderyColor,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                isLogin
+                    ? SizedBox(
+                        height: 87.h,
+                      )
+                    : SizedBox(
+                        height: 39.h,
+                      ),
                 Center(
                   child: Container(
                     height: 90,

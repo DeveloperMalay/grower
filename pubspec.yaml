@@ -49,6 +49,7 @@ dependencies:
   pdf: ^3.8.4
   printing: ^5.9.3
   go_router: ^6.0.1
+  intl: ^0.18.0
   
 
 dev_dependencies:

@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../theme/custom_theme.dart';
 
+// ignore: must_be_immutable
 class FertilizerResultWidget extends StatelessWidget {
-  const FertilizerResultWidget({super.key});
-
+  FertilizerResultWidget({
+    super.key,
+    required this.data,
+    required this.index,
+    required this.tdwofN,
+    required this.tdwofP,
+    required this.tdwofK,
+  });
+  var data;
+  final int index;
+  String tdwofN;
+  String tdwofP;
+  String tdwofK;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +30,7 @@ class FertilizerResultWidget extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 173,
+                width: 155.w,
                 child: Text(
                   "Nutrients",
                   style: TextStyle(fontSize: 14),
@@ -43,7 +57,7 @@ class FertilizerResultWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 110,
+                width: 100.w,
                 // color: Colors.red,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +87,7 @@ class FertilizerResultWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 50,
+                width: 40.w,
               ),
               Container(
                 width: 70,
@@ -81,7 +95,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "6.40",
+                      tdwofN,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -89,7 +103,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "0",
+                      tdwofP,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -97,7 +111,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "0",
+                      tdwofK,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -110,7 +124,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "16",
+                      data[index].percentN!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -118,7 +132,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "0",
+                      data[index].percentP!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -126,7 +140,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "0",
+                      data[index].percentK!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -154,8 +168,7 @@ class FertilizerResultWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 110,
-                // color: Colors.red,
+                width: 83,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -200,7 +213,7 @@ class FertilizerResultWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 50,
+                width: 62.w,
               ),
               Container(
                 width: 70,
@@ -208,7 +221,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "6",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -216,7 +229,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "6",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -224,7 +237,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "6",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -232,7 +245,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "6",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -240,7 +253,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "6",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -253,7 +266,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "15",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -261,7 +274,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "15",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -269,7 +282,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "15",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -277,7 +290,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "15",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -285,7 +298,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      "15",
+                      "0",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),

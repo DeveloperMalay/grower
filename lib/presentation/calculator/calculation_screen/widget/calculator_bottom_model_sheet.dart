@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/update_profile/user_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../widgets/alert_dialog_widget.dart';
-
-
 
 class CalculatorBottomModelSheet extends StatelessWidget {
   const CalculatorBottomModelSheet({super.key});
@@ -21,7 +20,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        height: 265,
+        height: 234.w,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -132,7 +131,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 36,
+                height: 10,
               ),
             ]),
       ),

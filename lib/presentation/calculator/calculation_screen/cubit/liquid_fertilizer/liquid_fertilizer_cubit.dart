@@ -22,7 +22,7 @@ class LiquidFertilizerCubit extends Cubit<LiquidFertilizerState> {
     }
   }
 
-  void getinitialState() {
+  getinitialState() {
     emit(LiquidFertilizerState.initial());
   }
 }

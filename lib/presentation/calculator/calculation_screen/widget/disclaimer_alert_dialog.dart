@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
 
 import '../../calculated_result_screen/calculated_result_screen.dart';
 
 class DisclaimerAlertDialog extends StatelessWidget {
-  const DisclaimerAlertDialog({super.key});
-
+  DisclaimerAlertDialog({super.key});
+  ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -41,14 +42,15 @@ class DisclaimerAlertDialog extends StatelessWidget {
         height: 310,
         width: 300,
         child: Scrollbar(
+          controller: controller,
           thumbVisibility: true,
           radius: Radius.circular(10),
           child: ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                padding: const EdgeInsets.only(left: 20, top: 20),
                 child: SizedBox(
-                  width: 280,
+                  width: 285,
                   child: Row(
                     children: [
                       Text(
