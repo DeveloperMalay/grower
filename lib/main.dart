@@ -97,8 +97,8 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 156,
-              width: 156,
+              height: 180,
+              width: 180,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/grower_logo.png"),

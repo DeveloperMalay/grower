@@ -216,8 +216,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               gallonController.text); //storing liquid data
                           saveString('density',
                               densityController.text); //storing density data
-                          calculateTDW(poundController.text,
-                              gallonController.text, densityController.text);
+                          calculate(poundController.text, gallonController.text,
+                              densityController.text);
                         }),
                   ),
                 ],

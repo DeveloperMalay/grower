@@ -35,7 +35,12 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
   String? totalN;
   String? totalP;
   String? totalK;
-
+  String? drymatterfromliquid;
+  String? totaldrymaterial;
+  String? mixture;
+  String? totalpercentN;
+  String? totalpercentP;
+  String? totalpercentK;
   getresult() async {
     totalDryWeight = await getString('dryweight');
     totalLiquidWeight = await getString('tlw');
@@ -50,6 +55,13 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     totalP = await getString('totalP');
     totalK = await getString('totalK');
     totalWeight = await getString('totalWeight');
+    drymatterfromliquid = await getString('drymatterfromliquid');
+    totaldrymaterial = await getString('totaldrymaterial');
+    mixture = await getString('mixture');
+    totalpercentN = await getString('totalpercentN');
+    totalpercentP = await getString('totalpercentP');
+    totalpercentK = await getString('totalpercentK');
+
     setState(() {});
   }
 
@@ -143,6 +155,9 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   tdwofN: tdwoflN!,
                   tdwofK: tdwoflK!,
                   tdwofP: tdwoflP!,
+                  totalpercentN: totalpercentN,
+                  totalpercentP: totalpercentP,
+                  totalpercentK: totalpercentK,
                 ), //liquid fertilizer details widget
                 SizedBox(height: 24),
                 Container(
@@ -173,11 +188,14 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 ResultTextWidget(
                     header: "Max dry matter per gallon water", result: "9 lbs"),
                 ResultTextWidget(
-                    header: "Dry matter from liquid", result: "75.11 lbs"),
+                    header: "Dry matter from liquid",
+                    result: "$drymatterfromliquid lbs"),
                 ResultTextWidget(
-                    header: "Dry material from ingredients", result: "40 lbs"),
+                    header: "Dry material from ingredients",
+                    result: "$totalDryWeight lbs"),
                 ResultTextWidget(
-                    header: "Total Dry material", result: "115.11 lbs"),
+                    header: "Total Dry material",
+                    result: "$totaldrymaterial lbs"),
                 Container(
                   width: 342,
                   padding: EdgeInsets.all(16),
@@ -192,7 +210,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                             style: TextStyle(fontSize: 16),
                           ),
                           Text(
-                            '106.11 lbs',
+                            '$mixture lbs',
                             style: CustomTheme.primarytextStyle(
                                 16, FontWeight.w400),
                           ),

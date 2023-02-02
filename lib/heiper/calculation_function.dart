@@ -1,6 +1,6 @@
 import 'package:grower/heiper/storing_calculation_data.dart';
 
-calculateTDW(String tdw, String liquidfertilizer, String density) {
+calculate(String tdw, String liquidfertilizer, String density) {
   // calculation for dry fertilizer
   num tdwofN = num.parse(tdw) * 0.8; //weight of N is 80% of total dry weight
   saveString('tdwofN', tdwofN.toString());
@@ -21,13 +21,38 @@ calculateTDW(String tdw, String liquidfertilizer, String density) {
   saveString('tdwoflK', tdwoflK.toString());
 
   //calculation for the total mixture
-  num total = num.parse(tdw) + tlw;
-  saveString('totalWeight', total.toString());
+  num totalweight = num.parse(tdw) + tlw;
+  saveString('totalWeight', totalweight.toString());
 
-  num totalN = total * 0.88; //weight of N is 8% of total liquid weight
+  num totalN = tdwofN + tdwoflN;
   saveString('totalN', totalN.toString());
-  num totalP = total * 0.12; //weight of P is 2% of total liquid weight
+  num totalP = tdwofP + tdwoflP;
   saveString('totalP', totalP.toString());
-  num totalK = total * 0.06; //weight of K is 1% of total liquid weight
+  num totalK = tdwofK + tdwoflK;
   saveString('totalK', totalK.toString());
+  num totalA = totalweight * 1.15;
+  saveString('totalA', totalA.toString());
+  num totalB = totalweight * 0;
+  saveString('totalB', totalB.toString());
+  num totalC = totalweight * 0.38;
+  saveString('totalC', totalC.toString());
+  num totalD = totalweight * 0;
+  saveString('totalD', totalD.toString());
+  num totalE = totalweight * 0;
+  saveString('totalE', totalE.toString());
+
+  num totalpercentN = totalweight / totalN * 100;
+  saveString('totalpercentN', totalpercentN.toString());
+  num totalpercentP = totalweight / totalP * 100;
+  saveString('totalpercentP', totalpercentP.toString());
+  num totalpercentK = totalweight / totalK * 100;
+  saveString('totalpercentK', totalpercentK.toString());
+  num drymatterfromliquid = num.parse(density) - 8.34;
+  saveString('drymatterfromliquid', drymatterfromliquid.toString());
+
+  num totaldrymaterial = drymatterfromliquid + num.parse(tdw);
+  saveString('totaldrymaterial', totaldrymaterial.toString());
+
+  num mixture = totaldrymaterial - 9;
+  saveString('mixture', mixture.toString());
 }

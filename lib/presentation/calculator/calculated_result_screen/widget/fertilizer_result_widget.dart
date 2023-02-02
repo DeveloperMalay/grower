@@ -12,12 +12,18 @@ class FertilizerResultWidget extends StatelessWidget {
     required this.tdwofN,
     required this.tdwofP,
     required this.tdwofK,
+    this.totalpercentN,
+    this.totalpercentP,
+    this.totalpercentK,
   });
   var data;
   final int index;
   String tdwofN;
   String tdwofP;
   String tdwofK;
+  String? totalpercentN;
+  String? totalpercentP;
+  String? totalpercentK;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,7 +130,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      data[index].percentN!,
+                      totalpercentN ?? data[index].percentN!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -132,7 +138,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      data[index].percentP!,
+                      totalpercentP ?? data[index].percentP!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -140,7 +146,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      data[index].percentK!,
+                      totalpercentK ?? data[index].percentK!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),

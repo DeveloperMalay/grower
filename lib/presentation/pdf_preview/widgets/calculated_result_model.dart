@@ -45,11 +45,9 @@ final calculatedResult = CalculatedResultModel(
 class CalculatedResultModel {
   final String dryfertilizer;
   final String dryfertilizerweight;
-
   final List<NutrientsData> drynutrientsData;
   final String liquidfertilizer;
   final String liquidfertilizerweight;
-
   final List<NutrientsData> liquidnutrientsData;
   final String totalweight;
   final String totaldensity;

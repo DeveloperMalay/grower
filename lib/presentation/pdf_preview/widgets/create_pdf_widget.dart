@@ -1,10 +1,16 @@
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import '../../../heiper/storing_calculation_data.dart';
 import 'calculated_result_model.dart';
 
 Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
   final pdf = Document();
+  var totalWeight = await getString('totalWeight');
+  var density = await getString('density');
+  var totalN = await getString('totalN');
+  var totalP = await getString('totalP');
+  var totalK = await getString('totalK');
   pdf.addPage(Page(build: (context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,11 +21,11 @@ Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
             )),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5),
-          child: Text("Total Weight: ${invoice.totalweight}"),
+          child: Text("Total Weight: ${totalWeight}"),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5),
-          child: Text("Total Density: ${invoice.totaldensity}"),
+          child: Text("Total Density: ${density}"),
         ),
         SizedBox(height: 15),
         Table(
@@ -48,33 +54,98 @@ Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
                 ),
               ),
             ]),
-            ...calculatedResult.avgnutrientsData
-                .map(
-                  (e) => TableRow(children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      child: Text(
-                        e.nutrients,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      child: Text(
-                        e.tdw.toString(),
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      child: Text(
-                        e.npk.toString(),
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                  ]),
-                )
-                .toList(),
+            TableRow(children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  "N",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  totalN,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  '88',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ]),
+            TableRow(children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  "P",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  totalP,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  '12',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ]),
+            TableRow(children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  "K",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  totalK,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  '6',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ]),
+            TableRow(children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  "A",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  '0',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: Text(
+                  '0',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ]),
           ],
         ),
         SizedBox(height: 20),
