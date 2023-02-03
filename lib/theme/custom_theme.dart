@@ -10,12 +10,9 @@ class CustomTheme {
   static const Color greyshade1 = Color(0XFF2F3237);
   static const Color textColor = Color(0XFF2F3237);
   static const Color redErrorColor = Color(0XFFFF1515);
+
 //font size for the app
-  static const Map<String, double> fontsize = {
-    "sm": 14,
-    "md": 17,
-    "lg": 24,
-  };
+  static const Map<String, double> fontsize = {"sm": 14, "md": 17, "lg": 24};
 
 //textformfield style
   static textFieldStyle(String hintText) {

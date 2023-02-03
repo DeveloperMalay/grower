@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/heiper/storing_calculation_data.dart';
 import '../../../../theme/custom_theme.dart';
+import '../../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 
 // ignore: must_be_immutable
 class FertilizerResultWidget extends StatelessWidget {
@@ -15,6 +17,7 @@ class FertilizerResultWidget extends StatelessWidget {
     this.totalpercentN,
     this.totalpercentP,
     this.totalpercentK,
+    required this.type,
   });
   var data;
   final int index;
@@ -24,8 +27,13 @@ class FertilizerResultWidget extends StatelessWidget {
   String? totalpercentN;
   String? totalpercentP;
   String? totalpercentK;
+  final String type;
+  List othernutrients_percentage = [];
   @override
   Widget build(BuildContext context) {
+    var othernutrients =
+        context.read<OtherNutrientsCubit>().state.otherNutrients.otherNutrients;
+
     return Container(
       padding: EdgeInsets.all(16),
       decoration: CustomTheme.shadowDecoration,
@@ -37,28 +45,14 @@ class FertilizerResultWidget extends StatelessWidget {
             children: [
               SizedBox(
                 width: 155.w,
-                child: Text(
-                  "Nutrients",
-                  style: TextStyle(fontSize: 14),
-                ),
+                child: Text("Nutrients", style: TextStyle(fontSize: 14)),
               ),
-              Text(
-                "TDW(lbs)",
-                style: TextStyle(fontSize: 14),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                "NPK(%)",
-                style: TextStyle(fontSize: 14),
-              ),
+              Text("TDW(lbs)", style: TextStyle(fontSize: 14)),
+              SizedBox(width: 16),
+              Text("NPK(%)", style: TextStyle(fontSize: 14)),
             ],
           ),
-          Divider(
-            color: CustomTheme.primaryColor,
-            thickness: 1.5,
-          ),
+          Divider(color: CustomTheme.primaryColor, thickness: 1.5),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -73,17 +67,13 @@ class FertilizerResultWidget extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       "Phosphorus(P)",
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       "Potassium(K)",
                       style: TextStyle(
@@ -92,9 +82,7 @@ class FertilizerResultWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                width: 40.w,
-              ),
+              SizedBox(width: 40.w),
               Container(
                 width: 70,
                 child: Column(
@@ -105,17 +93,13 @@ class FertilizerResultWidget extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       tdwofP,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       tdwofK,
                       style: TextStyle(
@@ -134,17 +118,13 @@ class FertilizerResultWidget extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       totalpercentP ?? data[index].percentP!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
+                    SizedBox(height: 12),
                     Text(
                       totalpercentK ?? data[index].percentK!,
                       style: TextStyle(
@@ -155,161 +135,75 @@ class FertilizerResultWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
           Row(
             children: [
-              Text(
-                "Other added nutrients",
-                style: TextStyle(fontSize: 14),
-              ),
+              Text("Other added nutrients", style: TextStyle(fontSize: 14)),
             ],
           ),
-          Divider(
-            color: CustomTheme.primaryColor,
-            thickness: 1.5,
-          ),
+          Divider(color: CustomTheme.primaryColor, thickness: 1.5),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 83,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "A",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Boron (B)",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Calcium (Ca)",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "D",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "E",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                  ],
-                ),
+                width: 100.w,
+                height: othernutrients.length * 30,
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: othernutrients.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            othernutrients[index].name,
+                            style: TextStyle(
+                                fontSize: 14, color: CustomTheme.primaryColor),
+                          ),
+                          SizedBox(height: 12),
+                        ],
+                      );
+                    }),
               ),
-              SizedBox(
-                width: 62.w,
-              ),
+              SizedBox(width: 47.w),
               Container(
-                width: 70,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                  ],
-                ),
+                width: 60,
+                height: othernutrients.length * 30,
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: othernutrients.length,
+                    itemBuilder: (context, index) {
+                      getString("${type}othernutrients${[index]}");
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("0",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: CustomTheme.primaryColor)),
+                          SizedBox(height: 12),
+                        ],
+                      );
+                    }),
               ),
               Container(
                 width: 60,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "0",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
-                  ],
-                ),
+                height: othernutrients.length * 30,
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: othernutrients.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('0',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: CustomTheme.primaryColor)),
+                          SizedBox(height: 12),
+                        ],
+                      );
+                    }),
               ),
             ],
           ),

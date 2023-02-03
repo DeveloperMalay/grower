@@ -41,6 +41,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
   String? totalpercentN;
   String? totalpercentP;
   String? totalpercentK;
+
   getresult() async {
     totalDryWeight = await getString('dryweight');
     totalLiquidWeight = await getString('tlw');
@@ -122,6 +123,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     color: Colors.grey),
                 SizedBox(height: 12),
                 FertilizerResultWidget(
+                  type: 'dry',
                   data: dryfertilizerCubit,
                   index: dryfertilizerIndex,
                   tdwofN: tdwofN!,
@@ -150,14 +152,12 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     color: Colors.grey),
                 SizedBox(height: 12),
                 FertilizerResultWidget(
+                  type: 'liquid',
                   data: liquidfertilizerCubit,
                   index: liquidfertilizerIndex,
                   tdwofN: tdwoflN!,
                   tdwofK: tdwoflK!,
                   tdwofP: tdwoflP!,
-                  totalpercentN: totalpercentN,
-                  totalpercentP: totalpercentP,
-                  totalpercentK: totalpercentK,
                 ), //liquid fertilizer details widget
                 SizedBox(height: 24),
                 Container(
@@ -178,11 +178,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     header: "Density of a mixture:",
                     result: "${density} lbs/g"),
                 FertilizerResultWidget(
+                  type: 'mixed',
                   data: liquidfertilizerCubit,
                   index: liquidfertilizerIndex,
                   tdwofN: totalN!,
                   tdwofK: totalK!,
                   tdwofP: totalP!,
+                  totalpercentN: totalpercentN,
+                  totalpercentP: totalpercentP,
+                  totalpercentK: totalpercentK,
                 ), //total fertilizer details widget
                 SizedBox(height: 24),
                 ResultTextWidget(
@@ -216,20 +220,17 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Text(
-                        'Pounds over suggested limit of 9 pounds dry material per gallon',
-                        style: TextStyle(fontSize: 14, color: Colors.red),
-                      ),
+                          'Pounds over suggested limit of 9 pounds dry material per gallon',
+                          style: TextStyle(fontSize: 14, color: Colors.red)),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: BottomOptionsWidget(), //showing bottom icons optins
-                ),
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: BottomOptionsWidget() //showing bottom icons optins
+                    ),
               ],
             ),
           ),

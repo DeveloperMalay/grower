@@ -118,8 +118,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (context) =>
-                                    AddOtherNutrientswidget());
+                                builder: (context) => AddOtherNutrientswidget(
+                                      type: 'dry',
+                                    ));
                           }),
                   Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -165,8 +166,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (context) =>
-                                    AddOtherNutrientswidget());
+                                builder: (context) => AddOtherNutrientswidget(
+                                      type: 'liquid',
+                                    ));
                           }),
                   const SizedBox(height: 10),
                   context.watch<DropdownIndexCubit>().state.fertilizer ==
