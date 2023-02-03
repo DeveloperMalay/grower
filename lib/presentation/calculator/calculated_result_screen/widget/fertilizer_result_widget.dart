@@ -6,7 +6,7 @@ import '../../../../theme/custom_theme.dart';
 import '../../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 
 // ignore: must_be_immutable
-class FertilizerResultWidget extends StatelessWidget {
+class FertilizerResultWidget extends StatefulWidget {
   FertilizerResultWidget({
     super.key,
     required this.data,
@@ -28,12 +28,34 @@ class FertilizerResultWidget extends StatelessWidget {
   String? totalpercentP;
   String? totalpercentK;
   final String type;
+
+  @override
+  State<FertilizerResultWidget> createState() => _FertilizerResultWidgetState();
+}
+
+class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
   List othernutrients_percentage = [];
+  List othernutrients_weight = [];
+  getpercentage(int length) async {
+    for (var i = 0; i < length; i++) {
+      othernutrients_percentage
+          .add(await getString('${widget.type}othernutrients$i'));
+      othernutrients_weight
+          .add(await getString('${widget.type}othernutrientsweight$i'));
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getpercentage(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     var othernutrients =
         context.read<OtherNutrientsCubit>().state.otherNutrients.otherNutrients;
-
     return Container(
       padding: EdgeInsets.all(16),
       decoration: CustomTheme.shadowDecoration,
@@ -89,19 +111,19 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      tdwofN,
+                      widget.tdwofN,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
                     SizedBox(height: 12),
                     Text(
-                      tdwofP,
+                      widget.tdwofP,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
                     SizedBox(height: 12),
                     Text(
-                      tdwofK,
+                      widget.tdwofK,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -114,19 +136,22 @@ class FertilizerResultWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      totalpercentN ?? data[index].percentN!,
+                      widget.totalpercentN ??
+                          widget.data[widget.index].percentN!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
                     SizedBox(height: 12),
                     Text(
-                      totalpercentP ?? data[index].percentP!,
+                      widget.totalpercentP ??
+                          widget.data[widget.index].percentP!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
                     SizedBox(height: 12),
                     Text(
-                      totalpercentK ?? data[index].percentK!,
+                      widget.totalpercentK ??
+                          widget.data[widget.index].percentK!,
                       style: TextStyle(
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
@@ -173,11 +198,10 @@ class FertilizerResultWidget extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: othernutrients.length,
                     itemBuilder: (context, index) {
-                      getString("${type}othernutrients${[index]}");
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("0",
+                          Text(othernutrients_weight[index] ?? '0',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: CustomTheme.primaryColor)),
@@ -196,7 +220,7 @@ class FertilizerResultWidget extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('0',
+                          Text(othernutrients_percentage[index] ?? '0',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: CustomTheme.primaryColor)),
