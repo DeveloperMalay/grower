@@ -22,10 +22,10 @@ class UserDetailsState extends Equatable {
         status: UserProfileStatus.initial,
         userDetails: UserDetails(
             data: Data(
-                name: 'Name',
-                email: "Email",
-                number: "Number",
-                address: "Address",
+                name: 'Enter your name',
+                email: "Enter your Email",
+                number: "Enter your Number",
+                address: "Enter your Address",
                 hitRemaining: 'loading..')),
         error: CustomError());
   }

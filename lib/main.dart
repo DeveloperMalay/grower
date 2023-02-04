@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
+import 'package:grower/presentation/onboarding_screen/cubit/cubit/change_image_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
 import 'heiper/router.dart';
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => LiquidFertilizerCubit()),
               BlocProvider(create: (context) => OtherNutrientsCubit()),
               BlocProvider(create: (context) => DryFertilizerCubit()),
-              BlocProvider(create: (context) => IsFocesCubit())
+              BlocProvider(create: (context) => IsFocesCubit()),
+              BlocProvider(create: (context) => ChangeImageCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
@@ -84,7 +86,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     startTimer();
   }
 

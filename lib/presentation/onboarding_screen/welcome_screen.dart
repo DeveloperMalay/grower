@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grower/presentation/onboarding_screen/cubit/cubit/change_image_cubit.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../theme/custom_theme.dart';
+import 'widget/slide_in_animation1.dart';
+import 'widget/slide_in_animation2.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -16,28 +20,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeInFadeOut;
-  bool switchImage = false;
-
-  changeImage() {
-    Timer(Duration(milliseconds: 2000), () {
-      setState(() {
-        switchImage = true;
-      });
-    });
-  }
 
   @override
   void initState() {
     super.initState();
+    Timer(Duration(milliseconds: 2000), () {
+      context.read<ChangeImageCubit>().changeImage();
+    });
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
     );
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-
     _controller.forward();
-    changeImage();
   }
 
   @override
@@ -53,15 +49,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                image: switchImage
+                image: context.watch<ChangeImageCubit>().state.switchImage
                     ? DecorationImage(
                         image: AssetImage("assets/signup_bg1.png"),
                         fit: BoxFit.cover,
                       )
                     : DecorationImage(
-                        image: AssetImage(
-                          "assets/signup_screenbg.png",
-                        ),
+                        image: AssetImage("assets/signup_screenbg.png"),
                         fit: BoxFit.cover,
                       ),
               ),
@@ -96,31 +90,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   Positioned(
                       top: 210.h,
                       right: -30.w,
-                      child: Container(
-                        height: 180,
-                        width: 180,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100)),
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: 50,
-                          backgroundImage: AssetImage('assets/truck.png'),
-                        ),
-                      )),
+                      child: ScreenElementAppearAnimation1()),
                   Positioned(
                       top: 300.h,
                       left: -30.w,
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100)),
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: 50,
-                          backgroundImage: AssetImage('assets/harvest.png'),
-                        ),
-                      )),
+                      child: ScreenElementAppearAnimation2()),
                   Positioned(
                       bottom: 155.h,
                       left: 46.w,
