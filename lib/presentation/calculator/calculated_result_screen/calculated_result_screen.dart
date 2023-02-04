@@ -12,6 +12,7 @@ import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import '../calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 import 'widget/bottom_options_widgets.dart';
+import 'widget/calculation_data.dart';
 import 'widget/fertilizer_result_widget.dart';
 
 class CalculatedResultScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
   String? totalpercentN;
   String? totalpercentP;
   String? totalpercentK;
-
+  late Map<String, dynamic> data;
   getresult() async {
     totalDryWeight = await getString('dryweight');
     totalLiquidWeight = await getString('tlw');
@@ -62,14 +63,24 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     totalpercentN = await getString('totalpercentN');
     totalpercentP = await getString('totalpercentP');
     totalpercentK = await getString('totalpercentK');
-
     setState(() {});
+  }
+
+  result() async {
+    data = await getData();
+    print('data from map==>${data['totalDryWeight']}');
   }
 
   @override
   void initState() {
     super.initState();
     getresult();
+    result();
+    var test = () async {
+      var data = await getString('totalpercentK');
+      return data;
+    };
+    print('test---> $test');
   }
 
   @override
@@ -82,6 +93,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
         context.read<LiquidFertilizerCubit>().state.liquidFertilizer;
     var liquidfertilizerIndex =
         context.watch<DropdownIndexCubit1>().state.dropdownindex;
+    // print('data from map--->${data['totalDryWeight']}');
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -152,13 +164,12 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                     color: Colors.grey),
                 SizedBox(height: 12),
                 FertilizerResultWidget(
-                  type: 'liquid',
-                  data: liquidfertilizerCubit,
-                  index: liquidfertilizerIndex,
-                  tdwofN: tdwoflN!,
-                  tdwofK: tdwoflK!,
-                  tdwofP: tdwoflP!,
-                ), //liquid fertilizer details widget
+                    type: 'liquid',
+                    data: liquidfertilizerCubit,
+                    index: liquidfertilizerIndex,
+                    tdwofN: tdwoflN!,
+                    tdwofK: tdwoflK!,
+                    tdwofP: tdwoflP!), //liquid fertilizer details widget
                 SizedBox(height: 24),
                 Container(
                   height: 30,

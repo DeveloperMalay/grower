@@ -110,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 100,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/splashImg.png"),
+                  image: AssetImage("assets/loader.gif"),
                 ),
               ),
             ),
@@ -121,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startTimer() {
-    Timer(const Duration(seconds: 3), () async {
+    Timer(const Duration(seconds: 5), () async {
       if (await getBool('isLoggedIn')) {
         context.go('/welcomeback');
         // screenReplaceNavigator(context, WelcomeBackScreen());
