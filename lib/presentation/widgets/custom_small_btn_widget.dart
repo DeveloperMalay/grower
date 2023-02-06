@@ -12,7 +12,9 @@ class SmallBtnWidget {
       decoration: BoxDecoration(
         color: enable ? CustomTheme.primaryColor : CustomTheme.seconderyColor,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: CustomTheme.primaryColor),
+        border: Border.all(
+            color:
+                enable ? CustomTheme.primaryColor : CustomTheme.seconderyColor),
       ),
       child: Center(
         child:

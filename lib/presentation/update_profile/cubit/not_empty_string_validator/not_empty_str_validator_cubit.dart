@@ -13,4 +13,8 @@ class NotEtyStrValidatorCubit extends Cubit<NotEtyStrValidatorState> {
   void checkaddress(String address) {
     emit(state.copyWith(validaddress: address.isNotEmpty));
   }
+
+  void getInitialState() {
+    emit(NotEtyStrValidatorState.initial());
+  }
 }

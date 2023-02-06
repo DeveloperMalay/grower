@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../../../theme/custom_theme.dart';
 
 class CalculatorTextFieldWidget extends StatelessWidget {
@@ -55,9 +54,9 @@ class CalculatorTextFieldWidget extends StatelessWidget {
               textAlign: TextAlign.right,
               cursorColor: CustomTheme.primaryColor,
               keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter.digitsOnly
+              // ],
               decoration: CustomTheme.calculatorTextStyle(hintText),
             ),
           ),

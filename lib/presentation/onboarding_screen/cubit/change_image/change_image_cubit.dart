@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,6 +9,8 @@ class ChangeImageCubit extends Cubit<ChangeImageState> {
   ChangeImageCubit() : super(ChangeImageState.initial());
 
   void changeImage() {
-    emit(state.copyWith(switchImage: true));
+    Timer(Duration(seconds: 2), () {
+      emit(state.copyWith(switchImage: true));
+    });
   }
 }

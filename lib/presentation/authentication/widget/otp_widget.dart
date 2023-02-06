@@ -165,10 +165,13 @@ class _OtpWidgetState extends State<OtpWidget> {
                     ),
                     InkWell(
                       onTap: () async {
-                        print('tap');
-                        _timerDuration == 0
-                            ? await resendOtp(widget.email)
-                            : null;
+                        if (_timerDuration == 0) {
+                          setState(() {
+                            _timerDuration = 20;
+                          });
+                          startTimer();
+                          await resendOtp(widget.email);
+                        }
                       },
                       child: Text(
                         'Resend',

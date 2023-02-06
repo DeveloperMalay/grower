@@ -10,12 +10,14 @@ import 'package:grower/presentation/update_profile/cubit/valid_number/valid_numb
 import 'package:grower/presentation/update_profile/widget/error_text_widget.dart';
 import 'package:grower/presentation/widgets/custom_textfield_widget.dart';
 import '../../theme/custom_theme.dart';
+import '../calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
 import '../calculator/widgets/alert_dialog_widget.dart';
 import '../widgets/custom_appbar_widget.dart';
 import '../widgets/custom_small_btn_widget.dart';
 import '../widgets/error_diolog.dart';
 import '../widgets/success_popup_widget.dart';
 import 'cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
+import 'cubit/textfield_click/textfield_click_cubit.dart';
 import 'cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'cubit/update_profile/update_profile_cubit.dart';
 import 'widget/email_field_widget.dart';
@@ -138,7 +140,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .data
                                 .name
                                 .isEmpty
-                            ? "Enter your email"
+                            ? "Enter your name"
                             : context
                                 .read<UserDetailsCubit>()
                                 .state
@@ -146,6 +148,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .data
                                 .name,
                         ontap: () {
+                          context
+                              .read<TextfieldClickCubit>()
+                              .emailtextfieldClick();
                           context.read<TextfieldFocusCubit>().focusName();
                           shouldUpdate(context);
                         },
@@ -184,6 +189,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .number,
                         inputType: TextInputType.number,
                         ontap: () {
+                          context
+                              .read<TextfieldClickCubit>()
+                              .numbertextfieldClick();
                           context.read<TextfieldFocusCubit>().focusNumber();
                         },
                         validator: (value) {
@@ -197,7 +205,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       SizedBox(
                         height: 24,
                       ),
-                      TextFieldHeaderWidget(title: 'Email Address*'),
+                      TextFieldHeaderWidget(title: 'Email*'),
                       EmailFieldWidget(
                           email: context
                               .watch<UserDetailsCubit>()
@@ -231,6 +239,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .data
                                 .address,
                         ontap: () {
+                          context
+                              .read<TextfieldClickCubit>()
+                              .addresstextfieldClick();
                           context.read<TextfieldFocusCubit>().focusAddress();
                         },
                         validator: (value) {
@@ -263,7 +274,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               'Your profile is not updated!',
                                           leftBtnTitle: 'Yes, Exit',
                                           onTap: () {
+                                            Navigator.pop(context);
                                             context.push('/calculator');
+                                            context
+                                                .read<NotEtyStrValidatorCubit>()
+                                                .getInitialState();
+                                            context
+                                                .read<ValidNumberCubit>()
+                                                .getinitialState();
+                                            nameController.clear();
+                                            numberController.clear();
+                                            addressController.clear();
                                           },
                                         ));
                               },
@@ -290,10 +311,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               addressController.text,
                                               numberController.text)
                                       : null;
+                                  shouldUpdate(context)
+                                      ? context
+                                          .read<ReminderCubit>()
+                                          .hitreduce()
+                                      : null;
                                 }
                               },
                               child: SmallBtnWidget.filledColorBtn(
-                                  'Update', shouldUpdate(context)),
+                                  'Update', clickanyField(context)),
                             ),
                           ],
                         ),

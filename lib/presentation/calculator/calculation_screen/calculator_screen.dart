@@ -63,6 +63,20 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var hitremain = context
+            .watch<UserDetailsCubit>()
+            .state
+            .userDetails
+            .data
+            .hitRemaining
+            .contains('-') ||
+        context
+            .watch<UserDetailsCubit>()
+            .state
+            .userDetails
+            .data
+            .hitRemaining
+            .contains('0');
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -117,6 +131,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           active: true,
                           onTap: () {
                             showDialog(
+                                barrierDismissible: !hitremain,
                                 context: context,
                                 builder: (context) => AddOtherNutrientswidget(
                                       type: 'dry',

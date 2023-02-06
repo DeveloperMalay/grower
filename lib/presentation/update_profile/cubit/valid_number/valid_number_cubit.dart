@@ -9,4 +9,8 @@ class ValidNumberCubit extends Cubit<ValidNumberState> {
   void checkphone(String number) {
     emit(state.copyWith(validphone: number.isNotEmpty && number.length == 10));
   }
+
+  void getinitialState() {
+    emit(ValidNumberState.initial());
+  }
 }

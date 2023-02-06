@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grower/presentation/onboarding_screen/cubit/cubit/change_image_cubit.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../theme/custom_theme.dart';
+import 'cubit/change_image/change_image_cubit.dart';
 import 'widget/slide_in_animation1.dart';
 import 'widget/slide_in_animation2.dart';
 
@@ -24,15 +24,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
-    Timer(Duration(milliseconds: 2000), () {
-      context.read<ChangeImageCubit>().changeImage();
-    });
+    context.read<ChangeImageCubit>().changeImage();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
     );
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInToLinear));
     _controller.forward();
   }
 

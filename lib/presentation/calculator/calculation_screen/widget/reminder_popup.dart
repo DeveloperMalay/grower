@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
@@ -15,12 +16,19 @@ class ReminderPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var hitremain = context
-        .watch<UserDetailsCubit>()
-        .state
-        .userDetails
-        .data
-        .hitRemaining
-        .contains('-');
+            .watch<UserDetailsCubit>()
+            .state
+            .userDetails
+            .data
+            .hitRemaining
+            .contains('-') ||
+        context
+            .watch<UserDetailsCubit>()
+            .state
+            .userDetails
+            .data
+            .hitRemaining
+            .contains('0');
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
       child: AlertDialog(
@@ -75,7 +83,9 @@ class ReminderPopUp extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      hitremain
+                          ? SystemNavigator.pop()
+                          : Navigator.pop(context);
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -96,7 +106,6 @@ class ReminderPopUp extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () async {
-                      context.read<ReminderCubit>().hitreduce();
                       print('hit');
                       Navigator.pop(context);
                       // context.read<ReminderCubit>().noOfHit();
