@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../theme/custom_theme.dart';
 import 'cubit/change_image/change_image_cubit.dart';
-import 'widget/slide_in_animation1.dart';
-import 'widget/slide_in_animation2.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -29,8 +26,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       vsync: this,
       duration: Duration(seconds: 2),
     );
-    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInToLinear));
+    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeInToLinear));
     _controller.forward();
   }
 
@@ -59,65 +56,108 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               ),
               child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 50.h,
-                      left: 43.w,
-                      bottom: 10,
+                  TweenAnimationBuilder<Offset>(
+                    duration: const Duration(milliseconds: 1600),
+                    curve: Curves.linear,
+                    tween: Tween<Offset>(
+                        begin: Offset(43.w, -10), end: Offset(43.w, 45.h)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome to',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                        Text(
+                          "Grower’s Secret Calculator",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: CustomTheme.primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                    child: const Text(
-                      'Welcome to',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 20),
-                    ),
+                    builder: (context, offset, child) {
+                      return Transform.translate(offset: offset, child: child);
+                    },
                   ),
-                  Positioned(
-                    top: 75.h,
-                    left: 43.w,
-                    child: Text(
-                      "Grower’s Secret Calculator",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: CustomTheme.primaryColor,
-                        fontSize: 20,
+                  TweenAnimationBuilder<Offset>(
+                    duration: const Duration(milliseconds: 1600),
+                    curve: Curves.linear,
+                    tween: Tween<Offset>(
+                        begin: Offset(500, 160.h), end: Offset(210.h, 160.h)),
+                    child: Container(
+                      height: 180,
+                      width: 180,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        radius: 50,
+                        backgroundImage: AssetImage('assets/truck.png'),
                       ),
                     ),
+                    builder: (context, offset, child) {
+                      return Transform.translate(offset: offset, child: child);
+                    },
                   ),
-                  Positioned(
-                      top: 210.h,
-                      right: -30.w,
-                      child: ScreenElementAppearAnimation1()),
-                  Positioned(
-                      top: 300.h,
-                      left: -30.w,
-                      child: ScreenElementAppearAnimation2()),
-                  Positioned(
-                      bottom: 155.h,
-                      left: 46.w,
-                      child: const Text(
-                        "Let's",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )),
-                  Positioned(
-                    bottom: 130.h,
-                    left: 43.w,
-                    child: Text(
-                      "Get Started!",
-                      style: TextStyle(
-                          color: CustomTheme.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                  TweenAnimationBuilder<Offset>(
+                    duration: const Duration(milliseconds: 1600),
+                    curve: Curves.linear,
+                    tween: Tween<Offset>(
+                        begin: Offset(-100, 300.h), end: Offset(-30, 300.h)),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        radius: 50,
+                        backgroundImage: AssetImage('assets/harvest.png'),
+                      ),
                     ),
+                    builder: (context, offset, child) {
+                      return Transform.translate(offset: offset, child: child);
+                    },
                   ),
-                  Positioned(
-                    bottom: 62.h,
-                    left: 20.w,
-                    right: 20.w,
+                  TweenAnimationBuilder<Offset>(
+                    duration: const Duration(milliseconds: 1600),
+                    curve: Curves.linear,
+                    tween: Tween<Offset>(
+                        begin: Offset(43.w, 575.h), end: Offset(43.w, 515.h)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Let's",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Get Started!",
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    builder: (context, offset, child) {
+                      return Transform.translate(offset: offset, child: child);
+                    },
+                  ),
+                  TweenAnimationBuilder<Offset>(
+                    duration: const Duration(milliseconds: 1600),
+                    curve: Curves.linear,
+                    tween: Tween<Offset>(
+                        begin: Offset(20.w, 575.h), end: Offset(20.w, 550.h)),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: CustomButtonWidget(
@@ -127,7 +167,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             context.go('/login');
                           }),
                     ),
-                  )
+                    builder: (context, offset, child) {
+                      return Transform.translate(offset: offset, child: child);
+                    },
+                  ),
                 ],
               ),
             ),
