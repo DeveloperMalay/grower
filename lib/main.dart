@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
+import 'package:grower/presentation/restart_widget.dart';
 import 'package:grower/presentation/update_profile/cubit/textfield_click/textfield_click_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
@@ -21,14 +22,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
+import 'presentation/calculator/calculation_screen/cubit/reset_dropdown/reset_dropdown_cubit.dart';
 import 'presentation/onboarding_screen/cubit/change_image/change_image_cubit.dart';
 import 'presentation/update_profile/cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
 import 'presentation/update_profile/cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'presentation/update_profile/cubit/update_profile/update_profile_cubit.dart';
 import 'theme/custom_theme.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  runApp(RestartWidget(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -61,7 +63,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => DryFertilizerCubit()),
               BlocProvider(create: (context) => IsFocesCubit()),
               BlocProvider(create: (context) => ChangeImageCubit()),
-              BlocProvider(create: (context) => TextfieldClickCubit())
+              BlocProvider(create: (context) => TextfieldClickCubit()),
+              BlocProvider(create: (context) => ResetDropdownCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
@@ -124,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startTimer() {
-    Timer(const Duration(seconds: 4), () async {
+    Timer(const Duration(seconds: 3), () async {
       if (await getBool('isLoggedIn')) {
         context.go('/welcomeback');
         // screenReplaceNavigator(context, WelcomeBackScreen());

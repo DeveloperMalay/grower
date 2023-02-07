@@ -153,6 +153,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.0"
+  flutter_phoenix:
+    dependency: "direct main"
+    description:
+      name: flutter_phoenix
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_screenutil:
     dependency: "direct main"
     description:

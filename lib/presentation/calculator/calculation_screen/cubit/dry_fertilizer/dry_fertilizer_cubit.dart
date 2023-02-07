@@ -20,7 +20,7 @@ class DryFertilizerCubit extends Cubit<DryFertilizerState> {
     }
   }
 
-  getinitialState() {
+  void getinitialState() {
     emit(DryFertilizerState.initial());
   }
 }

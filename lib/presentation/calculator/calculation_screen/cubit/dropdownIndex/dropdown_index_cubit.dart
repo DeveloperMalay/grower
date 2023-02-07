@@ -11,6 +11,7 @@ class DropdownIndexCubit extends Cubit<DropdownIndexState> {
   }
 
   void getinitialState() {
-    emit(DropdownIndexState.initial());
+    emit(state.copyWith(dropdownindex: 0, fertilizer: 'Select fertilizer'));
+    print('get initial state');
   }
 }

@@ -42,7 +42,11 @@ class BottomOptionsWidget extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       index == 0
-                          ? screenNavigator(context, CalculatorScreen())
+                          ? screenNavigator(
+                              context,
+                              CalculatorScreen(
+                                showpopup: 'false',
+                              ))
                           : index == 1
                               ? Navigator.pop(context)
                               : index == 2

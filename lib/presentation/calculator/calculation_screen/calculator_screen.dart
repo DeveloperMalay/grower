@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/storing_calculation_data.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
@@ -9,12 +10,14 @@ import 'package:grower/presentation/calculator/calculation_screen/widget/custom_
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/drop_down1_options_widget.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
+import 'package:grower/presentation/calculator/reset_screen/reset_loading_screen.dart';
 import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../../heiper/calculation_function.dart';
 import '../../../heiper/calculator_validator.dart';
 import '../../../heiper/clear_textField.dart';
 import '../../../theme/custom_theme.dart';
+import '../../restart_widget.dart';
 import '../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
@@ -27,8 +30,11 @@ import 'widget/instruction_widget.dart';
 import 'widget/other_nutrients_btn.dart';
 
 class CalculatorScreen extends StatefulWidget {
-  const CalculatorScreen({super.key});
-
+  const CalculatorScreen({
+    super.key,
+    this.showpopup = "true",
+  });
+  final String? showpopup;
   @override
   State<CalculatorScreen> createState() => _CalculatorScreenState();
 }
@@ -37,16 +43,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   late TextEditingController poundController;
   late TextEditingController gallonController;
   late TextEditingController densityController;
+
   @override
   void initState() {
     super.initState();
     context.read<UserDetailsCubit>().userDetails();
-    Timer(Duration(seconds: 1), () {
-      showDialog(
-        context: context,
-        builder: (context) => ReminderPopUp(),
-      );
-    });
+    widget.showpopup! == 'true'
+        ? Timer(Duration(seconds: 1), () {
+            showDialog(
+              context: context,
+              builder: (context) => ReminderPopUp(),
+            );
+          })
+        : null;
     context.read<OtherNutrientsCubit>().getOtherNutrients();
     poundController = TextEditingController();
     gallonController = TextEditingController();
@@ -84,8 +93,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           appbarTitle: 'Calculator',
           isresult: false,
           ontapbackarrow: () {
-            cleatTextField(
-                context, poundController, gallonController, densityController);
+          
+            // context.go('/');
+            context.go("/resetloadingscreen");
           },
         ),
         body: SingleChildScrollView(
@@ -122,7 +132,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   context.watch<DropdownIndexCubit>().state.fertilizer ==
                           'Select fertilizer'
                       ? Container()
-                      : DropDownOptionsWidget(), //showting option after selecting
+                      : DropDownOptionsWidget(), //showing option after selecting
                   const SizedBox(height: 15),
                   context.watch<DropdownIndexCubit>().state.fertilizer ==
                           'Select fertilizer'
@@ -133,9 +143,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             showDialog(
                                 barrierDismissible: !hitremain,
                                 context: context,
-                                builder: (context) => AddOtherNutrientswidget(
-                                      type: 'dry',
-                                    ));
+                                builder: (context) =>
+                                    AddOtherNutrientswidget(type: 'dry'));
                           }),
                   Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
