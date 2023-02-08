@@ -76,11 +76,6 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     super.initState();
     getresult();
     result();
-    var test = () async {
-      var data = await getString('totalpercentK');
-      return data;
-    };
-    print('test---> $test');
   }
 
   @override
@@ -213,21 +208,16 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Mixture is:',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            '$mixture lbs',
-                            style: CustomTheme.primarytextStyle(
-                                16, FontWeight.w400),
-                          ),
+                          Text('Mixture is:', style: TextStyle(fontSize: 16)),
+                          Text('$mixture lbs',
+                              style: CustomTheme.primarytextStyle(
+                                  16, FontWeight.w400)),
                         ],
                       ),
                       SizedBox(height: 10),
                       Text(
                           'Pounds over suggested limit of 9 pounds dry material per gallon',
-                          style: TextStyle(fontSize: 14, color: Colors.red)),
+                          style: TextStyle(fontSize: 14, color: Colors.red))
                     ],
                   ),
                 ),

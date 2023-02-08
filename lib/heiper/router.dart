@@ -42,8 +42,6 @@ final GoRouter router = GoRouter(
     GoRoute(
         path: "/resetloadingscreen",
         builder: (context, state) => const ResetLoadingScreen()),
-    GoRoute(
-        path: "/lscreen",
-        builder: (context, state) => const LoginScreen()),
+    GoRoute(path: "/lscreen", builder: (context, state) => const LoginScreen()),
   ],
 );

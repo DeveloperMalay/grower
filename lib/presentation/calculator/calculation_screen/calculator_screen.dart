@@ -116,156 +116,174 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           },
         ),
         body: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Container(
-          height: MediaQuery.of(context).size.height * .9,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage("assets/bgImage.png")),
-              color: CustomTheme.bgColor),
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(left: 28, right: 28),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30),
-                  DotHeaderWidget(header: "Dry Fertilizers"), //header with dot
-                  const Text('Enter your required amount*',
-                      style: TextStyle(fontSize: 14)),
-                  const SizedBox(height: 12),
-                  CalculatorTextFieldWidget(
-                      title: 'pounds',
-                      hintText: 'Amount',
-                      controller: poundController),
-                  const SizedBox(height: 20),
-                  const Text('Choose fertilizer*',
-                      style: TextStyle(fontSize: 14)),
-                  const SizedBox(height: 12),
-                  CustomDropDown(onTap: () {
-                    context.read<DropdownitemClickCubit>().clickedDropDown();
-                  }), //this widget will show dry fertilizer dropdown
-                  SizedBox(height: 5),
-                  context.watch<DropdownIndexCubit>().state.fertilizer ==
-                          'Select fertilizer'
-                      ? Container()
-                      : DropDownOptionsWidget(), //showing option after selecting
-                  const SizedBox(height: 15),
-                  context.watch<DropdownIndexCubit>().state.fertilizer ==
-                          'Select fertilizer'
-                      ? OtherNutrientsBtnWidget(active: false, onTap: () {})
-                      : OtherNutrientsBtnWidget(
-                          active: true,
-                          onTap: () {
-                            showDialog(
-                                barrierDismissible: !hitremain,
-                                context: context,
-                                builder: (context) =>
-                                    AddOtherNutrientswidget(type: 'dry'));
-                          }),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: Divider(
-                          color: CustomTheme.primaryColor, thickness: 2)),
-                  DotHeaderWidget(
-                      header: "Liquid Fertilizers"), //header with dot
-                  const Text('Enter your required amount in gallon*',
-                      style: TextStyle(fontSize: 14)),
-                  const SizedBox(height: 12),
-                  CalculatorTextFieldWidget(
-                      title: 'gallons',
-                      hintText: 'Amount',
-                      controller: gallonController),
-                  const SizedBox(height: 20),
-                  const Text('Enter density of liquid*',
-                      style: TextStyle(fontSize: 14)),
-                  const SizedBox(height: 12),
-                  CalculatorTextFieldWidget(
-                      title: 'd(lbs/g)',
-                      hintText: 'Density',
-                      controller: densityController),
-                  const SizedBox(height: 20),
-                  const Text('Choose fertilizer*',
-                      style: TextStyle(fontSize: 14)),
-                  const SizedBox(height: 12),
-                  CustomDropDown1(onTap: () {
-                    context.read<DropdownitemClickCubit1>().clickedDropDown();
-                  }), //this widget will show liquid fertilizer dropdown
-                  SizedBox(height: 5),
-                  context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                          'Select fertilizer'
-                      ? Container()
-                      : DropDown1OptionsWidget(), //showing options after seleting 2nd dropdown
-                  const SizedBox(height: 15),
-                  context.watch<DropdownIndexCubit1>().state.fertilizer ==
-                          'Select fertilizer'
-                      ? OtherNutrientsBtnWidget(active: false, onTap: () {})
-                      : OtherNutrientsBtnWidget(
-                          active: true,
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => AddOtherNutrientswidget(
-                                      type: 'liquid',
-                                    ));
-                          }),
-                  const SizedBox(height: 10),
-                  context.watch<DropdownIndexCubit>().state.fertilizer ==
-                              'Select fertilizer' ||
-                          context
-                                  .watch<DropdownIndexCubit1>()
-                                  .state
-                                  .fertilizer ==
+              height: MediaQuery.of(context).size.height * .9,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  image: const DecorationImage(
+                      image: AssetImage("assets/bgImage.png")),
+                  color: CustomTheme.bgColor),
+              child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
+                child: Container(
+                  padding: const EdgeInsets.only(left: 28, right: 28),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30),
+                      DotHeaderWidget(
+                          header: "Dry Fertilizers"), //header with dot
+                      const Text('Enter your required amount*',
+                          style: TextStyle(fontSize: 14)),
+                      const SizedBox(height: 12),
+                      CalculatorTextFieldWidget(
+                          title: 'pounds',
+                          hintText: 'Amount',
+                          controller: poundController),
+                      const SizedBox(height: 20),
+                      const Text('Choose fertilizer*',
+                          style: TextStyle(fontSize: 14)),
+                      const SizedBox(height: 12),
+                      CustomDropDown(onTap: () {
+                        context
+                            .read<DropdownitemClickCubit>()
+                            .clickedDropDown();
+                      }), //this widget will show dry fertilizer dropdown
+                      SizedBox(height: 5),
+                      context.watch<DropdownIndexCubit>().state.fertilizer ==
                               'Select fertilizer'
-                      ? Container()
-                      : InstructionWidget(),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 30, top: 20),
-                    child: CustomButtonWidget(
-                        btnTitle: 'Continue',
-                        isValid: checkCalculatorValidation(
-                                context,
-                                poundController,
-                                gallonController,
-                                densityController) //checking if all the fields are filled or not
-                            ? false
-                            : true,
-                        onBtnPress: () {
-                          checkCalculatorValidation(context, poundController,
-                                  gallonController, densityController)
-                              ? showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      content: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Please fill all the fields',
-                                          style: TextStyle(
-                                              color: CustomTheme.redErrorColor),
-                                        ),
-                                      ),
-                                    );
-                                  })
-                              : showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      DisclaimerAlertDialog());
-                          saveString('dryweight',
-                              poundController.text); //storing drywright data
-                          saveString('liquidweight',
-                              gallonController.text); //storing liquid data
-                          saveString('density',
-                              densityController.text); //storing density data
-                          calculate(poundController.text, gallonController.text,
-                              densityController.text);
-                        }),
+                          ? Container()
+                          : DropDownOptionsWidget(), //showing option after selecting
+                      const SizedBox(height: 15),
+                      context.watch<DropdownIndexCubit>().state.fertilizer ==
+                              'Select fertilizer'
+                          ? OtherNutrientsBtnWidget(active: false, onTap: () {})
+                          : OtherNutrientsBtnWidget(
+                              active: true,
+                              onTap: () {
+                                showDialog(
+                                    barrierDismissible: !hitremain,
+                                    context: context,
+                                    builder: (context) =>
+                                        AddOtherNutrientswidget(type: 'dry'));
+                              }),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: Divider(
+                              color: CustomTheme.primaryColor, thickness: 2)),
+                      DotHeaderWidget(
+                          header: "Liquid Fertilizers"), //header with dot
+                      const Text('Enter your required amount in gallon*',
+                          style: TextStyle(fontSize: 14)),
+                      const SizedBox(height: 12),
+                      CalculatorTextFieldWidget(
+                          title: 'gallons',
+                          hintText: 'Amount',
+                          controller: gallonController),
+                      const SizedBox(height: 20),
+                      const Text('Enter density of liquid*',
+                          style: TextStyle(fontSize: 14)),
+                      const SizedBox(height: 12),
+                      CalculatorTextFieldWidget(
+                          title: 'd(lbs/g)',
+                          hintText: 'Density',
+                          controller: densityController),
+                      const SizedBox(height: 20),
+                      const Text('Choose fertilizer*',
+                          style: TextStyle(fontSize: 14)),
+                      const SizedBox(height: 12),
+                      CustomDropDown1(onTap: () {
+                        context
+                            .read<DropdownitemClickCubit1>()
+                            .clickedDropDown();
+                      }), //this widget will show liquid fertilizer dropdown
+                      SizedBox(height: 5),
+                      context.watch<DropdownIndexCubit1>().state.fertilizer ==
+                              'Select fertilizer'
+                          ? Container()
+                          : DropDown1OptionsWidget(), //showing options after seleting 2nd dropdown
+                      const SizedBox(height: 15),
+                      context.watch<DropdownIndexCubit1>().state.fertilizer ==
+                              'Select fertilizer'
+                          ? OtherNutrientsBtnWidget(active: false, onTap: () {})
+                          : OtherNutrientsBtnWidget(
+                              active: true,
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        AddOtherNutrientswidget(
+                                          type: 'liquid',
+                                        ));
+                              }),
+                      const SizedBox(height: 10),
+                      context.watch<DropdownIndexCubit>().state.fertilizer ==
+                                  'Select fertilizer' ||
+                              context
+                                      .watch<DropdownIndexCubit1>()
+                                      .state
+                                      .fertilizer ==
+                                  'Select fertilizer'
+                          ? Container()
+                          : InstructionWidget(),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 30, top: 20),
+                        child: CustomButtonWidget(
+                            btnTitle: 'Continue',
+                            isValid: checkCalculatorValidation(
+                                    context,
+                                    poundController,
+                                    gallonController,
+                                    densityController) //checking if all the fields are filled or not
+                                ? false
+                                : true,
+                            onBtnPress: () {
+                              checkCalculatorValidation(
+                                      context,
+                                      poundController,
+                                      gallonController,
+                                      densityController)
+                                  ? showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Please fill all the fields',
+                                              style: TextStyle(
+                                                  color: CustomTheme
+                                                      .redErrorColor),
+                                            ),
+                                          ),
+                                        );
+                                      })
+                                  : showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          DisclaimerAlertDialog());
+                              saveString(
+                                  'dryweight',
+                                  poundController
+                                      .text); //storing drywright data
+                              saveString('liquidweight',
+                                  gallonController.text); //storing liquid data
+                              saveString(
+                                  'density',
+                                  densityController
+                                      .text); //storing density data
+                              calculate(
+                                  poundController.text,
+                                  gallonController.text,
+                                  densityController.text);
+                            }),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        )),
+            )),
       ),
     );
   }

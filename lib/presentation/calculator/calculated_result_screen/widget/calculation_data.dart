@@ -1,8 +1,7 @@
 import '../../../../heiper/storing_calculation_data.dart';
 
-
-
 Future<Map<String, dynamic>> getData() async {
+  var data = await getString('dryweight');
   final totalDryWeight = () async {
     var data = await getString('dryweight');
     return data;
@@ -98,7 +97,7 @@ Future<Map<String, dynamic>> getData() async {
   };
 
   return {
-    'totalDryWeight': totalDryWeight,
+    'totalDryWeight': data,
     'totalLiquidWeight': totalLiquidWeight,
     'density': density,
     'tdwofN': tdwofN,
