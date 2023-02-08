@@ -46,10 +46,11 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'] == null ? 'name' : json['name'];
+    name = json['name'] == null ? 'Enter your name' : json['name'];
     email = json['email'];
-    address = json['address'] == null ? 'address' : json['address'];
-    number = json['number'] == null ? 'number' : json['number'];
+    address = json['address'] == null ? 'Enter your Address' : json['address'];
+    number =
+        json['number'] == null ? 'Enter your mobile number' : json['number'];
     profileSetup = json['profile_setup'];
     hitRemaining = json['hit_remaining'];
     otp = json['otp'];

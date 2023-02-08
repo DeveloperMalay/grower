@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:grower/data/model/custom_error.dart';
 import 'package:grower/data/repository/otp_verify_repository.dart';
 import '../../../../data/model/verify_otp_model.dart';
-
 part 'verify_otp_state.dart';
+
 
 class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit() : super(VerifyOtpState.initial());

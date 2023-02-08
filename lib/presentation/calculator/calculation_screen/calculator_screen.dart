@@ -10,14 +10,12 @@ import 'package:grower/presentation/calculator/calculation_screen/widget/custom_
 import 'package:grower/presentation/calculator/calculation_screen/widget/disclaimer_alert_dialog.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/drop_down1_options_widget.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/reminder_popup.dart';
-import 'package:grower/presentation/calculator/reset_screen/reset_loading_screen.dart';
+import 'package:grower/presentation/calculator/widgets/alert_dialog_widget.dart';
 import 'package:grower/presentation/widgets/custom_appbar_widget.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import '../../../heiper/calculation_function.dart';
 import '../../../heiper/calculator_validator.dart';
-import '../../../heiper/clear_textField.dart';
 import '../../../theme/custom_theme.dart';
-import '../../restart_widget.dart';
 import '../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
@@ -93,9 +91,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           appbarTitle: 'Calculator',
           isresult: false,
           ontapbackarrow: () {
-          
-            // context.go('/');
-            context.go("/resetloadingscreen");
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialogWidget(
+                      content: 'Your calculation will be reset',
+                      leftBtnTitle: 'Yes, Exit',
+                      title: 'Are you sure you want to reset?',
+                      onTap: () async {
+                        context.go("/resetloadingscreen");
+                      });
+                });
           },
         ),
         body: SingleChildScrollView(
@@ -171,11 +177,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   const Text('Choose fertilizer*',
                       style: TextStyle(fontSize: 14)),
                   const SizedBox(height: 12),
-                  CustomDropDown1(
-                    onTap: () {
-                      context.read<DropdownitemClickCubit1>().clickedDropDown();
-                    },
-                  ), //this widget will show liquid fertilizer dropdown
+                  CustomDropDown1(onTap: () {
+                    context.read<DropdownitemClickCubit1>().clickedDropDown();
+                  }), //this widget will show liquid fertilizer dropdown
                   SizedBox(height: 5),
                   context.watch<DropdownIndexCubit1>().state.fertilizer ==
                           'Select fertilizer'

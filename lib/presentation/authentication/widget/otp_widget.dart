@@ -79,8 +79,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 );
               });
           Timer(Duration(seconds: 2), () {
-            context.go('/calculator');
-            screenReplaceNavigator(context, CalculatorScreen());
+            context.goNamed('calculator', params: {'showpopup': 'true'});
           });
         }
       },
@@ -205,9 +204,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 }
               },
             ),
-            SizedBox(
-              height: 20,
-            )
+            SizedBox(height: 20)
           ],
         );
       },

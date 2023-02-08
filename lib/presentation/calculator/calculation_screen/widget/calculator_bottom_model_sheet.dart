@@ -39,70 +39,44 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25,
                 ),
-                child: Text(
-                  "More Options",
-                  style:
-                      TextStyle(color: CustomTheme.primaryColor, fontSize: 16),
-                ),
+                child: Text("More Options",
+                    style: TextStyle(
+                        color: CustomTheme.primaryColor, fontSize: 16)),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               InkWell(
                 onTap: () {
                   screenNavigator(context, UserProfileScreen());
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                  ),
-                  child: const Text(
-                    'View Profile',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: const Text('View Profile',
+                      style: TextStyle(color: Colors.black, fontSize: 14)),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
               InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialogWidget(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialogWidget(
                             content: 'You are going to Exit Calculator.',
                             leftBtnTitle: "Yes, Exit",
                             title: 'Are you sure?',
                             onTap: () {
                               SystemNavigator.pop();
-                            },
-                          ));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                  ),
-                  child: const Text(
-                    'Exit calculator',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+                            }));
+                  },
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: const Text('Exit calculator',
+                          style:
+                              TextStyle(color: Colors.black, fontSize: 14)))),
+              const SizedBox(height: 10),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   showDialog(
@@ -121,18 +95,12 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                           ));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                  ),
-                  child: const Text(
-                    'Log Out',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: const Text('Log Out',
+                      style: TextStyle(color: Colors.black, fontSize: 14)),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
             ]),
       ),
     );

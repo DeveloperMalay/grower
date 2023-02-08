@@ -58,7 +58,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).viewInsets);
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -275,7 +274,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           leftBtnTitle: 'Yes, Exit',
                                           onTap: () {
                                             Navigator.pop(context);
-                                            context.push('/calculator');
+                                            context.pushNamed('calculator',
+                                                params: {'showpopup': 'false'});
+
                                             context
                                                 .read<NotEtyStrValidatorCubit>()
                                                 .getInitialState();

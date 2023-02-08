@@ -49,7 +49,12 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
   @override
   void initState() {
     super.initState();
-    getpercentage(2);
+    getpercentage(context
+        .read<OtherNutrientsCubit>()
+        .state
+        .otherNutrients
+        .otherNutrients
+        .length);
   }
 
   @override
@@ -116,17 +121,13 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                           fontSize: 14, color: CustomTheme.primaryColor),
                     ),
                     SizedBox(height: 12),
-                    Text(
-                      widget.tdwofP,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text(widget.tdwofP,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
-                    Text(
-                      widget.tdwofK,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text(widget.tdwofK,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor))
                   ],
                 ),
               ),

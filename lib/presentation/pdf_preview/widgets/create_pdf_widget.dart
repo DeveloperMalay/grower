@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -23,7 +22,7 @@ Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
   var totalpercentN = await getString('totalpercentN');
   var totalpercentP = await getString('totalpercentP');
   var totalpercentK = await getString('totalpercentK');
-  var totalpercentC = await getString('');
+
   pdf.addPage(Page(build: (context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +31,7 @@ Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
           child: SizedBox(height: 100, child: Image(imageLogo)),
         ),
         Text(
-          'Result: ',
+          'Result:',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -269,10 +268,8 @@ Future<Uint8List> makePdf(CalculatedResultModel invoice) async {
         SizedBox(height: 20),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5),
-          child: Text(
-            'Dry Matter/gallon water: 9',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          child: Text('Dry Matter/gallon water: 9',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5),
