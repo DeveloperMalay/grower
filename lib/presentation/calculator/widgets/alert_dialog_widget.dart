@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_small_btn_widget.dart';
 
@@ -50,16 +48,9 @@ class AlertDialogWidget extends StatelessWidget {
           Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: onTap,
-                  // onTap: () async {
-                  //   final prefs = await SharedPreferences.getInstance();
-                  //   prefs.remove('isLoggedIn');
-
-                  //   SystemNavigator.pop();
-                  // },
                   child: SmallBtnWidget.whiteBtn(leftBtnTitle, Colors.white),
                 ),
                 const SizedBox(

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:grower/main.dart';
+import 'package:grower/presentation/authentication/login_screen.dart';
 import 'package:grower/presentation/calculator/reset_screen/reset_loading_screen.dart';
 import 'package:grower/presentation/onboarding_screen/welcome_screen.dart';
 import '../presentation/authentication/custom_bachground_screen.dart';
@@ -41,5 +42,8 @@ final GoRouter router = GoRouter(
     GoRoute(
         path: "/resetloadingscreen",
         builder: (context, state) => const ResetLoadingScreen()),
+    GoRoute(
+        path: "/lscreen",
+        builder: (context, state) => const LoginScreen()),
   ],
 );

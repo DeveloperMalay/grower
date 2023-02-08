@@ -93,7 +93,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
         context.read<LiquidFertilizerCubit>().state.liquidFertilizer;
     var liquidfertilizerIndex =
         context.watch<DropdownIndexCubit1>().state.dropdownindex;
-    // print('data from map--->${data['totalDryWeight']}');
+
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -115,17 +115,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                 FertilizerContainer(
                     title:
                         context.watch<DropdownIndexCubit>().state.fertilizer),
-                SizedBox(
-                  height: 12,
-                ),
-
-                Text(
-                  "Total weight of dry fertilizer:",
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
+                SizedBox(height: 12),
+                Text("Total weight of dry fertilizer:",
+                    style: TextStyle(fontSize: 16)),
+                SizedBox(height: 12),
                 Text("${totalDryWeight} lbs",
                     style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                 Container(

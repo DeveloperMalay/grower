@@ -70,6 +70,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //chceking if the remainhit has negitive number or 0
     var hitremain = context
             .watch<UserDetailsCubit>()
             .state
@@ -84,6 +85,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             .data
             .hitRemaining
             .contains('0');
+
+    var otherNutrients = context
+        .watch<OtherNutrientsCubit>()
+        .state
+        .otherNutrients
+        .otherNutrients;
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -100,6 +107,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       title: 'Are you sure you want to reset?',
                       onTap: () async {
                         context.go("/resetloadingscreen");
+                        for (var i = 0; i < otherNutrients.length; i++) {
+                          deleteText('dryothernutrients${i}');
+                          deleteText('liquidothernutrients${i}');
+                        }
                       });
                 });
           },

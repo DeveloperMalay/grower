@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:printing/printing.dart';
 import '../../theme/custom_theme.dart';
-import 'widgets/calculated_result_model.dart';
+import '../calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
+import 'widgets/other_nutrients_result.dart';
 import 'widgets/create_pdf_widget.dart';
 
-class PdfPreviewScreen extends StatelessWidget {
+class PdfPreviewScreen extends StatefulWidget {
   const PdfPreviewScreen({super.key});
+
+  @override
+  State<PdfPreviewScreen> createState() => _PdfPreviewScreenState();
+}
+
+class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
+  @override
+  void initState() {
+    addnutrients(context
+        .read<OtherNutrientsCubit>()
+        .state
+        .otherNutrients
+        .otherNutrients);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +60,7 @@ class PdfPreviewScreen extends StatelessWidget {
         ),
       ),
       body: PdfPreview(
-        build: (context) => makePdf(calculatedResult),
+        build: (context) => makePdf(),
       ),
     );
   }

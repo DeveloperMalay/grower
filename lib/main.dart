@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
+import 'package:grower/presentation/authentication/login_screen.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
-import 'package:grower/presentation/restart_widget.dart';
+import 'package:grower/presentation/widgets/restart_widget.dart';
 import 'package:grower/presentation/update_profile/cubit/textfield_click/textfield_click_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/valid_number/valid_number_cubit.dart';
+import 'heiper/navigator_function.dart';
 import 'heiper/router.dart';
 import 'presentation/authentication/cubit/email_checker/email_checker_cubit.dart';
 import 'presentation/authentication/cubit/isSignInValid/is_signin_valid_cubit.dart';
@@ -130,10 +132,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () async {
       if (await getBool('isLoggedIn')) {
         context.go('/welcomeback');
-        // screenReplaceNavigator(context, WelcomeBackScreen());
+        // context.go('/lscreen');
       } else {
         context.go('/welcome');
-        // screenReplaceNavigator(context, WelcomeScreen());
       }
       //It will redirect  after 3 seconds
     });
