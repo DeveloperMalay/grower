@@ -18,7 +18,7 @@ class ShowToastMessage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 8.0),
               child: Icon(Icons.check_circle, color: Colors.green, size: 30),
             ),
-            Text('Otp Resend Successfully!',
+            Text('Otp has been resented',
                 style: TextStyle(color: Colors.black, fontSize: 18)),
           ],
         ),

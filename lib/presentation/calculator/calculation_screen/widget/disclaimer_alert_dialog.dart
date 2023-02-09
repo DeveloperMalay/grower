@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grower/heiper/navigator_function.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
-
 import '../../calculated_result_screen/calculated_result_screen.dart';
 
+// ignore: must_be_immutable
 class DisclaimerAlertDialog extends StatelessWidget {
   DisclaimerAlertDialog({super.key});
   ScrollController controller = ScrollController();
@@ -25,16 +23,10 @@ class DisclaimerAlertDialog extends StatelessWidget {
             "Disclaimer",
             style: TextStyle(fontSize: 14),
           )),
-          SizedBox(
-            height: 6,
-          ),
+          SizedBox(height: 6),
           Center(
-            child: Container(
-              height: 2,
-              width: 84,
-              color: CustomTheme.primaryColor,
-            ),
-          )
+              child: Container(
+                  height: 2, width: 84, color: CustomTheme.primaryColor))
         ],
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 0),
@@ -53,15 +45,11 @@ class DisclaimerAlertDialog extends StatelessWidget {
                   width: 285,
                   child: Row(
                     children: [
-                      Text(
-                        'NOTICE OF WARRANTY –',
-                        style: TextStyle(
-                            color: CustomTheme.primaryColor, fontSize: 14),
-                      ),
-                      Text(
-                        "Grower’s Secret",
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      )
+                      Text('NOTICE OF WARRANTY –',
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor, fontSize: 14)),
+                      Text("Grower’s Secret",
+                          style: TextStyle(color: Colors.grey, fontSize: 14))
                     ],
                   ),
                 ),
@@ -73,9 +61,7 @@ class DisclaimerAlertDialog extends StatelessWidget {
                   style: TextStyle(color: Colors.grey, fontSize: 14),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -84,6 +70,7 @@ class DisclaimerAlertDialog extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).pop();
+            // context.push('/calculatorResult');
             screenNavigator(context, CalculatedResultScreen());
           },
           child: Center(

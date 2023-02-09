@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grower/heiper/storing_calculation_data.dart';
 import 'package:grower/presentation/widgets/custom_small_btn_widget.dart';
 import '../../../../heiper/navigator_function.dart';
 import '../../../../theme/custom_theme.dart';
@@ -28,12 +29,11 @@ class ReminderPopUp extends StatelessWidget {
             .data
             .hitRemaining
             .contains('0');
+    hitremain ? saveString('barrierDismiss', 'true') : null;
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
       child: AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -45,20 +45,15 @@ class ReminderPopUp extends StatelessWidget {
             hitremain
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
-                    child: Text(
-                      'You’ve used up your hits!',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  )
+                    child: Text('You’ve used up your hits!',
+                        style: TextStyle(fontSize: 24)))
                 : context.watch<UserDetailsCubit>().state.status ==
                         UserProfileStatus.loaded
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          '${context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining} Hits Left!',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      )
+                            '${context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining} Hits Left!',
+                            style: TextStyle(fontSize: 24)))
                     : SizedBox(
                         height: 20,
                         width: 20,
@@ -83,12 +78,11 @@ class ReminderPopUp extends StatelessWidget {
                           hitremain ? "Exit" : 'Skip', Colors.white)),
                   SizedBox(width: 20.w),
                   InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      screenNavigator(context, UserProfileScreen());
-                    },
-                    child: SmallBtnWidget.filledColorBtn('Update', true),
-                  ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        screenNavigator(context, UserProfileScreen());
+                      },
+                      child: SmallBtnWidget.filledColorBtn('Update', true)),
                 ],
               ),
             )

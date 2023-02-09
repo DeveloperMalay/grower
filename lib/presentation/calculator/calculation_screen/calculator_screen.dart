@@ -41,14 +41,26 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   late TextEditingController poundController;
   late TextEditingController gallonController;
   late TextEditingController densityController;
+  String? dryweight;
+  String? liquidweight;
+  String? density;
+  String? barreirDismiss;
+  getTextFieldData() async {
+    dryweight = await getString('dryweight');
+    liquidweight = await getString('liquidweight');
+    density = await getString('density');
+    barreirDismiss = await getString('barreirDismiss');
+  }
 
   @override
   void initState() {
     super.initState();
+    // getTextFieldData();
     context.read<UserDetailsCubit>().userDetails();
     // widget.showpopup! == 'true'
     Timer(Duration(seconds: 1), () {
       showDialog(
+        barrierDismissible: barreirDismiss == 'true' ? false : true,
         context: context,
         builder: (context) => ReminderPopUp(),
       );
@@ -70,22 +82,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //chceking if the remainhit has negitive number or 0
-    var hitremain = context
-            .watch<UserDetailsCubit>()
-            .state
-            .userDetails
-            .data
-            .hitRemaining
-            .contains('-') ||
-        context
-            .watch<UserDetailsCubit>()
-            .state
-            .userDetails
-            .data
-            .hitRemaining
-            .contains('0');
-
     var otherNutrients = context
         .watch<OtherNutrientsCubit>()
         .state
@@ -145,7 +141,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 12),
                       CalculatorTextFieldWidget(
                           title: 'pounds',
-                          hintText: 'Amount',
+                          hintText: dryweight ?? 'Amount',
                           controller: poundController),
                       const SizedBox(height: 20),
                       const Text('Choose fertilizer*',
@@ -169,7 +165,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               active: true,
                               onTap: () {
                                 showDialog(
-                                    barrierDismissible: !hitremain,
                                     context: context,
                                     builder: (context) =>
                                         AddOtherNutrientswidget(type: 'dry'));
@@ -185,7 +180,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 12),
                       CalculatorTextFieldWidget(
                           title: 'gallons',
-                          hintText: 'Amount',
+                          hintText: liquidweight ?? 'Amount',
                           controller: gallonController),
                       const SizedBox(height: 20),
                       const Text('Enter density of liquid*',
@@ -193,7 +188,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 12),
                       CalculatorTextFieldWidget(
                           title: 'd(lbs/g)',
-                          hintText: 'Density',
+                          hintText: density ?? 'Density',
                           controller: densityController),
                       const SizedBox(height: 20),
                       const Text('Choose fertilizer*',

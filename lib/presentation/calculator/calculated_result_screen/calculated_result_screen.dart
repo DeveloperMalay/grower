@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/calculation_function.dart';
 import 'package:grower/heiper/storing_calculation_data.dart';
 import 'package:grower/presentation/calculator/calculated_result_screen/widget/result_text_widget.dart';
@@ -91,141 +92,155 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: Scaffold(
-        appBar: CustomAppbarWidget(
-          appbarTitle: 'Calculated Results',
-          isresult: true,
-          ontapbackarrow: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: CustomTheme.bgColor,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DotHeaderWidget(header: 'Dry Fertilizer'), //header with dot
-                FertilizerContainer(
-                    title:
-                        context.watch<DropdownIndexCubit>().state.fertilizer),
-                SizedBox(height: 12),
-                Text("Total weight of dry fertilizer:",
-                    style: TextStyle(fontSize: 16)),
-                SizedBox(height: 12),
-                Text("${totalDryWeight} lbs",
-                    style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
-                Container(
-                    height: 1,
-                    width: 226,
-                    margin: EdgeInsets.only(top: 5),
-                    color: Colors.grey),
-                SizedBox(height: 12),
-                FertilizerResultWidget(
-                  type: 'dry',
-                  data: dryfertilizerCubit,
-                  index: dryfertilizerIndex,
-                  tdwofN: tdwofN!,
-                  tdwofK: tdwofK!,
-                  tdwofP: tdwofP!,
-                ), //dry fertilizer details widget
-                SizedBox(
-                  height: 24,
-                ),
-                Divider(color: CustomTheme.primaryColor, thickness: 2),
-                SizedBox(height: 24),
-                DotHeaderWidget(header: "Liquid Fertilizer"), //header with dot
-                FertilizerContainer(
-                    title:
-                        context.watch<DropdownIndexCubit1>().state.fertilizer),
-                SizedBox(height: 12),
-                Text("Total weight of liquid fertilizer:",
-                    style: TextStyle(fontSize: 16)),
-                SizedBox(height: 12),
-                Text("${totalLiquidWeight} lbs",
-                    style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
-                Container(
-                    height: 1,
-                    width: 226,
-                    margin: EdgeInsets.only(top: 5),
-                    color: Colors.grey),
-                SizedBox(height: 12),
-                FertilizerResultWidget(
-                    type: 'liquid',
+      child: WillPopScope(
+        onWillPop: () async {
+          saveString('showpopup','true');
+          // context.goNamed('calculator', params: {'showpopup': 'true'});
+          return true;
+        },
+        child: Scaffold(
+          appBar: CustomAppbarWidget(
+            appbarTitle: 'Calculated Results',
+            isresult: true,
+            ontapbackarrow: () {
+              // Navigator.pop(context);
+
+              context.pop();
+            },
+          ),
+          backgroundColor: CustomTheme.bgColor,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DotHeaderWidget(header: 'Dry Fertilizer'), //header with dot
+                  FertilizerContainer(
+                      title:
+                          context.watch<DropdownIndexCubit>().state.fertilizer),
+                  SizedBox(height: 12),
+                  Text("Total weight of dry fertilizer:",
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 12),
+                  Text("${totalDryWeight} lbs",
+                      style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
+                  Container(
+                      height: 1,
+                      width: 226,
+                      margin: EdgeInsets.only(top: 5),
+                      color: Colors.grey),
+                  SizedBox(height: 12),
+                  FertilizerResultWidget(
+                    type: 'dry',
+                    data: dryfertilizerCubit,
+                    index: dryfertilizerIndex,
+                    tdwofN: tdwofN!,
+                    tdwofK: tdwofK!,
+                    tdwofP: tdwofP!,
+                  ), //dry fertilizer details widget
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Divider(color: CustomTheme.primaryColor, thickness: 2),
+                  SizedBox(height: 24),
+                  DotHeaderWidget(
+                      header: "Liquid Fertilizer"), //header with dot
+                  FertilizerContainer(
+                      title: context
+                          .watch<DropdownIndexCubit1>()
+                          .state
+                          .fertilizer),
+                  SizedBox(height: 12),
+                  Text("Total weight of liquid fertilizer:",
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 12),
+                  Text("${totalLiquidWeight} lbs",
+                      style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
+                  Container(
+                      height: 1,
+                      width: 226,
+                      margin: EdgeInsets.only(top: 5),
+                      color: Colors.grey),
+                  SizedBox(height: 12),
+                  FertilizerResultWidget(
+                      type: 'liquid',
+                      data: liquidfertilizerCubit,
+                      index: liquidfertilizerIndex,
+                      tdwofN: tdwoflN!,
+                      tdwofK: tdwoflK!,
+                      tdwofP: tdwoflP!), //liquid fertilizer details widget
+                  SizedBox(height: 24),
+                  Container(
+                    height: 30,
+                    width: 342,
+                    padding: EdgeInsets.only(top: 5, bottom: 5, left: 12),
+                    decoration: CustomTheme.calculatorContianerStyle,
+                    child: Text('Calculated mixture is:',
+                        style:
+                            CustomTheme.primarytextStyle(16, FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ResultTextWidget(
+                      header: "Total dry + liquid fertilizer weight :",
+                      result: '${totalWeight!} Ibs'),
+                  ResultTextWidget(
+                      header: "Density of a mixture:",
+                      result: "${density} lbs/g"),
+                  FertilizerResultWidget(
+                    type: 'mixed',
                     data: liquidfertilizerCubit,
                     index: liquidfertilizerIndex,
-                    tdwofN: tdwoflN!,
-                    tdwofK: tdwoflK!,
-                    tdwofP: tdwoflP!), //liquid fertilizer details widget
-                SizedBox(height: 24),
-                Container(
-                  height: 30,
-                  width: 342,
-                  padding: EdgeInsets.only(top: 5, bottom: 5, left: 12),
-                  decoration: CustomTheme.calculatorContianerStyle,
-                  child: Text('Calculated mixture is:',
-                      style: CustomTheme.primarytextStyle(16, FontWeight.bold)),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ResultTextWidget(
-                    header: "Total dry + liquid fertilizer weight :",
-                    result: '${totalWeight!} Ibs'),
-                ResultTextWidget(
-                    header: "Density of a mixture:",
-                    result: "${density} lbs/g"),
-                FertilizerResultWidget(
-                  type: 'mixed',
-                  data: liquidfertilizerCubit,
-                  index: liquidfertilizerIndex,
-                  tdwofN: totalN!,
-                  tdwofK: totalK!,
-                  tdwofP: totalP!,
-                  totalpercentN: totalpercentN,
-                  totalpercentP: totalpercentP,
-                  totalpercentK: totalpercentK,
-                ), //total fertilizer details widget
-                SizedBox(height: 24),
-                ResultTextWidget(
-                    header: "Max dry matter per gallon water", result: "9 lbs"),
-                ResultTextWidget(
-                    header: "Dry matter from liquid",
-                    result: "$drymatterfromliquid lbs"),
-                ResultTextWidget(
-                    header: "Dry material from ingredients",
-                    result: "$totalDryWeight lbs"),
-                ResultTextWidget(
-                    header: "Total Dry material",
-                    result: "$totaldrymaterial lbs"),
-                Container(
-                  width: 342,
-                  padding: EdgeInsets.all(16),
-                  decoration: CustomTheme.shadowDecoration,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Mixture is:', style: TextStyle(fontSize: 16)),
-                          Text('$mixture lbs',
-                              style: CustomTheme.primarytextStyle(
-                                  16, FontWeight.w400)),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                          'Pounds over suggested limit of 9 pounds dry material per gallon',
-                          style: TextStyle(fontSize: 14, color: Colors.red))
-                    ],
-                  ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: BottomOptionsWidget() //showing bottom icons optins
+                    tdwofN: totalN!,
+                    tdwofK: totalK!,
+                    tdwofP: totalP!,
+                    totalpercentN: totalpercentN,
+                    totalpercentP: totalpercentP,
+                    totalpercentK: totalpercentK,
+                  ), //total fertilizer details widget
+                  SizedBox(height: 24),
+                  ResultTextWidget(
+                      header: "Max dry matter per gallon water",
+                      result: "9 lbs"),
+                  ResultTextWidget(
+                      header: "Dry matter from liquid",
+                      result: "$drymatterfromliquid lbs"),
+                  ResultTextWidget(
+                      header: "Dry material from ingredients",
+                      result: "$totalDryWeight lbs"),
+                  ResultTextWidget(
+                      header: "Total Dry material",
+                      result: "$totaldrymaterial lbs"),
+                  Container(
+                    width: 342,
+                    padding: EdgeInsets.all(16),
+                    decoration: CustomTheme.shadowDecoration,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Mixture is:', style: TextStyle(fontSize: 16)),
+                            Text('$mixture lbs',
+                                style: CustomTheme.primarytextStyle(
+                                    16, FontWeight.w400)),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                            'Pounds over suggested limit of 9 pounds dry material per gallon',
+                            style: TextStyle(fontSize: 14, color: Colors.red))
+                      ],
                     ),
-              ],
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: BottomOptionsWidget() //showing bottom icons optins
+                      ),
+                ],
+              ),
             ),
           ),
         ),
