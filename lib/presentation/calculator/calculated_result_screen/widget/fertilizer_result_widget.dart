@@ -36,7 +36,7 @@ class FertilizerResultWidget extends StatefulWidget {
 class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
   List othernutrients_percentage = [];
   List othernutrients_weight = [];
-  getpercentage(int length) async {
+  getothernutrients(int length) async {
     for (var i = 0; i < length; i++) {
       othernutrients_percentage
           .add(await getString('${widget.type}othernutrients$i'));
@@ -49,7 +49,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
   @override
   void initState() {
     super.initState();
-    getpercentage(context
+    getothernutrients(context
         .read<OtherNutrientsCubit>()
         .state
         .otherNutrients
@@ -61,6 +61,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
   Widget build(BuildContext context) {
     var othernutrients =
         context.read<OtherNutrientsCubit>().state.otherNutrients.otherNutrients;
+
     return Container(
       padding: EdgeInsets.all(16),
       decoration: CustomTheme.shadowDecoration,
@@ -85,7 +86,6 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
             children: [
               Container(
                 width: 100.w,
-                // color: Colors.red,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -202,7 +202,10 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(othernutrients_weight[index] ?? '0',
+                          Text(
+                              othernutrients_weight[index].toString().isEmpty
+                                  ? '0'
+                                  : othernutrients_weight[index],
                               style: TextStyle(
                                   fontSize: 14,
                                   color: CustomTheme.primaryColor)),
@@ -221,7 +224,12 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(othernutrients_percentage[index] ?? '0',
+                          Text(
+                              othernutrients_percentage[index]
+                                      .toString()
+                                      .isEmpty
+                                  ? '0'
+                                  : othernutrients_percentage[index],
                               style: TextStyle(
                                   fontSize: 14,
                                   color: CustomTheme.primaryColor)),

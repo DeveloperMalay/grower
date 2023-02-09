@@ -11,6 +11,9 @@ loadingDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.of(context).pop(true);
+        });
         return CupertinoAlertDialog(
           content: Center(
             child: Row(
@@ -37,6 +40,9 @@ loadingDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.of(context).pop(true);
+        });
         return AlertDialog(
           content: Center(
             child: Row(

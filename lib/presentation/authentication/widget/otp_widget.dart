@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grower/heiper/navigator_function.dart';
+import 'package:grower/presentation/authentication/widget/show_toast_message.dart';
 import 'package:grower/presentation/widgets/custom_button_widget.dart';
 import 'package:pinput/pinput.dart';
 import '../../../data/repository/resend_otp_repositoty.dart';
 import '../../../theme/custom_theme.dart';
-import '../../calculator/calculation_screen/calculator_screen.dart';
 import '../../widgets/error_diolog.dart';
 import '../../widgets/loading_dialog.dart';
 import '../../widgets/success_popup_widget.dart';
@@ -131,9 +130,12 @@ class _OtpWidgetState extends State<OtpWidget> {
               ),
             ),
             context.read<VerifyOtpCubit>().state.verifyotp.status == 403
-                ? Text(
-                    'Invalid Otp !',
-                    style: TextStyle(color: CustomTheme.redErrorColor),
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      'Invalid Otp !',
+                      style: TextStyle(color: CustomTheme.redErrorColor),
+                    ),
                   )
                 : Container(),
             Padding(
@@ -156,12 +158,10 @@ class _OtpWidgetState extends State<OtpWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Didn’t receive OTP yet?',
+                      "Didn’t receive OTP yet?",
                       style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
+                    const SizedBox(width: 5),
                     InkWell(
                       onTap: () async {
                         if (_timerDuration == 0) {
@@ -170,6 +170,14 @@ class _OtpWidgetState extends State<OtpWidget> {
                           });
                           startTimer();
                           await resendOtp(widget.email);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  Navigator.of(context).pop(true);
+                                });
+                                return ShowToastMessage();
+                              });
                         }
                       },
                       child: Text(

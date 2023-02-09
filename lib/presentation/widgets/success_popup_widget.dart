@@ -21,7 +21,6 @@ class SuccessPopUpWidget extends StatelessWidget {
               height: 20,
             ),
             Image.asset('assets/tick.png'),
-            // SvgPicture.asset('assets/tick.svg'),
             const SizedBox(
               height: 20,
             ),

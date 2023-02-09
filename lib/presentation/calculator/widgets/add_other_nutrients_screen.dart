@@ -8,10 +8,16 @@ import '../../../theme/custom_theme.dart';
 import '../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 
 // ignore: must_be_immutable
-class AddOtherNutrientswidget extends StatelessWidget {
+class AddOtherNutrientswidget extends StatefulWidget {
   AddOtherNutrientswidget({super.key, required this.type});
   final String type;
 
+  @override
+  State<AddOtherNutrientswidget> createState() =>
+      _AddOtherNutrientswidgetState();
+}
+
+class _AddOtherNutrientswidgetState extends State<AddOtherNutrientswidget> {
   List<TextEditingController> _controllers = [
     TextEditingController(),
     TextEditingController(),
@@ -19,6 +25,28 @@ class AddOtherNutrientswidget extends StatelessWidget {
     TextEditingController(),
     TextEditingController(),
   ];
+
+  List othernutrients_percentage = [];
+
+  getothernutrients(int length) async {
+    for (var i = 0; i < length; i++) {
+      othernutrients_percentage
+          .add(await getString('${widget.type}othernutrients$i'));
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    getothernutrients(context
+        .read<OtherNutrientsCubit>()
+        .state
+        .otherNutrients
+        .otherNutrients
+        .length);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var otherNutrients = context
@@ -116,7 +144,14 @@ class AddOtherNutrientswidget extends StatelessWidget {
                                                                 fontSize: 16),
                                                           ),
                                                         ),
-                                                        hintText: '0'))))
+                                                        hintText:
+                                                            othernutrients_percentage[
+                                                                        index]
+                                                                    .toString()
+                                                                    .isEmpty
+                                                                ? '0'
+                                                                : othernutrients_percentage[
+                                                                    index]))))
                                       ])
                                 ]);
                               }))))),
@@ -131,7 +166,7 @@ class AddOtherNutrientswidget extends StatelessWidget {
                   content: InkWell(
                       onTap: () {
                         for (var i = 0; i < otherNutrients.length; i++) {
-                          saveString('${type}othernutrients${i}',
+                          saveString('${widget.type}othernutrients${i}',
                               _controllers[i].text);
                         }
                         Navigator.pop(context);

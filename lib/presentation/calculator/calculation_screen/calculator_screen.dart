@@ -46,14 +46,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void initState() {
     super.initState();
     context.read<UserDetailsCubit>().userDetails();
-    widget.showpopup! == 'true'
-        ? Timer(Duration(seconds: 1), () {
-            showDialog(
-              context: context,
-              builder: (context) => ReminderPopUp(),
-            );
-          })
-        : null;
+    // widget.showpopup! == 'true'
+    Timer(Duration(seconds: 1), () {
+      showDialog(
+        context: context,
+        builder: (context) => ReminderPopUp(),
+      );
+    });
+    // : null;
     context.read<OtherNutrientsCubit>().getOtherNutrients();
     poundController = TextEditingController();
     gallonController = TextEditingController();
@@ -98,21 +98,27 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           appbarTitle: 'Calculator',
           isresult: false,
           ontapbackarrow: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialogWidget(
-                      content: 'Your calculation will be reset',
-                      leftBtnTitle: 'Yes, Exit',
-                      title: 'Are you sure you want to reset?',
-                      onTap: () async {
-                        context.go("/resetloadingscreen");
-                        for (var i = 0; i < otherNutrients.length; i++) {
-                          deleteText('dryothernutrients${i}');
-                          deleteText('liquidothernutrients${i}');
-                        }
-                      });
-                });
+            checkCalculatorValidation(
+                    context,
+                    poundController,
+                    gallonController,
+                    densityController) //checking if all the fields are filled or not
+                ? null
+                : showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialogWidget(
+                          content: 'Your calculation will be reset',
+                          leftBtnTitle: 'Yes, Reset',
+                          title: 'Are you sure you want to reset?',
+                          onTap: () async {
+                            context.go("/resetloadingscreen");
+                            for (var i = 0; i < otherNutrients.length; i++) {
+                              deleteText('dryothernutrients${i}');
+                              deleteText('liquidothernutrients${i}');
+                            }
+                          });
+                    });
           },
         ),
         body: SingleChildScrollView(
