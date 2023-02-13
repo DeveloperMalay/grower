@@ -11,10 +11,16 @@ addnutrients(List<OtherNutrients> othernutrientsdata) async {
     othernutrients_weight.add(await getString('mixedothernutrientsweight$i'));
   }
   for (var i = 0; i < othernutrientsdata.length; i++) {
+    print(othernutrientsdata.length);
+    print(othernutrients_weight[i].toString().isEmpty);
     otherNutrientsdata.add(OtherNutrientsModel(
         name: othernutrientsdata[i].name,
-        weight: othernutrients_percentage[i],
-        percent: othernutrients_weight[i]));
+        weight: othernutrients_weight[i].toString().isEmpty
+            ? '0'
+            : othernutrients_weight[i],
+        percent: othernutrients_percentage[i].toString().isEmpty
+            ? '0'
+            : othernutrients_percentage[i]));
   }
 }
 

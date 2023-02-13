@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../theme/custom_theme.dart';
+import 'cubit/email_checker/email_checker_cubit.dart';
+import 'cubit/isSignInValid/is_signin_valid_cubit.dart';
+import 'cubit/is_focus/is_foces_cubit.dart';
 
 class CustomBackgroundWidget extends StatelessWidget {
   const CustomBackgroundWidget(
@@ -28,6 +32,11 @@ class CustomBackgroundWidget extends StatelessWidget {
                     ? Container()
                     : InkWell(
                         onTap: () {
+                          context
+                              .read<EmailCheckerCubit>()
+                              .getemailInitialState();
+                          context.read<IsSigninValidCubit>().emitInitialState();
+                          context.read<IsFocesCubit>().emitinitialState();
                           context.go('/login');
                         },
                         child: Container(
@@ -43,13 +52,7 @@ class CustomBackgroundWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                isLogin
-                    ? SizedBox(
-                        height: 87.h,
-                      )
-                    : SizedBox(
-                        height: 39.h,
-                      ),
+                isLogin ? SizedBox(height: 87.h) : SizedBox(height: 39.h),
                 Center(
                   child: Container(
                     height: 90,
@@ -69,9 +72,7 @@ class CustomBackgroundWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 70.h,
-                ),
+                SizedBox(height: 70.h),
                 Container(
                   height: 437.h,
                   width: MediaQuery.of(context).size.width,

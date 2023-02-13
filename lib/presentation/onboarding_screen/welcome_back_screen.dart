@@ -87,7 +87,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
                         btnTitle: 'Continue',
                         onBtnPress: () {
                           context.goNamed('calculator',
-                              params: {'showpopup': 'true'});
+                              params: {'dismiss': 'false'});
                         }),
                   ),
                   builder: (context, offset, child) {

@@ -21,6 +21,7 @@ import '../widgets/add_other_nutrients_screen.dart';
 import 'cubit/dropdownIndex/dropdown_index_cubit.dart';
 import 'cubit/dropdownitem1Click/dropdownitem_click_cubit1.dart';
 import 'cubit/dropdownitemClick/dropdownitem_click_cubit.dart';
+import 'cubit/text_field_clicked/text_field_clicked_cubit.dart';
 import 'widget/calculator_textfield_widget.dart';
 import '../widgets/dot_header_widget.dart';
 import 'widget/drop_down_options_widget.dart';
@@ -41,10 +42,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   late TextEditingController poundController;
   late TextEditingController gallonController;
   late TextEditingController densityController;
+
   String? dryweight;
   String? liquidweight;
   String? density;
   String? barreirDismiss;
+  String? profile_updated;
+  int? hitno;
   getTextFieldData() async {
     dryweight = await getString('dryweight');
     liquidweight = await getString('liquidweight');
@@ -52,18 +56,28 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     barreirDismiss = await getString('barreirDismiss');
   }
 
+  shownotification() async {
+    profile_updated = await getString('profile_updated');
+    hitno = int.parse(
+        context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining);
+  }
+
   @override
   void initState() {
     super.initState();
-    // getTextFieldData();
     context.read<UserDetailsCubit>().userDetails();
-    // widget.showpopup! == 'true'
+    shownotification();
     Timer(Duration(seconds: 1), () {
-      showDialog(
-        barrierDismissible: barreirDismiss == 'true' ? false : true,
-        context: context,
-        builder: (context) => ReminderPopUp(),
-      );
+      profile_updated!.isEmpty
+          ? showDialog(
+              barrierDismissible:
+                  barreirDismiss == 'true' || widget.showpopup == 'true'
+                      ? true
+                      : false,
+              context: context,
+              builder: (context) => ReminderPopUp(),
+            )
+          : null;
     });
     // : null;
     context.read<OtherNutrientsCubit>().getOtherNutrients();
@@ -82,11 +96,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('profile_updated===>$profile_updated');
     var otherNutrients = context
         .watch<OtherNutrientsCubit>()
         .state
         .otherNutrients
         .otherNutrients;
+
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -99,7 +115,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     poundController,
                     gallonController,
                     densityController) //checking if all the fields are filled or not
-                ? null
+                ? showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "You don't have enough data to reset",
+                            style: TextStyle(color: CustomTheme.redErrorColor),
+                          ),
+                        ),
+                      );
+                    })
                 : showDialog(
                     context: context,
                     builder: (context) {
@@ -118,8 +146,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           },
         ),
         body: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Container(
+            child: Column(
+          children: [
+            Container(
               height: MediaQuery.of(context).size.height * .9,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -127,7 +156,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       image: AssetImage("assets/bgImage.png")),
                   color: CustomTheme.bgColor),
               child: SingleChildScrollView(
-                physics: ClampingScrollPhysics(),
                 child: Container(
                   padding: const EdgeInsets.only(left: 28, right: 28),
                   child: Column(
@@ -140,9 +168,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           style: TextStyle(fontSize: 14)),
                       const SizedBox(height: 12),
                       CalculatorTextFieldWidget(
-                          title: 'pounds',
-                          hintText: dryweight ?? 'Amount',
-                          controller: poundController),
+                        title: 'pounds',
+                        hintText: dryweight ?? 'Amount',
+                        controller: poundController,
+                        ontap: () {
+                          context.read<TextFieldClickedCubit>().clicked();
+                        },
+                      ),
                       const SizedBox(height: 20),
                       const Text('Choose fertilizer*',
                           style: TextStyle(fontSize: 14)),
@@ -187,9 +219,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           style: TextStyle(fontSize: 14)),
                       const SizedBox(height: 12),
                       CalculatorTextFieldWidget(
-                          title: 'd(lbs/g)',
-                          hintText: density ?? 'Density',
-                          controller: densityController),
+                        title: 'd(lbs/g)',
+                        hintText: density ?? 'Density',
+                        controller: densityController,
+                        ontap: () {
+                          checkCalculatorValidation(context, poundController,
+                              gallonController, densityController);
+                        },
+                      ),
                       const SizedBox(height: 20),
                       const Text('Choose fertilizer*',
                           style: TextStyle(fontSize: 14)),
@@ -239,7 +276,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                     densityController) //checking if all the fields are filled or not
                                 ? false
                                 : true,
-                            onBtnPress: () {
+                            onBtnPress: () async {
                               checkCalculatorValidation(
                                       context,
                                       poundController,
@@ -264,27 +301,29 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                       context: context,
                                       builder: (context) =>
                                           DisclaimerAlertDialog());
+
+                              calculate(
+                                  poundController.text,
+                                  gallonController.text,
+                                  densityController.text,
+                                  context);
                               saveString(
                                   'dryweight',
                                   poundController
                                       .text); //storing drywright data
                               saveString('liquidweight',
                                   gallonController.text); //storing liquid data
-                              saveString(
-                                  'density',
-                                  densityController
-                                      .text); //storing density data
-                              calculate(
-                                  poundController.text,
-                                  gallonController.text,
-                                  densityController.text);
+                              saveString('density', densityController.text);
                             }),
                       ),
+                      // textfieldClicked ? SizedBox(height: 180) : Container()
                     ],
                   ),
                 ),
               ),
-            )),
+            ),
+          ],
+        )),
       ),
     );
   }

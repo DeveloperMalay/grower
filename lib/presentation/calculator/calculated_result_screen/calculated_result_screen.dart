@@ -1,17 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grower/heiper/calculation_function.dart';
 import 'package:grower/heiper/storing_calculation_data.dart';
 import 'package:grower/presentation/calculator/calculated_result_screen/widget/result_text_widget.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/widget/fertilizer_container.dart';
+import 'package:grower/presentation/calculator/widgets/alert_dialog_widget.dart';
 import 'package:grower/presentation/calculator/widgets/dot_header_widget.dart';
+import '../../../heiper/navigator_function.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/custom_appbar_widget.dart';
+import '../calculation_screen/calculator_screen.dart';
 import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import '../calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
+import '../calculation_screen/cubit/text_field_clicked/text_field_clicked_cubit.dart';
+import '../calculation_screen/widget/reminder_popup.dart';
 import 'widget/bottom_options_widgets.dart';
 import 'widget/calculation_data.dart';
 import 'widget/fertilizer_result_widget.dart';
@@ -43,7 +49,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
   String? totalpercentN;
   String? totalpercentP;
   String? totalpercentK;
-  late Map<String, dynamic> data;
+  // late Map<String, dynamic> data;
   getresult() async {
     totalDryWeight = await getString('dryweight');
     totalLiquidWeight = await getString('tlw');
@@ -67,16 +73,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     setState(() {});
   }
 
-  result() async {
-    data = await getData();
-    print('data from map==>${data['totalDryWeight']}');
-  }
-
   @override
   void initState() {
     super.initState();
     getresult();
-    result();
   }
 
   @override
@@ -89,23 +89,31 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
         context.read<LiquidFertilizerCubit>().state.liquidFertilizer;
     var liquidfertilizerIndex =
         context.watch<DropdownIndexCubit1>().state.dropdownindex;
-
+    print(totalLiquidWeight);
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: WillPopScope(
         onWillPop: () async {
-          saveString('showpopup','true');
-          // context.goNamed('calculator', params: {'showpopup': 'true'});
-          return true;
+          final shouldPop = await showDialog<bool>(
+            context: context,
+            builder: (context) {
+              return AlertDialogWidget(
+                  content: 'This screen will close',
+                  leftBtnTitle: 'Yes, Close',
+                  title: 'Are you sure you want to close?',
+                  onTap: () {
+                    context.goNamed('calculator', params: {'dismiss': 'false'});
+                  }); //will show a alert dialog if user want to close the app
+            },
+          );
+          return shouldPop!;
         },
         child: Scaffold(
           appBar: CustomAppbarWidget(
             appbarTitle: 'Calculated Results',
             isresult: true,
             ontapbackarrow: () {
-              // Navigator.pop(context);
-
-              context.pop();
+              context.goNamed('calculator', params: {'dismiss': 'false'});
             },
           ),
           backgroundColor: CustomTheme.bgColor,
@@ -123,6 +131,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   Text("Total weight of dry fertilizer:",
                       style: TextStyle(fontSize: 16)),
                   SizedBox(height: 12),
+
                   Text("${totalDryWeight} lbs",
                       style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                   Container(
@@ -131,6 +140,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       margin: EdgeInsets.only(top: 5),
                       color: Colors.grey),
                   SizedBox(height: 12),
+
                   FertilizerResultWidget(
                     type: 'dry',
                     data: dryfertilizerCubit,
@@ -155,6 +165,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   Text("Total weight of liquid fertilizer:",
                       style: TextStyle(fontSize: 16)),
                   SizedBox(height: 12),
+
                   Text("${totalLiquidWeight} lbs",
                       style: CustomTheme.primarytextStyle(14, FontWeight.w500)),
                   Container(
@@ -163,6 +174,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       margin: EdgeInsets.only(top: 5),
                       color: Colors.grey),
                   SizedBox(height: 12),
+
                   FertilizerResultWidget(
                       type: 'liquid',
                       data: liquidfertilizerCubit,
@@ -186,9 +198,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   ResultTextWidget(
                       header: "Total dry + liquid fertilizer weight :",
                       result: '${totalWeight!} Ibs'),
+
                   ResultTextWidget(
                       header: "Density of a mixture:",
-                      result: "${density} lbs/g"),
+                      result: "${density!} lbs/g"),
                   FertilizerResultWidget(
                     type: 'mixed',
                     data: liquidfertilizerCubit,

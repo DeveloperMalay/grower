@@ -47,12 +47,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 image: context.watch<ChangeImageCubit>().state.switchImage
                     ? DecorationImage(
                         image: AssetImage("assets/signup_bg1.png"),
-                        fit: BoxFit.cover,
-                      )
+                        fit: BoxFit.cover)
                     : DecorationImage(
                         image: AssetImage("assets/signup_screenbg.png"),
-                        fit: BoxFit.cover,
-                      ),
+                        fit: BoxFit.cover),
               ),
               child: Stack(
                 children: [

@@ -9,4 +9,7 @@ class IsSigninValidCubit extends Cubit<IsSigninValidState> {
   checkSignIn(bool isvalid) {
     emit(state.copyWith(isSignInValid: isvalid));
   }
+  emitInitialState(){
+    emit(IsSigninValidState.initial());
+  }
 }

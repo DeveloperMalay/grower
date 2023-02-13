@@ -11,7 +11,9 @@ Future<VerifyOtpModel> verifyOtp(String email, String otp) async {
     Response response = await dio.post('$baseUrl/user/verify',
         data: json.encode({"email": email, "otp": otp}));
     VerifyOtpModel res = VerifyOtpModel.fromMap(response.data);
-    prefs.setBool('isLoggedIn', true);
+    res.status == 200
+        ? prefs.setBool('isLoggedIn', true)
+        : prefs.setBool('isLoggedIn', false);
     prefs.setString('email', email);
     print(response);
     return res;

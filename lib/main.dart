@@ -23,6 +23,7 @@ import 'presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fert
 import 'presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 import 'presentation/calculator/calculation_screen/cubit/reset_dropdown/reset_dropdown_cubit.dart';
+import 'presentation/calculator/calculation_screen/cubit/text_field_clicked/text_field_clicked_cubit.dart';
 import 'presentation/onboarding_screen/cubit/change_image/change_image_cubit.dart';
 import 'presentation/update_profile/cubit/not_empty_string_validator/not_empty_str_validator_cubit.dart';
 import 'presentation/update_profile/cubit/textfield_focus/textfield_focus_cubit.dart';
@@ -64,7 +65,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => IsFocesCubit()),
               BlocProvider(create: (context) => ChangeImageCubit()),
               BlocProvider(create: (context) => TextfieldClickCubit()),
-              BlocProvider(create: (context) => ResetDropdownCubit())
+              BlocProvider(create: (context) => ResetDropdownCubit()),
+              BlocProvider(create: (context) => TextFieldClickedCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,

@@ -1,103 +1,46 @@
 import '../../../../heiper/storing_calculation_data.dart';
 
-Future<Map<String, dynamic>> getData() async {
-  var data = await getString('dryweight');
-  final totalDryWeight = () async {
-    var data = await getString('dryweight');
-    return data;
-  };
-  final totalLiquidWeight = () async {
-    var data = await getString('tlw');
-    return data;
-  };
+Future<Map<String, dynamic>> getcalculatedData() async {
+  var totalDryWeight = await getString('dryweight');
 
-  final density = () async {
-    var data = await getString('density');
-    return data;
-  };
+  var totalLiquidWeight = await getString('tlw');
 
-  final tdwofN = () async {
-    var data = await getString('tdwofN');
-    return data;
-  };
+  var density = await getString('density');
 
-  final tdwofP = () async {
-    var data = await getString('tdwofP');
-    return data;
-  };
+  var tdwofN = await getString('tdwofN');
 
-  final tdwofK = () async {
-    var data = await getString('tdwofK');
-    return data;
-  };
+  var tdwofP = await getString('tdwofP');
 
-  final tdwoflN = () async {
-    var data = await getString('tdwoflN');
-    return data;
-  };
+  var tdwofK = await getString('tdwofK');
 
-  final tdwoflP = () async {
-    var data = await getString('tdwoflP');
-    return data;
-  };
+  var tdwoflN = await getString('tdwoflN');
 
-  final tdwoflK = () async {
-    var data = await getString('tdwoflK');
-    return data;
-  };
+  var tdwoflP = await getString('tdwoflP');
 
-  final totalN = () async {
-    var data = await getString('totalN');
-    return data;
-  };
+  var tdwoflK = await getString('tdwoflK');
 
-  final totalP = () async {
-    var data = await getString('totalP');
-    return data;
-  };
+  var totalN = await getString('totalN');
 
-  final totalK = () async {
-    var data = await getString('totalK');
-    return data;
-  };
+  var totalP = await getString('totalP');
 
-  final totalWeight = () async {
-    var data = await getString('totalWeight');
-    return data;
-  };
+  var totalK = await getString('totalK');
 
-  final drymatterfromliquid = () async {
-    var data = await getString('drymatterfromliquid');
-    return data;
-  };
+  var totalWeight = await getString('totalWeight');
 
-  final totaldrymaterial = () async {
-    var data = await getString('totaldrymaterial');
-    return data;
-  };
+  var drymatterfromliquid = await getString('drymatterfromliquid');
 
-  final mixture = () async {
-    var data = await getString('mixture');
-    return data;
-  };
+  var totaldrymaterial = await getString('totaldrymaterial');
 
-  final totalpercentN = () async {
-    var data = await getString('totalpercentN');
-    return data;
-  };
+  var mixture = await getString('mixture');
 
-  final totalpercentP = () async {
-    var data = await getString('totalpercentP');
-    return data;
-  };
+  var totalpercentN = await getString('totalpercentN');
 
-  final totalpercentK = () async {
-    var data = await getString('totalpercentK');
-    return data;
-  };
+  var totalpercentP = await getString('totalpercentP');
+
+  var totalpercentK = await getString('totalpercentK');
 
   return {
-    'totalDryWeight': data,
+    'totalDryWeight': totalDryWeight,
     'totalLiquidWeight': totalLiquidWeight,
     'density': density,
     'tdwofN': tdwofN,

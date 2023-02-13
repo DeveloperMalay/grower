@@ -43,6 +43,8 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
       othernutrients_weight
           .add(await getString('${widget.type}othernutrientsweight$i'));
       setState(() {});
+      print("other nutrients percentage-->${othernutrients_percentage}");
+      print("other nutrients weight-->${othernutrients_weight}");
     }
   }
 

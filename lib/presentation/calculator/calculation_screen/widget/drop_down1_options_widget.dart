@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../theme/custom_theme.dart';
-import '../../widgets/fertilizer_model.dart';
 import '../cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import '../cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 

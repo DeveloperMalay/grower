@@ -20,7 +20,7 @@ class _ResetLoadingScreenState extends State<ResetLoadingScreen> {
   void initState() {
     Timer(Duration(seconds: 1), () {
       RestartWidget.restartApp(context);
-      context.goNamed('calculator', params: {'showpopup': 'false'});
+      context.goNamed('calculator', params: {'dismiss': 'false'});
       context.read<DryFertilizerCubit>().getDryFertilizer();
     });
     super.initState();
@@ -31,6 +31,7 @@ class _ResetLoadingScreenState extends State<ResetLoadingScreen> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: CustomAppbarWidget(
           appbarTitle: 'Calculator',
           isresult: false,

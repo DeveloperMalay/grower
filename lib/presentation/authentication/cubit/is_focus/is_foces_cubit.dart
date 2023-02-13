@@ -7,6 +7,10 @@ class IsFocesCubit extends Cubit<IsFocesState> {
   IsFocesCubit() : super(IsFocesState.initial());
 
   void focusChanger() {
-    emit(state.copyWith(isFocus:true));
+    emit(state.copyWith(isFocus: true));
+  }
+
+  emitinitialState() {
+    emit(IsFocesState.initial());
   }
 }

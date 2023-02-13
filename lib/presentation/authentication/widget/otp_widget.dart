@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import 'package:pinput/pinput.dart';
 import '../../../data/repository/resend_otp_repositoty.dart';
 import '../../../theme/custom_theme.dart';
 import '../../widgets/error_diolog.dart';
-import '../../widgets/loading_dialog.dart';
 import '../../widgets/success_popup_widget.dart';
 import '../cubit/verify_otp/verify_otp_cubit.dart';
 
@@ -28,10 +28,10 @@ class _OtpWidgetState extends State<OtpWidget> {
   final formKey = GlobalKey<FormState>();
   TextEditingController _otpController = TextEditingController();
   int _timerDuration = 20;
-
+  final viewInsets = EdgeInsets.fromWindowPadding(
+      WidgetsBinding.instance.window.viewInsets,
+      WidgetsBinding.instance.window.devicePixelRatio);
   void startTimer() {
-    // String twoDigits(int n) => n.toString().padLeft(2, '0');
-    // final seconds = twoDigits(_timerDuration.remainder(60));
     Timer.periodic(Duration(seconds: 1), (Timer timer) {
       if (_timerDuration == 1) {
         setState(() {
@@ -58,12 +58,13 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(viewInsets.bottom);
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = twoDigits(_timerDuration);
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listener: (context, state) {
         if (state.status == VerifyStatus.loading) {
-          return loadingDialog(context);
+          // return loadingDialog(context);
         }
         if (state.status == VerifyStatus.error) {
           errorDialog(context, state.error.errMsg);
@@ -78,7 +79,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 );
               });
           Timer(Duration(seconds: 2), () {
-            context.goNamed('calculator', params: {'showpopup': 'true'});
+            context.goNamed('calculator', params: {'dismiss': 'false'});
           });
         }
       },
@@ -109,6 +110,9 @@ class _OtpWidgetState extends State<OtpWidget> {
                 defaultPinTheme: CustomTheme.pintheme,
                 focusedPinTheme: CustomTheme.pintheme,
                 submittedPinTheme: CustomTheme.pintheme,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ],
                 validator: (s) {
                   if (s!.isEmpty) {
                     return "invalid Otp!";

@@ -109,37 +109,38 @@ class _LoginWidgetState extends State<LoginWidget> {
               Column(
                 children: [
                   context.watch<IsSigninValidCubit>().state.isSignInValid
-                      ? CustomButtonWidget(
-                          isValid: context
-                              .read<IsSigninValidCubit>()
-                              .state
-                              .isSignInValid,
-                          btnTitle: 'Continue',
-                          onBtnPress: () {
-                            if (_formKey.currentState!.validate() ||
-                                emailController.text.isNotEmpty) {
-                              try {
-                                context
-                                    .read<LoginCubit>()
-                                    .loginUser(emailController.text);
-                              } catch (e) {
-                                print(e);
-                              }
-                            }
-                          },
-                        )
-                      : CustomButtonWidget(
-                          isValid: context
-                              .watch<IsSigninValidCubit>()
-                              .state
-                              .isSignInValid,
-                          btnTitle: 'Continue',
-                          onBtnPress: () {
-                            print(context
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: CustomButtonWidget(
+                            isValid: context
                                 .read<IsSigninValidCubit>()
                                 .state
-                                .isSignInValid);
-                          },
+                                .isSignInValid,
+                            btnTitle: 'Continue',
+                            onBtnPress: () {
+                              if (_formKey.currentState!.validate() ||
+                                  emailController.text.isNotEmpty) {
+                                try {
+                                  context
+                                      .read<LoginCubit>()
+                                      .loginUser(emailController.text);
+                                } catch (e) {
+                                  print(e);
+                                }
+                              }
+                            },
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: CustomButtonWidget(
+                            isValid: context
+                                .watch<IsSigninValidCubit>()
+                                .state
+                                .isSignInValid,
+                            btnTitle: 'Continue',
+                            onBtnPress: () {},
+                          ),
                         ),
                   isFocused
                       ? Container()
@@ -167,7 +168,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ? Container()
                       : Center(
                           child: Padding(
-                              padding: EdgeInsets.only(bottom: 18.h),
+                              padding: EdgeInsets.only(bottom: 25.h),
                               child: Text('Privacy Policy.',
                                   textAlign: TextAlign.center,
                                   style: CustomTheme.primarytextStyle(

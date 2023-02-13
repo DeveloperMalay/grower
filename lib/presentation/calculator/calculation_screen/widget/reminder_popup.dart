@@ -10,8 +10,18 @@ import '../../../../theme/custom_theme.dart';
 import '../../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../../../update_profile/user_profile_screen.dart';
 
-class ReminderPopUp extends StatelessWidget {
+class ReminderPopUp extends StatefulWidget {
   ReminderPopUp({super.key});
+
+  @override
+  State<ReminderPopUp> createState() => _ReminderPopUpState();
+}
+
+class _ReminderPopUpState extends State<ReminderPopUp> {
+  String? barreirDismiss;
+  getbarreirData() async {
+    barreirDismiss = await getString('barreirDismiss');
+  }
 
   @override
   Widget build(BuildContext context) {

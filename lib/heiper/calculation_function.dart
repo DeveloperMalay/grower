@@ -1,37 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grower/heiper/storing_calculation_data.dart';
 
-calculate(String tdw, String liquidfertilizer, String density) async {
+import '../presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
+import '../presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
+import '../presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
+import '../presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
+import '../presentation/calculator/calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
+
+calculate(String tdw, String liquidfertilizer, String density,
+    BuildContext context) async {
+//dry fertilizer details
+  int index = context.read<DropdownIndexCubit>().state.dropdownindex;
+  var dryPercent = context.read<DryFertilizerCubit>().state.dryFertilizer;
+  int otherNutrientslength = context
+      .read<OtherNutrientsCubit>()
+      .state
+      .otherNutrients
+      .otherNutrients
+      .length;
   // calculation for dry fertilizer
-  num tdwofN = num.parse(tdw) * 0.8; //weight of N is % of total dry weight
+  num tdwofN = num.parse(tdw) *
+      num.parse(dryPercent[index].percentN) /
+      100; //weight of N is % of total dry weight
   saveString('tdwofN', tdwofN.toStringAsFixed(2));
-  num tdwofP = num.parse(tdw) * 0; //weight of P is % of total dry weight
+  num tdwofP = num.parse(tdw) *
+      num.parse(dryPercent[index].percentP) /
+      100; //weight of P is % of total dry weight
   saveString('tdwofP', tdwofP.toStringAsFixed(2));
-  num tdwofK = num.parse(tdw) * 0; //weight of K is % of total dry weight
+  num tdwofK = num.parse(tdw) *
+      num.parse(dryPercent[index].percentK) /
+      100; //weight of K is % of total dry weight
   saveString('tdwofK', tdwofK.toStringAsFixed(2));
 
-  //getting dry other nutrients value form sharedpreferences
-  List othernutrients = [];
-  List othernutrientsweight = [];
-  for (var i = 0; i < 2; i++) {
-    othernutrients.add(await getString(
-        'dryothernutrients$i')); //getting the user given persentages
-    othernutrientsweight.add(num.parse(tdw) *
-        num.parse(othernutrients[i]) /
-        100); //calculating the other nutrients weight from user given persentage
-    saveString('dryothernutrientsweight$i',
-        othernutrientsweight[i].toStringAsFixed(2));
-  }
-
-  num tdwofCa = num.parse(tdw) *
-      num.parse(othernutrients[0]) /
-      100; //total dry weight of calcium
-  saveString('tdwofCa', tdwofCa.toStringAsFixed(2));
-  num tdwofS = num.parse(tdw) *
-      num.parse(othernutrients[1]) /
-      100; //total dry weight of sodium
-  saveString('tdwofS', tdwofS.toStringAsFixed(2));
-
 //
+//
+//
+//
+//
+//
+//liquid fertilizer details
+  int liquidindex = context.read<DropdownIndexCubit1>().state.dropdownindex;
+  var liquidpercent =
+      context.read<LiquidFertilizerCubit>().state.liquidFertilizer;
+
 //
 //
 //
@@ -41,25 +53,17 @@ calculate(String tdw, String liquidfertilizer, String density) async {
   num tlw = num.parse(liquidfertilizer) *
       num.parse(density); //total weight of liquid fertilizer
   saveString('tlw', tlw.toStringAsFixed(2));
-  num tdwoflN = tlw * 0.08; //weight of N is % of total liquid weight
-  saveString('tdwoflN', tdwoflN.toStringAsFixed(2));
-  num tdwoflP = tlw * 0.02; //weight of P is % of total liquid weight
-  saveString('tdwoflP', tdwoflP.toStringAsFixed(2));
-  num tdwoflK = tlw * 0.01; //weight of K is % of total liquid weight
-  saveString('tdwoflK', tdwoflK.toStringAsFixed(2));
 
-  //getting liquid other nutrients value form sharedpreferences
-  List liquidothernutrients = [];
-  List liquidothernutrientsweight = [];
-  for (var i = 0; i < 2; i++) {
-    liquidothernutrients.add(await getString(
-        'liquidothernutrients$i')); //getting the user given persentages
-    liquidothernutrientsweight.add(tlw *
-        num.parse(liquidothernutrients[i]) /
-        100); //calculating the other nutrients weight from user given persentage
-    saveString('liquidothernutrientsweight$i',
-        liquidothernutrientsweight[i].toStringAsFixed(2));
-  }
+  num tdwoflN = tlw *
+      num.parse(liquidpercent[liquidindex].percentN) /
+      100; //weight of N is % of total liquid weight
+  saveString('tdwoflN', tdwoflN.toStringAsFixed(2));
+  num tdwoflP = tlw * num.parse(liquidpercent[liquidindex].percentP) / 100;
+  //weight of P is % of total liquid weight
+  saveString('tdwoflP', tdwoflP.toStringAsFixed(2));
+  num tdwoflK = tlw * num.parse(liquidpercent[liquidindex].percentK) / 100;
+  //weight of K is % of total liquid weight
+  saveString('tdwoflK', tdwoflK.toStringAsFixed(2));
 
 //
 //
@@ -95,12 +99,45 @@ calculate(String tdw, String liquidfertilizer, String density) async {
   num mixture = totaldrymaterial - 9;
   saveString('mixture', mixture.toStringAsFixed(2));
 
-  //getting dry other nutrients value form sharedpreferences
+//getting dry other nutrients value form sharedpreferences
+  List dryothernutrients = [];
+  List dryothernutrientsweight = [];
+  for (var i = 0; i < otherNutrientslength; i++) {
+    dryothernutrients.isEmpty
+        ? dryothernutrients.add('0')
+        : dryothernutrients.add(await getString(
+            'dryothernutrients$i')); //getting the user given persentages
+    print('othernutrients-->${dryothernutrients}');
+
+    dryothernutrientsweight.add(num.parse(tdw) *
+        num.parse(dryothernutrients[i]) /
+        100); //calculating the other nutrients weight from user given persentage
+
+    saveString('dryothernutrientsweight$i',
+        dryothernutrientsweight[i].toStringAsFixed(2));
+  }
+  //getting liquid other nutrients value form sharedpreferences
+  List liquidothernutrients = [];
+  List liquidothernutrientsweight = [];
+  print('liqrtdothernutrients-->${liquidothernutrients.isEmpty}');
+  for (var i = 0; i < otherNutrientslength; i++) {
+    liquidothernutrients.isEmpty
+        ? liquidothernutrients.add('0')
+        : liquidothernutrients.add(await getString(
+            'liquidothernutrients$i')); //getting the user given persentages
+    liquidothernutrientsweight.add(tlw *
+        num.parse(liquidothernutrients[i]) /
+        100); //calculating the other nutrients weight from user given persentage
+
+    saveString('liquidothernutrientsweight$i',
+        liquidothernutrientsweight[i].toStringAsFixed(2));
+  }
+  //getting mixed other nutrients value form sharedpreferences
   List mixedothernutrients = [];
   List mixedothernutrientsweight = [];
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < otherNutrientslength; i++) {
     mixedothernutrientsweight
-        .add(othernutrientsweight[i] + liquidothernutrientsweight[i]);
+        .add(dryothernutrientsweight[i] + liquidothernutrientsweight[i]);
     saveString('mixedothernutrientsweight$i',
         mixedothernutrientsweight[i].toStringAsFixed(2));
 

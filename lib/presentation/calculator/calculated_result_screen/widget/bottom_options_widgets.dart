@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:grower/heiper/clear_textField.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../heiper/storing_calculation_data.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../../pdf_preview/pdf_preview_screen.dart';
+import '../../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
+import '../../widgets/alert_dialog_widget.dart';
 
 class BottomOptionsModel {
   final String title;
@@ -26,6 +31,39 @@ List<BottomOptionsModel> optionsList = [
 
 class BottomOptionsWidget extends StatelessWidget {
   const BottomOptionsWidget({super.key});
+//reset function
+  _reset(BuildContext context) {
+    var otherNutrients =
+        context.read<OtherNutrientsCubit>().state.otherNutrients.otherNutrients;
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialogWidget(
+              content: 'You are going to reset Calculator.',
+              leftBtnTitle: 'Yes, Reset',
+              title: 'Are you sure you want to reset?',
+              onTap: () {
+                context.push("/resetloadingscreen");
+                for (var i = 0; i < otherNutrients.length; i++) {
+                  deleteText('dryothernutrients${i}');
+                  deleteText('liquidothernutrients${i}');
+                }
+              },
+            ));
+  }
+
+//Exit function
+  _exit(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialogWidget(
+              content: 'You are going to Exit Calculator.',
+              leftBtnTitle: 'Yes, Exit',
+              title: 'Are you sure?',
+              onTap: () {
+                SystemNavigator.pop();
+              },
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +86,11 @@ class BottomOptionsWidget extends StatelessWidget {
                                 showpopup: 'false',
                               ))
                           : index == 1
-                              ? Navigator.pop(context)
+                              ? _reset(context)
                               : index == 2
                                   ? screenNavigator(context, PdfPreviewScreen())
                                   : index == 3
-                                      ? SystemNavigator.pop()
+                                      ? _exit(context)
                                       : null;
                     },
                     child: Container(
