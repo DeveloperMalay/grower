@@ -10,13 +10,14 @@ import '../presentation/authentication/widget/otp_widget.dart';
 import '../presentation/calculator/calculated_result_screen/calculated_result_screen.dart';
 import '../presentation/calculator/calculation_screen/calculator_screen.dart';
 import '../presentation/onboarding_screen/welcome_back_screen.dart';
+import '../presentation/onboarding_screen/welcome_screen_example.dart';
 import '../presentation/pdf_preview/pdf_preview_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: "/", builder: (context, state) => const SplashScreen()),
     GoRoute(
-        path: "/welcome", builder: (context, state) => const WelcomeScreen()),
+        path: "/welcome", builder: (context, state) => const WelcomeScreen1()),
     GoRoute(
         path: "/welcomeback",
         builder: (context, state) => const WelcomeBackScreen()),

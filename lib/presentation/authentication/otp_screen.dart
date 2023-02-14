@@ -34,10 +34,24 @@ class _OtpScreenState extends State<OtpScreen> {
 
   final formKey = GlobalKey<FormState>();
   TextEditingController _otpController = TextEditingController();
-  int _timerDuration = 20;
+  int _timerDuration = 30;
+  int expairTime = 180;
   final viewInsets = EdgeInsets.fromWindowPadding(
       WidgetsBinding.instance.window.viewInsets,
       WidgetsBinding.instance.window.devicePixelRatio);
+  void startExpairTimer() {
+    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      if (expairTime == 1) {
+        setState(() {
+          timer.cancel();
+        });
+      }
+      setState(() {
+        expairTime--;
+      });
+    });
+  }
+
   void startTimer() {
     Timer.periodic(Duration(seconds: 1), (Timer timer) {
       if (_timerDuration == 1) {
@@ -55,6 +69,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     super.initState();
     startTimer();
+    startExpairTimer();
   }
 
   @override
@@ -92,6 +107,7 @@ class _OtpScreenState extends State<OtpScreen> {
         builder: (context, state) {
           String twoDigits(int n) => n.toString().padLeft(2, '0');
           final seconds = twoDigits(_timerDuration);
+          print(expairTime);
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.white,
@@ -137,7 +153,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                               ),
                             ),
-                            // SizedBox(height: 39.h),
+
                             Spacer(),
                             Center(
                               child: Container(
@@ -231,23 +247,32 @@ class _OtpScreenState extends State<OtpScreen> {
                                       },
                                     ),
                                   ),
-                                  context
-                                              .read<VerifyOtpCubit>()
-                                              .state
-                                              .verifyotp
-                                              .status ==
-                                          403
+                                  expairTime == 0
                                       ? Padding(
                                           padding:
                                               const EdgeInsets.only(top: 10),
-                                          child: Text(
-                                            'Invalid Otp !',
-                                            style: TextStyle(
-                                                color:
-                                                    CustomTheme.redErrorColor),
-                                          ),
+                                          child: Text('Expaired Otp !',
+                                              style: TextStyle(
+                                                  color: CustomTheme
+                                                      .redErrorColor)),
                                         )
-                                      : Container(),
+                                      : context
+                                                  .read<VerifyOtpCubit>()
+                                                  .state
+                                                  .verifyotp
+                                                  .status ==
+                                              403
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10),
+                                              child: Text(
+                                                'Invalid Otp !',
+                                                style: TextStyle(
+                                                    color: CustomTheme
+                                                        .redErrorColor),
+                                              ),
+                                            )
+                                          : Container(),
                                   Padding(
                                     padding: EdgeInsets.only(
                                       top: 20.0,
@@ -273,51 +298,21 @@ class _OtpScreenState extends State<OtpScreen> {
                                                 fontSize: 14.sp,
                                                 color: Colors.grey),
                                           ),
-                                          // const SizedBox(width: 5),
-                                          // InkWell(
-                                          //   onTap: () async {
-                                          //     if (_timerDuration == 0) {
-                                          //       setState(() {
-                                          //         _timerDuration = 20;
-                                          //       });
-                                          //       startTimer();
-                                          //       await resendOtp(widget.email);
-                                          //       showDialog(
-                                          //           context: context,
-                                          //           builder: (context) {
-                                          //             Future.delayed(
-                                          //                 Duration(seconds: 2),
-                                          //                 () {
-                                          //               Navigator.of(context)
-                                          //                   .pop(true);
-                                          //             });
-                                          //             return ShowToastMessage();
-                                          //           });
-                                          //     }
-                                          //   },
-                                          //   child: Text(
-                                          //     'Resend',
-                                          //     style: TextStyle(
-                                          //         fontSize: 14.sp,
-                                          //         color: _timerDuration == 0
-                                          //             ? CustomTheme.primaryColor
-                                          //             : CustomTheme
-                                          //                 .seconderyColor),
-                                          //   ),
-                                          // ),
                                           TextButton(
                                             onPressed: () async {
                                               if (_timerDuration == 0) {
                                                 setState(() {
-                                                  _timerDuration = 20;
+                                                  _timerDuration = 30;
+                                                  expairTime = 180;
                                                 });
                                                 startTimer();
+                                                startExpairTimer();
                                                 await resendOtp(widget.email);
                                                 showDialog(
                                                     context: context,
                                                     builder: (context) {
                                                       Future.delayed(
-                                                          Duration(seconds: 2),
+                                                          Duration(seconds: 1),
                                                           () {
                                                         Navigator.of(context)
                                                             .pop(true);
