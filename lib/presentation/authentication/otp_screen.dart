@@ -262,7 +262,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   Center(
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                        top: 20.0,
+                                        top: 12.0,
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -273,9 +273,40 @@ class _OtpScreenState extends State<OtpScreen> {
                                                 fontSize: 14.sp,
                                                 color: Colors.grey),
                                           ),
-                                          const SizedBox(width: 5),
-                                          InkWell(
-                                            onTap: () async {
+                                          // const SizedBox(width: 5),
+                                          // InkWell(
+                                          //   onTap: () async {
+                                          //     if (_timerDuration == 0) {
+                                          //       setState(() {
+                                          //         _timerDuration = 20;
+                                          //       });
+                                          //       startTimer();
+                                          //       await resendOtp(widget.email);
+                                          //       showDialog(
+                                          //           context: context,
+                                          //           builder: (context) {
+                                          //             Future.delayed(
+                                          //                 Duration(seconds: 2),
+                                          //                 () {
+                                          //               Navigator.of(context)
+                                          //                   .pop(true);
+                                          //             });
+                                          //             return ShowToastMessage();
+                                          //           });
+                                          //     }
+                                          //   },
+                                          //   child: Text(
+                                          //     'Resend',
+                                          //     style: TextStyle(
+                                          //         fontSize: 14.sp,
+                                          //         color: _timerDuration == 0
+                                          //             ? CustomTheme.primaryColor
+                                          //             : CustomTheme
+                                          //                 .seconderyColor),
+                                          //   ),
+                                          // ),
+                                          TextButton(
+                                            onPressed: () async {
                                               if (_timerDuration == 0) {
                                                 setState(() {
                                                   _timerDuration = 20;
