@@ -7,18 +7,19 @@ import '../../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dar
 
 // ignore: must_be_immutable
 class FertilizerResultWidget extends StatefulWidget {
-  FertilizerResultWidget({
-    super.key,
-    required this.data,
-    required this.index,
-    required this.tdwofN,
-    required this.tdwofP,
-    required this.tdwofK,
-    this.totalpercentN,
-    this.totalpercentP,
-    this.totalpercentK,
-    required this.type,
-  });
+  FertilizerResultWidget(
+      {super.key,
+      required this.data,
+      required this.index,
+      required this.tdwofN,
+      required this.tdwofP,
+      required this.tdwofK,
+      this.totalpercentN,
+      this.totalpercentP,
+      this.totalpercentK,
+      required this.type,
+      this.othernutrients_percentage,
+      this.othernutrients_weight});
   var data;
   final int index;
   String tdwofN;
@@ -28,23 +29,28 @@ class FertilizerResultWidget extends StatefulWidget {
   String? totalpercentP;
   String? totalpercentK;
   final String type;
-
+  List? othernutrients_percentage;
+  List? othernutrients_weight;
   @override
   State<FertilizerResultWidget> createState() => _FertilizerResultWidgetState();
 }
 
 class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
-  List othernutrients_percentage = [];
-  List othernutrients_weight = [];
+  // List othernutrients_percentage = [];
+  // List othernutrients_weight = [];
+  List mixedothernutrients_percentage = [];
+  List mixedothernutrients_weight = [];
   getothernutrients(int length) async {
     for (var i = 0; i < length; i++) {
-      othernutrients_percentage
-          .add(await getString('${widget.type}othernutrients$i'));
-      othernutrients_weight
-          .add(await getString('${widget.type}othernutrientsweight$i'));
+      // othernutrients_percentage
+      //     .add(await getString('${widget.type}othernutrients$i'));
+      // othernutrients_weight
+      //     .add(await getString('${widget.type}othernutrientsweight$i'));
+      mixedothernutrients_percentage
+          .add(await getString('mixedothernutrients$i'));
+      mixedothernutrients_weight
+          .add(await getString('mixedothernutrientsweight$i'));
       setState(() {});
-      print("other nutrients percentage-->${othernutrients_percentage}");
-      print("other nutrients weight-->${othernutrients_weight}");
     }
   }
 
@@ -204,13 +210,25 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                              othernutrients_weight[index].toString().isEmpty
-                                  ? '0'
-                                  : othernutrients_weight[index],
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: CustomTheme.primaryColor)),
+                          widget.type == 'mixed'
+                              ? Text(
+                                  mixedothernutrients_weight[index]
+                                          .toString()
+                                          .isEmpty
+                                      ? '0'
+                                      : mixedothernutrients_weight[index],
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor))
+                              : Text(
+                                  widget.othernutrients_weight![index]
+                                          .toString()
+                                          .isEmpty
+                                      ? '0'
+                                      : widget.othernutrients_weight![index],
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor)),
                           SizedBox(height: 12),
                         ],
                       );
@@ -226,15 +244,26 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                              othernutrients_percentage[index]
-                                      .toString()
-                                      .isEmpty
-                                  ? '0'
-                                  : othernutrients_percentage[index],
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: CustomTheme.primaryColor)),
+                          widget.type == 'mixed'
+                              ? Text(
+                                  mixedothernutrients_percentage[index]
+                                          .toString()
+                                          .isEmpty
+                                      ? '0'
+                                      : mixedothernutrients_percentage[index],
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor))
+                              : Text(
+                                  widget.othernutrients_percentage![index]
+                                          .toString()
+                                          .isEmpty
+                                      ? '0'
+                                      : widget
+                                          .othernutrients_percentage![index],
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: CustomTheme.primaryColor)),
                           SizedBox(height: 12),
                         ],
                       );

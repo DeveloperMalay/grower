@@ -16,6 +16,7 @@ import '../calculation_screen/calculator_screen.dart';
 import '../calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import '../calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
+import '../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 import '../calculation_screen/cubit/text_field_clicked/text_field_clicked_cubit.dart';
 import '../calculation_screen/widget/reminder_popup.dart';
 import 'widget/bottom_options_widgets.dart';
@@ -49,6 +50,10 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
   String? totalpercentN;
   String? totalpercentP;
   String? totalpercentK;
+  List dryothernutrients_percentage = [];
+  List dryothernutrients_weight = [];
+  List liquidothernutrients_percentage = [];
+  List liquidothernutrients_weight = [];
   // late Map<String, dynamic> data;
   getresult() async {
     totalDryWeight = await getString('dryweight');
@@ -70,13 +75,33 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
     totalpercentN = await getString('totalpercentN');
     totalpercentP = await getString('totalpercentP');
     totalpercentK = await getString('totalpercentK');
+
     setState(() {});
+  }
+
+  getothernutrients(int length) async {
+    for (var i = 0; i < length; i++) {
+      dryothernutrients_percentage.add(await getString('dryothernutrients$i'));
+      dryothernutrients_weight
+          .add(await getString('dryothernutrientsweight$i'));
+      liquidothernutrients_percentage
+          .add(await getString('liquidothernutrients$i'));
+      liquidothernutrients_weight
+          .add(await getString('liquidothernutrientsweight$i'));
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     super.initState();
     getresult();
+    getothernutrients(context
+        .read<OtherNutrientsCubit>()
+        .state
+        .otherNutrients
+        .otherNutrients
+        .length);
   }
 
   @override
@@ -142,13 +167,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   SizedBox(height: 12),
 
                   FertilizerResultWidget(
-                    type: 'dry',
-                    data: dryfertilizerCubit,
-                    index: dryfertilizerIndex,
-                    tdwofN: tdwofN!,
-                    tdwofK: tdwofK!,
-                    tdwofP: tdwofP!,
-                  ), //dry fertilizer details widget
+                      type: 'dry',
+                      data: dryfertilizerCubit,
+                      index: dryfertilizerIndex,
+                      tdwofN: tdwofN!,
+                      tdwofK: tdwofK!,
+                      tdwofP: tdwofP!,
+                      othernutrients_percentage: dryothernutrients_percentage,
+                      othernutrients_weight:
+                          dryothernutrients_weight), //dry fertilizer details widget
                   SizedBox(
                     height: 24,
                   ),
@@ -176,12 +203,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   SizedBox(height: 12),
 
                   FertilizerResultWidget(
-                      type: 'liquid',
-                      data: liquidfertilizerCubit,
-                      index: liquidfertilizerIndex,
-                      tdwofN: tdwoflN!,
-                      tdwofK: tdwoflK!,
-                      tdwofP: tdwoflP!), //liquid fertilizer details widget
+                    type: 'liquid',
+                    data: liquidfertilizerCubit,
+                    index: liquidfertilizerIndex,
+                    tdwofN: tdwoflN!,
+                    tdwofK: tdwoflK!,
+                    tdwofP: tdwoflP!,
+                    othernutrients_percentage: liquidothernutrients_percentage,
+                    othernutrients_weight: liquidothernutrients_weight,
+                  ), //liquid fertilizer details widget
                   SizedBox(height: 24),
                   Container(
                     height: 30,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeInFadeOut;
+  List<String> imageUrls = [
+    'assets/signup_screenbg.png',
+    'assets/signup_bg1.png',
+  ]; // Define a variable to keep track of the current image index
+  int currentIndex = 0;
+
+// Define a function to switch to the next image
+  void switchToNextImage() {
+    currentIndex = (currentIndex + 1) % imageUrls.length;
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -29,6 +41,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1).animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeInToLinear));
     _controller.forward();
+
+    Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      switchToNextImage();
+    });
   }
 
   @override
@@ -43,17 +59,35 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: context.watch<ChangeImageCubit>().state.switchImage
-                    ? DecorationImage(
-                        image: AssetImage("assets/signup_bg1.png"),
-                        fit: BoxFit.cover)
-                    : DecorationImage(
-                        image: AssetImage("assets/signup_screenbg.png"),
-                        fit: BoxFit.cover),
-              ),
+              // decoration: BoxDecoration(
+              //   image: context.watch<ChangeImageCubit>().state.switchImage
+              //       ? DecorationImage(
+              //           image: AssetImage("assets/signup_bg1.png"),
+              //           fit: BoxFit.cover)
+              //       : DecorationImage(
+              //           image: AssetImage("assets/signup_screenbg.png"),
+              //           fit: BoxFit.cover),
+              // ),
               child: Stack(
                 children: [
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 1500),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    child: FadeInImage(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      key: ValueKey<int>(currentIndex),
+                      placeholder: AssetImage('assets/signup_screenbg.png'),
+                      image: AssetImage(imageUrls[currentIndex]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   TweenAnimationBuilder<Offset>(
                     duration: const Duration(milliseconds: 1600),
                     curve: Curves.linear,
