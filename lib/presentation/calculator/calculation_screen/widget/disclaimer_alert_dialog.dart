@@ -70,7 +70,7 @@ class DisclaimerAlertDialog extends StatelessWidget {
               context.pop();
               context.go('/calculatorResult');
             });
-            // context.read<ReminderCubit>().hitreduce();
+            context.read<ReminderCubit>().hitreduce();
           },
           child: Center(
             child: Container(

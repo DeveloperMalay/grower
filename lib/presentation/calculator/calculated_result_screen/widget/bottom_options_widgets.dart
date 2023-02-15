@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../heiper/storing_calculation_data.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../../pdf_preview/pdf_preview_screen.dart';
+import '../../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../../calculation_screen/cubit/other_nutrients/other_nutrients_cubit.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
@@ -83,7 +83,13 @@ class BottomOptionsWidget extends StatelessWidget {
                           ? screenNavigator(
                               context,
                               CalculatorScreen(
-                                showpopup: 'false',
+                                profile_setup: context
+                                    .read<UserDetailsCubit>()
+                                    .state
+                                    .userDetails
+                                    .data
+                                    .profileSetup
+                                    .toString(),
                               ))
                           : index == 1
                               ? _reset(context)

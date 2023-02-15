@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   late Animation<double> _fadeInFadeOut;
   List<String> imageUrls = [
     'assets/signup_screenbg.png',
-    'assets/signup_bg1.png',
+    'assets/signup_bg1.png'
   ]; // Define a variable to keep track of the current image index
   int currentIndex = 0;
 
@@ -59,15 +59,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              // decoration: BoxDecoration(
-              //   image: context.watch<ChangeImageCubit>().state.switchImage
-              //       ? DecorationImage(
-              //           image: AssetImage("assets/signup_bg1.png"),
-              //           fit: BoxFit.cover)
-              //       : DecorationImage(
-              //           image: AssetImage("assets/signup_screenbg.png"),
-              //           fit: BoxFit.cover),
-              // ),
               child: Stack(
                 children: [
                   AnimatedSwitcher(
@@ -106,10 +97,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         Text(
                           "Grower’s Secret Calculator",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: CustomTheme.primaryColor,
-                            fontSize: 20,
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: CustomTheme.primaryColor,
+                              fontSize: 20),
                         ),
                       ],
                     ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../theme/custom_theme.dart';
+import '../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/custom_button_widget.dart';
 
 class WelcomeBackScreen extends StatefulWidget {
@@ -19,7 +21,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
   @override
   void initState() {
     super.initState();
-
+    context.read<UserDetailsCubit>().userDetails();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
@@ -86,8 +88,15 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
                         isValid: true,
                         btnTitle: 'Continue',
                         onBtnPress: () {
-                          context.goNamed('calculator',
-                              params: {'dismiss': 'false'});
+                          context.goNamed('calculator', params: {
+                            'profile_setup': context
+                                .read<UserDetailsCubit>()
+                                .state
+                                .userDetails
+                                .data
+                                .profileSetup
+                                .toString()
+                          });
                         }),
                   ),
                   builder: (context, offset, child) {

@@ -75,7 +75,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             }
             if (state.status == UpdateProfileStatus.loaded) {
               Timer(Duration(seconds: 2), () {
-                screenReplaceNavigator(context, CalculatorScreen());
+                screenReplaceNavigator(
+                    context,
+                    CalculatorScreen(
+                        profile_setup: context
+                            .read<UserDetailsCubit>()
+                            .state
+                            .userDetails
+                            .data
+                            .profileSetup
+                            .toString()));
               });
               showDialog(
                   context: context,
@@ -98,8 +107,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         title: 'Are you sure you want to close?',
                         onTap: () {
                           Navigator.pop(context);
-                          context.pushNamed('calculator',
-                              params: {'dismiss': 'true'});
+                          context.pushNamed('calculator', params: {
+                            'profile_setup': context
+                                .read<UserDetailsCubit>()
+                                .state
+                                .userDetails
+                                .data
+                                .profileSetup
+                                .toString()
+                          });
                         }); //will show a alert dialog if user want to close the app
                   },
                 );
@@ -129,20 +145,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                          child: Image.asset(
-                            'assets/profile.png',
-                            height: 35,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Center(
-                          child: Text('User Profile'),
-                        ),
-                        SizedBox(
-                          height: 44,
-                        ),
+                            child:
+                                Image.asset('assets/profile.png', height: 35)),
+                        SizedBox(height: 5),
+                        Center(child: Text('User Profile')),
+                        SizedBox(height: 44),
                         TextFieldHeaderWidget(title: 'Name*'),
                         CustomTextFieldWidget(
                           isfocused: context
@@ -180,9 +187,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             : ErrorTextWidget(
                                 errorText:
                                     "Please fill the above required field!"),
-                        SizedBox(
-                          height: 24,
-                        ),
+                        SizedBox(height: 24),
                         TextFieldHeaderWidget(title: 'Mobile Number*'),
                         CustomTextFieldWidget(
                           isfocused: context
@@ -220,9 +225,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             : ErrorTextWidget(
                                 errorText:
                                     "Please enter a valid mobile number!"),
-                        SizedBox(
-                          height: 24,
-                        ),
+                        SizedBox(height: 24),
                         TextFieldHeaderWidget(title: 'Email*'),
                         EmailFieldWidget(
                             email: context
@@ -231,9 +234,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .userDetails
                                 .data
                                 .email), //widget to show email field
-                        SizedBox(
-                          height: 24,
-                        ),
+                        SizedBox(height: 24),
                         TextFieldHeaderWidget(title: 'Address*'),
                         CustomTextFieldWidget(
                           isfocused: context
@@ -274,72 +275,85 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             : ErrorTextWidget(
                                 errorText:
                                     "Please fill the above required field!"),
-                        SizedBox(
-                          height: 44,
-                        ),
+                        SizedBox(height: 44),
                         Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialogWidget(
-                                            title:
-                                                'Are you sure you want to cancel?',
-                                            content:
-                                                'Your profile is not updated!',
-                                            leftBtnTitle: 'Yes, Exit',
-                                            onTap: () {
-                                              context.pushNamed('calculator',
-                                                  params: {'dismiss': 'false'});
-                                              Navigator.pop(context);
-                                              context
-                                                  .read<
-                                                      NotEtyStrValidatorCubit>()
-                                                  .getInitialState();
-                                              context
-                                                  .read<ValidNumberCubit>()
-                                                  .getinitialState();
-                                              nameController.clear();
-                                              numberController.clear();
-                                              addressController.clear();
-                                            },
-                                          ));
-                                },
-                                child: SmallBtnWidget.whiteBtn(
-                                    'Cancel', Colors.transparent),
-                              ),
-                              const SizedBox(
-                                width: 40,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    validateForm(
-                                        context,
-                                        nameController.text,
-                                        numberController.text,
-                                        addressController
-                                            .text); //function to check if the form is valid or not
-                                    shouldUpdate(context)
-                                        ? context
-                                            .read<UpdateProfileCubit>()
-                                            .userDetailsUpdate(
-                                                nameController.text,
-                                                addressController.text,
-                                                numberController.text)
-                                        : null;
-                                    saveString('profile_updated', 'true');
-                                  }
-                                },
-                                child: SmallBtnWidget.filledColorBtn(
-                                    'Update', clickanyField(context)),
-                              ),
-                            ],
+                            child:
+                                Row(mainAxisSize: MainAxisSize.min, children: [
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialogWidget(
+                                        title:
+                                            'Are you sure you want to cancel?',
+                                        content: 'Your profile is not updated!',
+                                        leftBtnTitle: 'Yes, Exit',
+                                        onTap: () {
+                                          context
+                                              .pushNamed('calculator', params: {
+                                            'profile_setup': context
+                                                .read<UserDetailsCubit>()
+                                                .state
+                                                .userDetails
+                                                .data
+                                                .profileSetup
+                                                .toString()
+                                          });
+                                          Navigator.pop(context);
+                                          context
+                                              .read<NotEtyStrValidatorCubit>()
+                                              .getInitialState();
+                                          context
+                                              .read<ValidNumberCubit>()
+                                              .getinitialState();
+                                          nameController.clear();
+                                          numberController.clear();
+                                          addressController.clear();
+                                        },
+                                      ));
+                            },
+                            child: SmallBtnWidget.whiteBtn(
+                                'Cancel', Colors.transparent),
                           ),
-                        ),
+                          const SizedBox(width: 40),
+                          InkWell(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  validateForm(
+                                      context,
+                                      nameController.text,
+                                      numberController.text,
+                                      addressController
+                                          .text); //function to check if the form is valid or not
+                                  shouldUpdate(context)
+                                      ? context
+                                          .read<UpdateProfileCubit>()
+                                          .userDetailsUpdate(
+                                              nameController.text,
+                                              addressController.text,
+                                              numberController.text)
+                                      : null;
+                                  saveString(
+                                      'profile_updated',
+                                      context
+                                          .watch<UserDetailsCubit>()
+                                          .state
+                                          .userDetails
+                                          .data
+                                          .email);
+                                  saveString(
+                                      'email',
+                                      context
+                                          .watch<UserDetailsCubit>()
+                                          .state
+                                          .userDetails
+                                          .data
+                                          .email);
+                                }
+                              },
+                              child: SmallBtnWidget.filledColorBtn(
+                                  'Update', clickanyField(context)))
+                        ]))
                       ],
                     ),
                   ),

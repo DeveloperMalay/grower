@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../theme/custom_theme.dart';
+import '../../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../../../update_profile/user_profile_screen.dart';
 import '../../widgets/alert_dialog_widget.dart';
 
@@ -37,16 +39,24 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   decoration: BoxDecoration(color: CustomTheme.bgColor),
                 ),
               ),
-              SizedBox(
-                height: 24,
-              ),
+              SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25,
                 ),
                 child: InkWell(
                   onTap: () {
-                    screenReplaceNavigator(context, CalculatorScreen());
+                    screenReplaceNavigator(
+                        context,
+                        CalculatorScreen(
+                          profile_setup: context
+                              .read<UserDetailsCubit>()
+                              .state
+                              .userDetails
+                              .data
+                              .profileSetup
+                              .toString(),
+                        ));
                   },
                   child: const Text(
                     'Home',
@@ -54,19 +64,11 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
                   onTap: () {
                     screenNavigator(context, UserProfileScreen());
@@ -77,40 +79,22 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
                   onTap: () {},
-                  child: const Text(
-                    'Download result as PDF',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
-                  ),
+                  child: const Text('Download result as PDF',
+                      style: TextStyle(color: Colors.black, fontSize: 14)),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
                   onTap: () {
                     showDialog(

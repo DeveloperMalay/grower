@@ -31,9 +31,9 @@ import 'widget/other_nutrients_btn.dart';
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({
     super.key,
-    this.showpopup = "true",
+    required this.profile_setup,
   });
-  final String? showpopup;
+  final String profile_setup;
   @override
   State<CalculatorScreen> createState() => _CalculatorScreenState();
 }
@@ -48,7 +48,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   String? density;
   String? barreirDismiss;
   String? profile_updated;
-  int? hitno;
+  String? email;
+
   getTextFieldData() async {
     dryweight = await getString('dryweight');
     liquidweight = await getString('liquidweight');
@@ -56,30 +57,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     barreirDismiss = await getString('barreirDismiss');
   }
 
-  shownotification() async {
-    profile_updated = await getString('profile_updated');
-    hitno = int.parse(
-        context.watch<UserDetailsCubit>().state.userDetails.data.hitRemaining);
-  }
-
   @override
   void initState() {
     super.initState();
     context.read<UserDetailsCubit>().userDetails();
-    shownotification();
+
     Timer(Duration(seconds: 1), () {
-      profile_updated!.isEmpty
-          ? showDialog(
-              barrierDismissible:
-                  barreirDismiss == 'true' || widget.showpopup == 'true'
-                      ? true
-                      : false,
+      widget.profile_setup == 1.toString()
+          ? null
+          : showDialog(
+              barrierDismissible: barreirDismiss == 'true' ? true : false,
               context: context,
               builder: (context) => ReminderPopUp(),
-            )
-          : null;
+            );
     });
     // : null;
+
     context.read<OtherNutrientsCubit>().getOtherNutrients();
     poundController = TextEditingController();
     gallonController = TextEditingController();
@@ -96,12 +89,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('profile_updated===>$profile_updated');
     var otherNutrients = context
         .watch<OtherNutrientsCubit>()
         .state
         .otherNutrients
         .otherNutrients;
+    print('remainig hit -->${widget.profile_setup.toString()}');
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

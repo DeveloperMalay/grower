@@ -11,6 +11,7 @@ import 'package:pinput/pinput.dart';
 
 import '../../data/repository/resend_otp_repositoty.dart';
 import '../../theme/custom_theme.dart';
+import '../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/custom_button_widget.dart';
 import '../widgets/error_diolog.dart';
 import '../widgets/success_popup_widget.dart';
@@ -100,7 +101,15 @@ class _OtpScreenState extends State<OtpScreen> {
                   );
                 });
             Timer(Duration(seconds: 2), () {
-              context.goNamed('calculator', params: {'dismiss': 'false'});
+              context.goNamed('calculator', params: {
+                'profile_setup': context
+                    .read<UserDetailsCubit>()
+                    .state
+                    .userDetails
+                    .data
+                    .profileSetup
+                    .toString()
+              });
             });
           }
         },

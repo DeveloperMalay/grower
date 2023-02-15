@@ -97,23 +97,17 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Nitrogen(N)",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text("Nitrogen(N)",
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
-                    Text(
-                      "Phosphorus(P)",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text("Phosphorus(P)",
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
-                    Text(
-                      "Potassium(K)",
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text("Potassium(K)",
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor))
                   ],
                 ),
               ),
@@ -123,11 +117,9 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      widget.tdwofN,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                    Text(widget.tdwofN,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
                     Text(widget.tdwofP,
                         style: TextStyle(
@@ -145,25 +137,22 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      widget.totalpercentN ??
-                          widget.data[widget.index].percentN!,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                        widget.totalpercentN ??
+                            widget.data[widget.index].percentN!,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
                     Text(
-                      widget.totalpercentP ??
-                          widget.data[widget.index].percentP!,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                        widget.totalpercentP ??
+                            widget.data[widget.index].percentP!,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                     SizedBox(height: 12),
                     Text(
-                      widget.totalpercentK ??
-                          widget.data[widget.index].percentK!,
-                      style: TextStyle(
-                          fontSize: 14, color: CustomTheme.primaryColor),
-                    ),
+                        widget.totalpercentK ??
+                            widget.data[widget.index].percentK!,
+                        style: TextStyle(
+                            fontSize: 14, color: CustomTheme.primaryColor)),
                   ],
                 ),
               ),
@@ -172,7 +161,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
           SizedBox(height: 16),
           Row(
             children: [
-              Text("Other added nutrients", style: TextStyle(fontSize: 14)),
+              Text("Other added nutrients", style: TextStyle(fontSize: 14))
             ],
           ),
           Divider(color: CustomTheme.primaryColor, thickness: 1.5),
@@ -189,11 +178,10 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            othernutrients[index].name,
-                            style: TextStyle(
-                                fontSize: 14, color: CustomTheme.primaryColor),
-                          ),
+                          Text(othernutrients[index].name,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: CustomTheme.primaryColor)),
                           SizedBox(height: 12),
                         ],
                       );
