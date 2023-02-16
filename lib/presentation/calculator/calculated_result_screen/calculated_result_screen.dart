@@ -128,12 +128,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                   leftBtnTitle: 'Yes, Close',
                   title: 'Are you sure you want to close?',
                   onTap: () {
-                    context.goNamed('calculator', params: {'hitno': context
-                                .read<UserDetailsCubit>()
-                                .state
-                                .userDetails
-                                .data
-                                .hitRemaining});
+                    context.goNamed('calculator', params: {
+                      'profile_setup': context
+                          .read<UserDetailsCubit>()
+                          .state
+                          .userDetails
+                          .data
+                          .profileSetup
+                          .toString()
+                    });
                   }); //will show a alert dialog if user want to close the app
             },
           );
@@ -144,12 +147,15 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
             appbarTitle: 'Calculated Results',
             isresult: true,
             ontapbackarrow: () {
-              context.goNamed('calculator', params: {'hitno': context
-                                .read<UserDetailsCubit>()
-                                .state
-                                .userDetails
-                                .data
-                                .hitRemaining});
+              context.goNamed('calculator', params: {
+                'profile_setup': context
+                    .read<UserDetailsCubit>()
+                    .state
+                    .userDetails
+                    .data
+                    .profileSetup
+                    .toString()
+              });
             },
           ),
           backgroundColor: CustomTheme.bgColor,

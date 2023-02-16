@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../theme/custom_theme.dart';
+import '../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../../widgets/restart_widget.dart';
 import '../../widgets/custom_appbar_widget.dart';
 import '../calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
@@ -20,7 +21,15 @@ class _ResetLoadingScreenState extends State<ResetLoadingScreen> {
   void initState() {
     Timer(Duration(seconds: 1), () {
       RestartWidget.restartApp(context);
-      context.goNamed('calculator', params: {'dismiss': 'false'});
+      context.goNamed('calculator', params: {
+        'profile_setup': context
+            .read<UserDetailsCubit>()
+            .state
+            .userDetails
+            .data
+            .profileSetup
+            .toString()
+      });
       context.read<DryFertilizerCubit>().getDryFertilizer();
     });
     super.initState();
