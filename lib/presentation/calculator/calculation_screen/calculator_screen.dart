@@ -57,13 +57,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     barreirDismiss = await getString('barreirDismiss');
   }
 
+  getprofilesetUp() async {
+    profile_updated = await getString('profile_updated');
+    print(profile_updated);
+  }
+
   @override
   void initState() {
     super.initState();
+    getprofilesetUp();
     context.read<UserDetailsCubit>().userDetails();
 
     Timer(Duration(seconds: 1), () {
-      widget.profile_setup == 1.toString()
+      profile_updated == 'true'
           ? null
           : showDialog(
               barrierDismissible: barreirDismiss == 'true' ? true : false,
@@ -94,7 +100,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         .state
         .otherNutrients
         .otherNutrients;
-    print('remainig hit -->${widget.profile_setup.toString()}');
+    print('profile setup -->${widget.profile_setup.toString()}');
+    print("setup -->${profile_updated}");
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -113,12 +120,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     builder: (context) {
                       return AlertDialog(
                         content: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "You don't have enough data to reset",
-                            style: TextStyle(color: CustomTheme.redErrorColor),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("You don't have enough data to reset",
+                                style: TextStyle(
+                                    color: CustomTheme.redErrorColor))),
                       );
                     })
                 : showDialog(

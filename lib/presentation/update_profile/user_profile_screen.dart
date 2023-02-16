@@ -333,22 +333,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               addressController.text,
                                               numberController.text)
                                       : null;
-                                  saveString(
-                                      'profile_updated',
-                                      context
-                                          .watch<UserDetailsCubit>()
-                                          .state
-                                          .userDetails
-                                          .data
-                                          .email);
-                                  saveString(
-                                      'email',
-                                      context
-                                          .watch<UserDetailsCubit>()
-                                          .state
-                                          .userDetails
-                                          .data
-                                          .email);
+                                  saveString('profile_updated', 'true');
                                 }
                               },
                               child: SmallBtnWidget.filledColorBtn(

@@ -35,7 +35,6 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Colors.white,
         body: FadeTransition(
           opacity: _fadeInFadeOut,
           child: Container(
@@ -57,20 +56,16 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Welcome back to",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Grower’s Secret Calculator",
-                        style: TextStyle(
-                            color: CustomTheme.primaryColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      Text("Welcome back to",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      Text("Grower’s Secret Calculator",
+                          style: TextStyle(
+                              color: CustomTheme.primaryColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                   builder: (context, offset, child) {
@@ -83,22 +78,21 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen>
                   tween: Tween<Offset>(
                       begin: Offset(20.w, 575.h), end: Offset(20.w, 550.h)),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: CustomButtonWidget(
-                        isValid: true,
-                        btnTitle: 'Continue',
-                        onBtnPress: () {
-                          context.goNamed('calculator', params: {
-                            'profile_setup': context
-                                .read<UserDetailsCubit>()
-                                .state
-                                .userDetails
-                                .data
-                                .profileSetup
-                                .toString()
-                          });
-                        }),
-                  ),
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: CustomButtonWidget(
+                          isValid: true,
+                          btnTitle: 'Continue',
+                          onBtnPress: () {
+                            context.goNamed('calculator', params: {
+                              'profile_setup': context
+                                  .read<UserDetailsCubit>()
+                                  .state
+                                  .userDetails
+                                  .data
+                                  .profileSetup
+                                  .toString()
+                            });
+                          })),
                   builder: (context, offset, child) {
                     return Transform.translate(offset: offset, child: child);
                   },
