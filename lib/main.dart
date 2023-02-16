@@ -105,23 +105,18 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 180,
-              width: 180,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
+                height: 180,
+                width: 180,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
                   image: AssetImage("assets/grower_logo.png"),
-                ),
-              ),
-            ),
+                ))),
             Container(
-              height: 100,
-              width: 100,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/loader.gif"),
-                ),
-              ),
-            ),
+                height: 100,
+                width: 100,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/loader.gif"))))
           ],
         ),
       ),
@@ -132,7 +127,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () async {
       if (await getBool('isLoggedIn')) {
         context.go('/welcomeback');
-        // context.go('/lscreen');
       } else {
         context.go('/welcome');
       }

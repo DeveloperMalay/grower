@@ -9,9 +9,6 @@ class ChangeImageCubit extends Cubit<ChangeImageState> {
   ChangeImageCubit() : super(ChangeImageState.initial());
 
   void changeImage() {
-    // Timer(Duration(seconds: 2), () {
-    //   emit(state.copyWith(switchImage: true));
-    // });
     Timer.periodic(Duration(seconds: 2), (timer) {
       emit(state.copyWith(switchImage: !state.switchImage));
     });

@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/main.dart';
 import 'package:grower/presentation/authentication/otp_screen.dart';
@@ -9,7 +8,6 @@ import '../presentation/calculator/calculated_result_screen/calculated_result_sc
 import '../presentation/calculator/calculation_screen/calculator_screen.dart';
 import '../presentation/onboarding_screen/welcome_back_screen.dart';
 import '../presentation/pdf_preview/pdf_preview_screen.dart';
-import '../presentation/update_profile/cubit/user_details/user_details_cubit.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -20,15 +18,11 @@ final GoRouter router = GoRouter(
         path: "/welcomeback",
         builder: (context, state) => const WelcomeBackScreen()),
     GoRoute(path: "/login", builder: (context, state) => LoginScreen()),
-    // const CustomBackgroundWidget(widget: LoginWidget(), isLogin: true)),
     GoRoute(
         name: "otp",
         path: "/otp/:email",
         builder: (context, state) =>
             OtpScreen(email: state.params['email'].toString())),
-    //  CustomBackgroundWidget(
-    //     widget: OtpWidget(email: state.params["email"].toString()),
-    //     isLogin: false)),
     GoRoute(
         name: "calculator",
         path: "/calculator/:profile_setup",
