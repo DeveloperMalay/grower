@@ -109,13 +109,9 @@ class BottomOptionsWidget extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SvgPicture.asset(
-                            optionsList[index].iconUrl,
-                            height: 25,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
+                          SvgPicture.asset(optionsList[index].iconUrl,
+                              height: 25),
+                          SizedBox(height: 5),
                           Text(
                             optionsList[index].title,
                             style: TextStyle(

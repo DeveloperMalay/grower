@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grower/heiper/storing_calculation_data.dart';
-
 import '../presentation/calculator/calculation_screen/cubit/dropdownIndex/dropdown_index_cubit.dart';
 import '../presentation/calculator/calculation_screen/cubit/dropdownIndex1/dropdown_index_cubit1.dart';
 import '../presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
@@ -98,16 +97,15 @@ calculate(String tdw, String liquidfertilizer, String density,
 
   num mixture = totaldrymaterial - 9;
   saveString('mixture', mixture.toStringAsFixed(2));
-
+  print('index==');
 //getting dry other nutrients value form sharedpreferences
   List dryothernutrients = [];
   List dryothernutrientsweight = [];
   for (var i = 0; i < otherNutrientslength; i++) {
-    dryothernutrients.isEmpty
-        ? dryothernutrients.add('0')
-        : dryothernutrients.add(await getString(
-            'dryothernutrients$i')); //getting the user given persentages
+    dryothernutrients.add(await getString(
+        'dryothernutrients$i')); //getting the user given persentages
     print('othernutrients-->${dryothernutrients}');
+    print('index==$i');
 
     dryothernutrientsweight.add(num.parse(tdw) *
         num.parse(dryothernutrients[i]) /
@@ -121,10 +119,8 @@ calculate(String tdw, String liquidfertilizer, String density,
   List liquidothernutrientsweight = [];
   print('liqrtdothernutrients-->${liquidothernutrients.isEmpty}');
   for (var i = 0; i < otherNutrientslength; i++) {
-    liquidothernutrients.isEmpty
-        ? liquidothernutrients.add('0')
-        : liquidothernutrients.add(await getString(
-            'liquidothernutrients$i')); //getting the user given persentages
+    liquidothernutrients.add(await getString(
+        'liquidothernutrients$i')); //getting the user given persentages
     liquidothernutrientsweight.add(tlw *
         num.parse(liquidothernutrients[i]) /
         100); //calculating the other nutrients weight from user given persentage

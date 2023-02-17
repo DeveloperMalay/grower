@@ -143,7 +143,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
           return shouldPop!;
         },
         child: Scaffold(
-          appBar: CustomAppbarWidget(
+          appBar: CustomAppbarWidget( 
             appbarTitle: 'Calculated Results',
             isresult: true,
             ontapbackarrow: () {
