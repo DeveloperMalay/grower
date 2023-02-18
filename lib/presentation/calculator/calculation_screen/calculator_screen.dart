@@ -242,9 +242,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             onTap: () {
                               showDialog(
                                   context: context,
-                                  builder: (context) => AddOtherNutrientswidget(
-                                        type: 'liquid',
-                                      ));
+                                  builder: (context) =>
+                                      AddOtherNutrientswidget(type: 'liquid'));
                             }),
                     const SizedBox(height: 10),
                     context.watch<DropdownIndexCubit>().state.fertilizer ==
@@ -256,7 +255,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 'Select fertilizer'
                         ? Container()
                         : InstructionWidget(),
-                    Padding(
+                    Padding(          
                       padding: EdgeInsets.only(bottom: 30, top: 20),
                       child: CustomButtonWidget(
                           btnTitle: 'Continue',
@@ -302,7 +301,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             saveString('density', densityController.text);
                           }),
                     ),
-                    // textfieldClicked ? SizedBox(height: 180) : Container()
                   ],
                 ),
               ),
@@ -313,3 +311,4 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 }
+  

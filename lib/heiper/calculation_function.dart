@@ -97,7 +97,7 @@ calculate(String tdw, String liquidfertilizer, String density,
 
   num mixture = totaldrymaterial - 9;
   saveString('mixture', mixture.toStringAsFixed(2));
-  print('index==');
+  print('index==');                   
 //getting dry other nutrients value form sharedpreferences
   List dryothernutrients = [];
   List dryothernutrientsweight = [];

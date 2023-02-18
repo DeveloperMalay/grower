@@ -183,7 +183,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
                       color: Colors.grey),
                   SizedBox(height: 12),
                   //dry fertilizer chart widget
-                  FertilizerResultWidget(
+                  FertilizerResultWidget(                                                                                                                                                                                                  
                       type: 'dry',
                       data: dryfertilizerCubit,
                       index: dryfertilizerIndex,
