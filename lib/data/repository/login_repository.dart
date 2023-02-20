@@ -8,16 +8,15 @@ Future<void> saveEmail(String key, String value) async {
   prefs.setString(key, value);
 }
 
-
-
-Future userLogin(String email) async {
+Future<dynamic> userLogin(String email) async {
   Dio dio = Dio();
-   
+
   try {
     Response response = await dio.post('$baseUrl/user/new',
         data: json.encode({"email": email}));
 
     print(response);
+    return response.data;
   } catch (e) {
     print('error-->$e');
   }

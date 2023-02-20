@@ -32,9 +32,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                   decoration: BoxDecoration(color: CustomTheme.bgColor),
                 ),
               ),
-              SizedBox(
-                height: 24,
-              ),
+              SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25,
@@ -89,7 +87,6 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                               final prefs =
                                   await SharedPreferences.getInstance();
                               prefs.remove('isLoggedIn');
-
                               context.go('/');
                             },
                           ));

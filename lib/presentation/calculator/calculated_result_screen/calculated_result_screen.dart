@@ -149,7 +149,7 @@ class _CalculatedResultScreenState extends State<CalculatedResultScreen> {
             ontapbackarrow: () {
               context.goNamed('calculator', params: {
                 'profile_setup': context
-                    .read<UserDetailsCubit>()
+                     .read<UserDetailsCubit>()
                     .state
                     .userDetails
                     .data
