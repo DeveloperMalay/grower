@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/dry_fertilizer/dry_fertilizer_cubit.dart';
 import '../../../../theme/custom_theme.dart';
 import '../cubit/dropdownIndex/dropdown_index_cubit.dart';
@@ -110,38 +111,38 @@ class _CustomDropDownState extends State<CustomDropDown> {
                         },
                         child: Container(
                           height: 54,
-                          width: 342,
+                          // width: 342.w,
                           padding: const EdgeInsets.only(top: 17, left: 50),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            // border: index == 0
-                            //     ? Border(
-                            //         top: BorderSide(color: Colors.grey),
-                            //         bottom: BorderSide(
-                            //             color: CustomTheme.greylight))
-                            //     : index ==
-                            //             context
-                            //                     .read<DryFertilizerCubit>()
-                            //                     .state
-                            //                     .dryFertilizer
-                            //                     .length -
-                            //                 1
-                            //         ? null
-                            //         : Border(
-                            //             bottom: BorderSide(
-                            //                 color: CustomTheme.greylight)),
-                            // borderRadius: index ==
-                            //         context
-                            //                 .read<DryFertilizerCubit>()
-                            //                 .state
-                            //                 .dryFertilizer
-                            //                 .length -
-                            //             1
-                            //     ? BorderRadius.only(
-                            //         bottomLeft: Radius.circular(10),
-                            //         bottomRight: Radius.circular(10),
-                            //       )
-                            //     : null,
+                            border: index == 0
+                                ? Border(
+                                    top: BorderSide(color: Colors.grey),
+                                    bottom: BorderSide(
+                                        color: CustomTheme.greylight))
+                                : index ==
+                                        context
+                                                .read<DryFertilizerCubit>()
+                                                .state
+                                                .dryFertilizer
+                                                .length -
+                                            1
+                                    ? null
+                                    : Border(
+                                        bottom: BorderSide(
+                                            color: CustomTheme.greylight)),
+                            borderRadius: index ==
+                                    context
+                                            .read<DryFertilizerCubit>()
+                                            .state
+                                            .dryFertilizer
+                                            .length -
+                                        1
+                                ? BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  )
+                                : null,
                           ),
                           child: Text(
                             context
@@ -150,7 +151,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                                 .dryFertilizer[index]
                                 .name!,
                             style: TextStyle(
-                                color: CustomTheme.textColor, fontSize: 16),
+                                color: CustomTheme.textColor, fontSize: 15),
                           ),
                         ),
                       );

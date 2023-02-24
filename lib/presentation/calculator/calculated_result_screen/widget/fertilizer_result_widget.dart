@@ -80,7 +80,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
           Row(
             children: [
               SizedBox(
-                width: 155.w,
+                width: 143.w,
                 child: Text("Nutrients", style: TextStyle(fontSize: 14)),
               ),
               Text("TDW(lbs)", style: TextStyle(fontSize: 14)),
@@ -93,7 +93,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 100.w,
+                width: 90.w,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -169,7 +169,7 @@ class _FertilizerResultWidgetState extends State<FertilizerResultWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 100.w,
+                width: 90.w,
                 height: othernutrients.length * 30,
                 child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),

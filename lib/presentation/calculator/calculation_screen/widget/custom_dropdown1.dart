@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/liquid_fertilizer/liquid_fertilizer_cubit.dart';
 import '../../../../theme/custom_theme.dart';
 import '../cubit/dropdownIndex1/dropdown_index_cubit1.dart';
@@ -122,7 +123,7 @@ class _CustomDropDown1State extends State<CustomDropDown1> {
                         },
                         child: Container(
                           height: 54,
-                          width: 342,
+                          // width: 342.w,
                           padding: const EdgeInsets.only(top: 17, left: 50),
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -133,20 +134,22 @@ class _CustomDropDown1State extends State<CustomDropDown1> {
                                           color: CustomTheme.greylight))
                                   : index ==
                                           context
-                                              .read<LiquidFertilizerCubit>()
-                                              .state
-                                              .liquidFertilizer
-                                              .length
+                                                  .read<LiquidFertilizerCubit>()
+                                                  .state
+                                                  .liquidFertilizer
+                                                  .length -
+                                              1
                                       ? null
                                       : Border(
                                           bottom: BorderSide(
                                               color: CustomTheme.greylight)),
                               borderRadius: index ==
                                       context
-                                          .read<LiquidFertilizerCubit>()
-                                          .state
-                                          .liquidFertilizer
-                                          .length
+                                              .read<LiquidFertilizerCubit>()
+                                              .state
+                                              .liquidFertilizer
+                                              .length -
+                                          1
                                   ? BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10),
@@ -159,7 +162,7 @@ class _CustomDropDown1State extends State<CustomDropDown1> {
                                 .liquidFertilizer[index]
                                 .name,
                             style: TextStyle(
-                                color: CustomTheme.textColor, fontSize: 16),
+                                color: CustomTheme.textColor, fontSize: 15),
                           ),
                         ),
                       );

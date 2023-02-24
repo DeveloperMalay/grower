@@ -43,9 +43,9 @@ class DisclaimerAlertDialog extends StatelessWidget {
                   width: 285.w,
                   child: Row(
                     children: [
-                      Text('NOTICE OF WARRANTY –',
+                      Text('NOTICE OF WARRANTY–',
                           style: TextStyle(
-                              color: CustomTheme.primaryColor, fontSize: 14)),
+                              color: CustomTheme.primaryColor, fontSize: 12)),
                       Text("Grower’s Secret",
                           style: TextStyle(color: Colors.grey, fontSize: 14))
                     ],

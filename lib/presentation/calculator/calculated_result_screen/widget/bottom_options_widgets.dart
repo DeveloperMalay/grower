@@ -80,17 +80,15 @@ class BottomOptionsWidget extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       index == 0
-                          ? screenNavigator(
-                              context,
-                              CalculatorScreen(
-                                profile_setup: context
-                                    .read<UserDetailsCubit>()
-                                    .state
-                                    .userDetails
-                                    .data
-                                    .profileSetup
-                                    .toString(),
-                              ))
+                          ? context.goNamed('calculator', params: {
+                      'profile_setup': context
+                          .read<UserDetailsCubit>()
+                          .state
+                          .userDetails
+                          .data
+                          .profileSetup
+                          .toString()
+                    })
                           : index == 1
                               ? _reset(context)
                               : index == 2

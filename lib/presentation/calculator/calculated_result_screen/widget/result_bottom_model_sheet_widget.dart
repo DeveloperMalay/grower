@@ -6,6 +6,7 @@ import 'package:grower/heiper/navigator_function.dart';
 import 'package:grower/presentation/calculator/calculation_screen/calculator_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../theme/custom_theme.dart';
+import '../../../pdf_preview/pdf_preview_screen.dart';
 import '../../../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../../../update_profile/user_profile_screen.dart';
 import '../../widgets/alert_dialog_widget.dart';
@@ -79,7 +80,9 @@ class _ResultBottomModelSheetState extends State<ResultBottomModelSheet> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        screenNavigator(context, PdfPreviewScreen());
+                      },
                       child: const Text('Download result as PDF',
                           style: TextStyle(color: Colors.black, fontSize: 14)),
                     ),

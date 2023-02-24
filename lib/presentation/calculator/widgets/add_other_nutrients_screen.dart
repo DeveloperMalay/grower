@@ -93,9 +93,10 @@ class _AddOtherNutrientswidgetState extends State<AddOtherNutrientswidget> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Container(
-                        height: 55 * otherNutrients.length.toDouble(),
+                        // height: 55 * otherNutrients.length.toDouble(),
+                        height: 55 * 5,
                         child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            // physics: NeverScrollableScrollPhysics(),
                             itemCount: otherNutrients.length,
                             itemBuilder: (context, index) {
                               return Column(children: [

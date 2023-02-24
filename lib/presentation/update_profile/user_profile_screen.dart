@@ -41,9 +41,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
-    numberController = TextEditingController();
-    addressController = TextEditingController();
+    nameController = TextEditingController(
+        text: context.read<UserDetailsCubit>().state.userDetails.data.name);
+    numberController = TextEditingController(
+        text: context.read<UserDetailsCubit>().state.userDetails.data.number);
+    addressController = TextEditingController(
+        text: context.read<UserDetailsCubit>().state.userDetails.data.address);
     context.read<UserDetailsCubit>().userDetails();
   }
 
@@ -157,20 +160,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               .state
                               .namefocus,
                           controller: nameController,
-                          hinttext: context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .name
-                                  .isEmpty
-                              ? "Enter your name"
-                              : context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .name,
+                          hinttext: "Enter your name",
                           ontap: () {
                             context
                                 .read<TextfieldClickCubit>()
@@ -195,20 +185,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               .state
                               .numberfocus,
                           controller: numberController,
-                          hinttext: context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .number
-                                  .isEmpty
-                              ? 'Enter your mobile number'
-                              : context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .number,
+                          hinttext: 'Enter your mobile number',
                           inputType: TextInputType.number,
                           ontap: () {
                             context
@@ -243,20 +220,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               .addressfocus,
                           maxline: 3,
                           controller: addressController,
-                          hinttext: context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .address
-                                  .isEmpty
-                              ? 'Enter your Address'
-                              : context
-                                  .read<UserDetailsCubit>()
-                                  .state
-                                  .userDetails
-                                  .data
-                                  .address,
+                          hinttext: 'Enter your Address',
                           ontap: () {
                             context
                                 .read<TextfieldClickCubit>()
