@@ -20,13 +20,7 @@ class UserDetailsState extends Equatable {
   factory UserDetailsState.initial() {
     return UserDetailsState(
         status: UserProfileStatus.initial,
-        userDetails: UserDetails(
-            data: Data(
-                name: 'Enter your name',
-                email: "Enter your Email",
-                number: "Enter your Number",
-                address: "Enter your Address",
-                hitRemaining: 'loading..')),
+        userDetails: UserDetails(data: Data()),
         error: CustomError());
   }
   @override

@@ -30,14 +30,14 @@ class _ReminderPopUpState extends State<ReminderPopUp> {
             .state
             .userDetails
             .data
-            .hitRemaining
+            .hitRemaining!
             .contains('-') ||
         context
             .watch<UserDetailsCubit>()
             .state
             .userDetails
             .data
-            .hitRemaining
+            .hitRemaining!
             .contains('0');
     hitremain ? saveString('barrierDismiss', 'true') : null;
     return BackdropFilter(

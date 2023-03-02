@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../theme/custom_theme.dart';
 
 // ignore: must_be_immutable
 class CustomTextFieldWidget extends StatelessWidget {
-  CustomTextFieldWidget({
-    super.key,
-    required this.hinttext,
-    this.onChanged,
-    required this.ontap,
-    required this.validator,
-    required this.controller,
-    this.maxline = 1,
-    // this.maxlength,
-    this.inputType,
-    this.readOnly = false,
-    required this.isfocused,
-  });
+  CustomTextFieldWidget(
+      {super.key,
+      required this.hinttext,
+      this.onChanged,
+      required this.ontap,
+      required this.validator,
+      required this.controller,
+      this.maxline = 1,
+      // this.maxlength,
+      this.inputType,
+      this.readOnly = false,
+      required this.isfocused,
+      this.inputFormatter});
   final String hinttext;
   VoidCallback ontap;
   final bool isfocused;
@@ -23,6 +24,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   ValueChanged<String>? onChanged;
   final TextEditingController controller;
   int? maxline;
+  List<TextInputFormatter>? inputFormatter;
   // int? maxlength;
   TextInputType? inputType;
   bool readOnly;
@@ -53,6 +55,7 @@ class CustomTextFieldWidget extends StatelessWidget {
         onTap: ontap,
         validator: validator,
         onChanged: onChanged,
+        inputFormatters: inputFormatter,
       ),
     );
   }

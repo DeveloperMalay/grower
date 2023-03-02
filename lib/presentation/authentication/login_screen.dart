@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../theme/custom_theme.dart';
 import '../widgets/custom_button_widget.dart';
 import '../widgets/custom_textfield_widget.dart';
@@ -141,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         isfocused: isFocused,
                                         controller: emailController,
                                         hinttext: 'abc@gmail.com',
+                                        inputType: TextInputType.emailAddress,
                                         ontap: () {
                                           context
                                               .read<IsFocesCubit>()

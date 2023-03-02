@@ -255,7 +255,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 'Select fertilizer'
                         ? Container()
                         : InstructionWidget(),
-                    Padding(          
+                    Padding(
                       padding: EdgeInsets.only(bottom: 30, top: 20),
                       child: CustomButtonWidget(
                           btnTitle: 'Continue',
@@ -288,7 +288,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                     context: context,
                                     builder: (context) =>
                                         DisclaimerAlertDialog());
-
+                            poundController.text.startsWith('.') ||
+                                    gallonController.text.startsWith('.') ||
+                                    densityController.text.startsWith('.')
+                                ? print(false)
+                                : print(true);
                             calculate(
                                 poundController.text,
                                 gallonController.text,
@@ -311,4 +315,3 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 }
-  

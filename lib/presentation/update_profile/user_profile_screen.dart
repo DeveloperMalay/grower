@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/navigator_function.dart';
@@ -137,10 +138,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   decoration: BoxDecoration(
                     image: const DecorationImage(
-                      image: AssetImage(
-                        "assets/bgImage.png",
-                      ),
-                    ),
+                        image: AssetImage("assets/bgImage.png")),
                     color: CustomTheme.bgColor,
                   ),
                   child: SingleChildScrollView(
@@ -186,7 +184,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               .numberfocus,
                           controller: numberController,
                           hinttext: 'Enter your mobile number',
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.phone,
+                          inputFormatter: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           ontap: () {
                             context
                                 .read<TextfieldClickCubit>()
@@ -210,7 +211,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .state
                                 .userDetails
                                 .data
-                                .email), //widget to show email field
+                                .email!), //widget to show email field
                         SizedBox(height: 24),
                         TextFieldHeaderWidget(title: 'Address*'),
                         CustomTextFieldWidget(
