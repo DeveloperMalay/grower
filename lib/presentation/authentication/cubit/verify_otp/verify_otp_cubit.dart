@@ -5,7 +5,6 @@ import 'package:grower/data/repository/otp_verify_repository.dart';
 import '../../../../data/model/verify_otp_model.dart';
 part 'verify_otp_state.dart';
 
-
 class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit() : super(VerifyOtpState.initial());
 
@@ -18,5 +17,13 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     } on CustomError catch (e) {
       emit(state.copyWith(status: VerifyStatus.error, error: e));
     }
+  }
+
+  void getinitialState() {
+    emit(VerifyOtpState.initial());
+  }
+
+  void getloadingState() {
+    emit(state.copyWith(status: VerifyStatus.loading));
   }
 }

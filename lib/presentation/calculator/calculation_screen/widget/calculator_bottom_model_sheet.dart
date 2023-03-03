@@ -87,6 +87,7 @@ class CalculatorBottomModelSheet extends StatelessWidget {
                               final prefs =
                                   await SharedPreferences.getInstance();
                               prefs.remove('isLoggedIn');
+                              prefs.remove('profile_updated');
                               context.go('/');
                             },
                           ));

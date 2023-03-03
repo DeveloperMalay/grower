@@ -11,9 +11,9 @@ loadingDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        // Future.delayed(Duration(seconds: 2), () {
-        //   Navigator.of(context).pop(true);
-        // });
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pop(true);
+        });
         return CupertinoAlertDialog(
           content: Center(
             child: Row(
@@ -22,9 +22,7 @@ loadingDialog(
                 CircularProgressIndicator(
                   color: CustomTheme.primaryColor,
                 ),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 Text(
                   'loading..',
                   style: TextStyle(color: Colors.black, fontSize: 15),
@@ -40,7 +38,7 @@ loadingDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 3), () {
           Navigator.of(context).pop(true);
         });
         return AlertDialog(

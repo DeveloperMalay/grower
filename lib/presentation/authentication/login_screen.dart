@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../heiper/storing_calculation_data.dart';
 import '../../theme/custom_theme.dart';
 import '../widgets/custom_button_widget.dart';
 import '../widgets/custom_textfield_widget.dart';
@@ -218,6 +219,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                             .loginUser(
                                                                 emailController
                                                                     .text);
+
+                                                        saveString(
+                                                            'profile_updated',
+                                                            'false');
                                                       } catch (e) {
                                                         print(e);
                                                       }

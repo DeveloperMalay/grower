@@ -10,6 +10,7 @@ import '../../theme/custom_theme.dart';
 import '../update_profile/cubit/user_details/user_details_cubit.dart';
 import '../widgets/custom_button_widget.dart';
 import '../widgets/error_diolog.dart';
+import '../widgets/loading_dialog.dart';
 import '../widgets/success_popup_widget.dart';
 import 'cubit/email_checker/email_checker_cubit.dart';
 import 'cubit/isSignInValid/is_signin_valid_cubit.dart';
@@ -82,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
       child: BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
         listener: (context, state) {
           if (state.status == VerifyStatus.loading) {
-            // return loadingDialog(context);
+            return loadingDialog(context);
           }
           if (state.status == VerifyStatus.error) {
             errorDialog(context, state.error.errMsg);
@@ -141,6 +142,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   .read<IsSigninValidCubit>()
                                   .emitInitialState();
                               context.read<IsFocesCubit>().emitinitialState();
+                              context.read<VerifyOtpCubit>().getinitialState();
                               context.go('/login');
                             },
                             child: Container(
@@ -301,6 +303,9 @@ class _OtpScreenState extends State<OtpScreen> {
                                         TextButton(
                                           onPressed: () async {
                                             if (_timerDuration == 0) {
+                                              context
+                                                  .read<VerifyOtpCubit>()
+                                                  .getloadingState();
                                               setState(() {
                                                 _timerDuration = 30;
                                                 expairTime = 180;
@@ -308,17 +313,20 @@ class _OtpScreenState extends State<OtpScreen> {
                                               startTimer();
                                               startExpairTimer();
                                               await resendOtp(widget.email);
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    Future.delayed(
-                                                        Duration(seconds: 1),
-                                                        () {
-                                                      Navigator.of(context)
-                                                          .pop(true);
+
+                                              Timer(Duration(seconds: 3), () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      Future.delayed(
+                                                          Duration(seconds: 1),
+                                                          () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      });
+                                                      return ShowToastMessage();
                                                     });
-                                                    return ShowToastMessage();
-                                                  });
+                                              });
                                             }
                                           },
                                           child: Text(
