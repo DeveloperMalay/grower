@@ -128,37 +128,37 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             appbarTitle: 'Calculator',
             isresult: false,
             ontapbackarrow: () {
-              checkCalculatorValidation(
-                      context,
-                      poundController,
-                      gallonController,
-                      densityController) //checking if all the fields are filled or not
-                  ? showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("You don't have enough data to reset",
-                                  style: TextStyle(
-                                      color: CustomTheme.redErrorColor))),
-                        );
-                      })
-                  : showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialogWidget(
-                            content: 'Your calculation will be reset',
-                            leftBtnTitle: 'Yes, Reset',
-                            title: 'Are you sure you want to reset?',
-                            onTap: () async {
-                              context.go("/resetloadingscreen");
-                              for (var i = 0; i < otherNutrients.length; i++) {
-                                deleteText('dryothernutrients${i}');
-                                deleteText('liquidothernutrients${i}');
-                              }
-                            });
-                      });
+              // checkCalculatorValidation(
+              //         context,
+              //         poundController,
+              //         gallonController,
+              //         densityController) //checking if all the fields are filled or not
+              //     ? showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return AlertDialog(
+              //             content: Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Text("You don't have enough data to reset",
+              //                     style: TextStyle(
+              //                         color: CustomTheme.redErrorColor))),
+              //           );
+              //         })
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialogWidget(
+                        content: 'Your calculation will be reset',
+                        leftBtnTitle: 'Yes, Reset',
+                        title: 'Are you sure you want to reset?',
+                        onTap: () async {
+                          context.go("/resetloadingscreen");
+                          for (var i = 0; i < otherNutrients.length; i++) {
+                            deleteText('dryothernutrients${i}');
+                            deleteText('liquidothernutrients${i}');
+                          }
+                        });
+                  });
             },
           ),
           body: Container(
