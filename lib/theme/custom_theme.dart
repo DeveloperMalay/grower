@@ -10,7 +10,10 @@ class CustomTheme {
   static const Color greyshade1 = Color(0XFF2F3237);
   static const Color textColor = Color(0XFF2F3237);
   static const Color redErrorColor = Color(0XFFFF1515);
-
+  static const Color lightgrey = Color(0XFFC2C2C2);
+  static const Color grey = Colors.grey;
+  static const Color black = Colors.black;
+  static const Color hintTextColor = Color(0XFF333333);
 //font size for the app
   static const Map<String, double> fontsize = {"sm": 14, "md": 17, "lg": 24};
 
@@ -39,6 +42,39 @@ class CustomTheme {
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
       ),
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: Color.fromARGB(255, 187, 187, 187),
+      ),
+    );
+  }
+
+//textformfield  style for mobile number
+  static mobiletextFieldStyle(String hintText, Widget prefix) {
+    return InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 1),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(width: 2),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: CustomTheme.primaryColor, width: 2),
+      ),
+      prefixIcon: prefix,
       hintText: hintText,
       hintStyle: TextStyle(
         color: Color.fromARGB(255, 187, 187, 187),

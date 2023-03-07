@@ -22,6 +22,7 @@ import 'cubit/textfield_focus/textfield_focus_cubit.dart';
 import 'cubit/update_profile/update_profile_cubit.dart';
 import 'widget/email_field_widget.dart';
 import 'widget/form_validator_function.dart';
+import 'widget/number_text_field.dart';
 import 'widget/text_field_header_widget.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -38,6 +39,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   late TextEditingController nameController;
   late TextEditingController numberController;
   late TextEditingController addressController;
+  late TextEditingController stateController;
+  late TextEditingController zipController;
+  late TextEditingController countryController;
 
   @override
   void initState() {
@@ -48,6 +52,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         text: context.read<UserDetailsCubit>().state.userDetails.data.number);
     addressController = TextEditingController(
         text: context.read<UserDetailsCubit>().state.userDetails.data.address);
+    stateController = TextEditingController();
+    zipController = TextEditingController();
+    countryController = TextEditingController();
     context.read<UserDetailsCubit>().userDetails();
   }
 
@@ -57,6 +64,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     nameController.dispose();
     numberController.dispose();
     addressController.dispose();
+    stateController.dispose();
+    zipController.dispose();
+    countryController.dispose();
   }
 
   @override
@@ -177,7 +187,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     "Please fill the above required field!"),
                         SizedBox(height: 24),
                         TextFieldHeaderWidget(title: 'Mobile Number*'),
-                        CustomTextFieldWidget(
+
+                        NumberTextField(
                           isfocused: context
                               .read<TextfieldFocusCubit>()
                               .state
@@ -197,7 +208,29 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           validator: (value) {
                             return null;
                           },
+                          onChanged: (e) {},
                         ),
+                        // CustomTextFieldWidget(
+                        //   isfocused: context
+                        //       .read<TextfieldFocusCubit>()
+                        //       .state
+                        //       .numberfocus,
+                        //   controller: numberController,
+                        //   hinttext: 'Enter your mobile number',
+                        //   inputType: TextInputType.phone,
+                        //   inputFormatter: <TextInputFormatter>[
+                        //     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        //   ],
+                        //   ontap: () {
+                        //     context
+                        //         .read<TextfieldClickCubit>()
+                        //         .numbertextfieldClick();
+                        //     context.read<TextfieldFocusCubit>().focusNumber();
+                        //   },
+                        //   validator: (value) {
+                        //     return null;
+                        //   },
+                        // ),
                         context.watch<ValidNumberCubit>().state.validphone
                             ? Container()
                             : ErrorTextWidget(
@@ -236,6 +269,92 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 .watch<NotEtyStrValidatorCubit>()
                                 .state
                                 .validaddress
+                            ? Container()
+                            : ErrorTextWidget(
+                                errorText:
+                                    "Please fill the above required field!"),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: CustomTextFieldWidget(
+                                  isfocused: context
+                                      .read<TextfieldFocusCubit>()
+                                      .state
+                                      .namefocus,
+                                  controller: stateController,
+                                  hinttext: "State",
+                                  ontap: () {
+                                    context
+                                        .read<TextfieldClickCubit>()
+                                        .emailtextfieldClick();
+                                    context
+                                        .read<TextfieldFocusCubit>()
+                                        .focusName();
+                                    shouldUpdate(context);
+                                  },
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: CustomTextFieldWidget(
+                                  isfocused: context
+                                      .read<TextfieldFocusCubit>()
+                                      .state
+                                      .namefocus,
+                                  controller: zipController,
+                                  hinttext: "Zip Code",
+                                  ontap: () {
+                                    context
+                                        .read<TextfieldClickCubit>()
+                                        .emailtextfieldClick();
+                                    context
+                                        .read<TextfieldFocusCubit>()
+                                        .focusName();
+                                    shouldUpdate(context);
+                                  },
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        context.watch<NotEtyStrValidatorCubit>().state.validname
+                            ? Container()
+                            : ErrorTextWidget(
+                                errorText:
+                                    "Please fill the above required field!"),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: CustomTextFieldWidget(
+                            isfocused: context
+                                .read<TextfieldFocusCubit>()
+                                .state
+                                .namefocus,
+                            controller: countryController,
+                            hinttext: "Country",
+                            ontap: () {
+                              context
+                                  .read<TextfieldClickCubit>()
+                                  .emailtextfieldClick();
+                              context.read<TextfieldFocusCubit>().focusName();
+                              shouldUpdate(context);
+                            },
+                            validator: (value) {
+                              return null;
+                            },
+                          ),
+                        ),
+                        context.watch<NotEtyStrValidatorCubit>().state.validname
                             ? Container()
                             : ErrorTextWidget(
                                 errorText:
@@ -303,7 +422,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               },
                               child: SmallBtnWidget.filledColorBtn(
                                   'Update', clickanyField(context)))
-                        ]))
+                        ])),
+                        SizedBox(
+                          height: 30,
+                        )
                       ],
                     ),
                   ),

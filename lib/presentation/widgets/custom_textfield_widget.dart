@@ -4,19 +4,21 @@ import '../../theme/custom_theme.dart';
 
 // ignore: must_be_immutable
 class CustomTextFieldWidget extends StatelessWidget {
-  CustomTextFieldWidget(
-      {super.key,
-      required this.hinttext,
-      this.onChanged,
-      required this.ontap,
-      required this.validator,
-      required this.controller,
-      this.maxline = 1,
-      // this.maxlength,
-      this.inputType,
-      this.readOnly = false,
-      required this.isfocused,
-      this.inputFormatter});
+  CustomTextFieldWidget({
+    super.key,
+    required this.hinttext,
+    this.onChanged,
+    required this.ontap,
+    required this.validator,
+    required this.controller,
+    this.maxline = 1,
+    // this.maxlength,
+    this.inputType,
+    this.readOnly = false,
+    required this.isfocused,
+    this.inputFormatter,
+    this.leading,
+  });
   final String hinttext;
   VoidCallback ontap;
   final bool isfocused;
@@ -28,6 +30,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   // int? maxlength;
   TextInputType? inputType;
   bool readOnly;
+  Widget? leading;
   @override
   Widget build(BuildContext context) {
     return Container(
