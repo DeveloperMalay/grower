@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../theme/custom_theme.dart';
+import '../cubit/getcountrycode/getcountrycode_cubit.dart';
 
 class CountryCodeModel {
   final String flagUrl;
@@ -73,18 +75,7 @@ class CountryCodeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> languages = [
-      'English',
-      'Deutsch',
-      'Spanish',
-      'Language 4 (native)',
-      'Башҡортса',
-      'Українська',
-      'Yorùbá',
-      '中文',
-      'Кыргызча',
-      'Português'
-    ];
+    var codeindex = context.watch<GetcountrycodeCubit>().state.index;
     return InkWell(
       onTap: () {
         showModalBottomSheet(
@@ -161,35 +152,44 @@ class CountryCodeWidget extends StatelessWidget {
                     child: ListView.builder(
                         itemCount: codeList.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                    width: 1.0, color: CustomTheme.grey),
+                          return InkWell(
+                            onTap: () {
+                              context
+                                  .read<GetcountrycodeCubit>()
+                                  .getcode(index);
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                      width: 1.0, color: CustomTheme.grey),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    codeList[index].countryName,
-                                    textScaleFactor: 1.0,
-                                    style: const TextStyle(
-                                        color: CustomTheme.black, fontSize: 14),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    codeList[index].countryCode,
-                                    textScaleFactor: 1.0,
-                                    style: const TextStyle(
-                                        color: CustomTheme.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      codeList[index].countryName,
+                                      textScaleFactor: 1.0,
+                                      style: const TextStyle(
+                                          color: CustomTheme.black,
+                                          fontSize: 14),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      codeList[index].countryCode,
+                                      textScaleFactor: 1.0,
+                                      style: const TextStyle(
+                                          color: CustomTheme.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -212,9 +212,9 @@ class CountryCodeWidget extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
                 textScaleFactor: 1.0,
-                '+91',
+                codeList[codeindex].countryCode,
                 style: TextStyle(color: CustomTheme.black, fontSize: 15)),
             const Icon(Icons.expand_more, size: 18)
           ],

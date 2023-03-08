@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grower/heiper/islogged_in_checker.dart';
 import 'package:grower/presentation/authentication/cubit/login/login_cubit.dart';
 import 'package:grower/presentation/calculator/calculation_screen/cubit/reminder/reminder_cubit.dart';
+import 'package:grower/presentation/update_profile/cubit/getcountrycode/getcountrycode_cubit.dart';
 import 'package:grower/presentation/widgets/restart_widget.dart';
 import 'package:grower/presentation/update_profile/cubit/textfield_click/textfield_click_cubit.dart';
 import 'package:grower/presentation/update_profile/cubit/user_details/user_details_cubit.dart';
@@ -66,7 +67,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => ChangeImageCubit()),
               BlocProvider(create: (context) => TextfieldClickCubit()),
               BlocProvider(create: (context) => ResetDropdownCubit()),
-              BlocProvider(create: (context) => TextFieldClickedCubit())
+              BlocProvider(create: (context) => TextFieldClickedCubit()),
+              BlocProvider(create: (context) => GetcountrycodeCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
